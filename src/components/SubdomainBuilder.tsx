@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { checkSubdomain, createSubdomain } from '../lib/api';
 
 // ─── Types ──────────────────────────────────────────────
@@ -140,6 +140,23 @@ export default function SubdomainBuilder() {
   const [sourceUrl, setSourceUrl] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState('');
+
+  // Inject fade-in keyframes on mount (browser only)
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => { style.remove(); };
+  }, []);
 
   const selectedPlatform = PLATFORMS.find((p) => p.value === platform)!;
 
@@ -408,20 +425,4 @@ export default function SubdomainBuilder() {
   );
 }
 
-// ─── Animation (client-side only) ─────────────────────
-
-// Inject the fade-in animation keyframes into the document.
-// Guarded for SSR — runs only in the browser.
-if (typeof document !== 'undefined') {
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-  `;
-  document.head.appendChild(style);
-}
+// Keyframes injected via useEffect on mount — see component above.
