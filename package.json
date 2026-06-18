@@ -1,0 +1,21 @@
+{
+  "name": "myanmardev",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^5.0.7",
+    "astro": "^6.4.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwindcss": "^4.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.1"
+  }
+}

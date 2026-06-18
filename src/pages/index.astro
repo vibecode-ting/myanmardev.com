@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ProductCard from '../components/ProductCard.astro';
+
+const title = 'myanmardev.com — Subdomain Builder Automation';
+const description = 'Subdomain Builder — automate DNS record creation for myanmardev.com. Enter a subdomain, choose your hosting platform, and go live in seconds.';
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main>
+    <Hero />
+    <ProductCard />
+  </main>
+
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm text-slate-500 dark:text-slate-400">
+        &copy; {new Date().getFullYear()} myanmardev.com — Built for Myanmar Developers
+      </p>
+    </div>
+  </footer>
+</Layout>
