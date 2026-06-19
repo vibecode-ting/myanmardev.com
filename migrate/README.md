@@ -107,19 +107,24 @@ Click the language switcher in the header to change languages.
 
 ## 🔥 Firebase Integration
 
-Firebase configuration is already set up in `src/lib/firebase.ts`:
+Firebase configuration is set up in `src/lib/firebase.ts` using environment variables.
+
+Copy `.env.example` to `.env` and fill in your Firebase project credentials:
 
 ```typescript
+// NEVER hardcode — use env vars
 const firebaseConfig = {
-  apiKey: "AIzaSyBYo7LEhWlNPTkpoS65x0gf0EDq5sw1jVc",
-  authDomain: "ting-51902.firebaseapp.com",
-  projectId: "ting-51902",
-  storageBucket: "ting-51902.firebasestorage.app",
-  messagingSenderId: "1029883464067",
-  appId: "1:1029883464067:web:c206751c630f1f4a8c4eb6",
-  measurementId: "G-ZTVB76MM6W"
+  apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
+  authDomain: import.meta.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,
+  measurementId: import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 ```
+
+Get your Firebase config from: **Firebase Console → Project Settings → General → Your apps → Web app**
 
 ## 📝 Adding Translations
 
