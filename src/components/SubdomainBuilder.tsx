@@ -259,10 +259,9 @@ export default function SubdomainBuilder() {
               }}
               onKeyDown={(e) => e.key === 'Enter' && handleCheck()}
               placeholder="myapp"
-              className="flex-1 px-4 py-3 bg-white dark:bg-[#0a0a0b] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none text-lg"
-              autoFocus
+              className="min-w-0 flex-1 px-4 py-3 bg-white dark:bg-[#0a0a0b] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none text-base sm:text-lg"
             />
-            <span className="inline-flex items-center px-4 py-3 bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-lg font-medium border-l border-slate-300 dark:border-slate-600">
+            <span className="inline-flex shrink-0 items-center px-3 sm:px-4 py-3 bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-sm sm:text-lg font-medium border-l border-slate-300 dark:border-slate-600">
               .myanmardev.com
             </span>
           </div>

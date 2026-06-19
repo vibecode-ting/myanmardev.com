@@ -7,8 +7,7 @@ export default defineConfig({
     react(),
   ],
   output: 'static',
-  site: 'https://myanmardev.com',
-  base: '/myanmardev.com/',
+  site: 'https://app.myanmardev.com',
   vite: {
     css: {
       postcss: './postcss.config.mjs',
