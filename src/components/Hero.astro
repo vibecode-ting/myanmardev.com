@@ -1,95 +1,61 @@
-<section class="relative overflow-hidden pt-24 sm:pt-32 pb-20 sm:pb-28">
-  <!-- Background orbs -->
-  <div class="absolute inset-0 -z-10 overflow-hidden">
-    <div class="absolute top-[-20%] right-[-10%] h-[600px] w-[600px] rounded-full bg-gradient-to-br from-purple-500/25 via-violet-500/15 to-indigo-500/20 blur-3xl"></div>
-    <div class="absolute bottom-[-15%] left-[-10%] h-[500px] w-[500px] rounded-full bg-gradient-to-tr from-violet-500/20 via-purple-500/25 to-indigo-500/15 blur-3xl"></div>
-    <div class="absolute top-[50%] left-[40%] h-[300px] w-[300px] rounded-full bg-gradient-to-r from-purple-400/15 to-indigo-400/15 blur-3xl"></div>
-    <!-- Grid pattern -->
-    <div class="absolute inset-0 bg-[linear-gradient(rgba(124,58,237,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(124,58,237,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-  </div>
+<!--
+  Editorial Dossier hero: massive serif statement top-left, accent rule,
+  two-column (description + numbers), then CTAs. No image, no center.
+-->
+<section style="padding:clamp(3.5rem,10vh,6rem) clamp(1.25rem,4vw,3rem);max-width:78rem;margin:0 auto" id="hero">
+  <!-- Status eyebrow -->
+  <p class="eyebrow rise"><span class="dot"></span> all systems nominal · zero human touch required</p>
 
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-    <!-- Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-medium mb-8 animate-fade-in-up">
-      <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-      </span>
-      Subdomain Builder — Now Available
-    </div>
+  <!-- Headline with masked line-reveal -->
+  <h1 class="h-display rise" style="margin-top:1.4rem;max-width:42rem">
+    Your Subdomain.<br/>Instantly Deployed.
+  </h1>
 
-    <!-- Main heading -->
-    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.08] sm:leading-[1.05] animate-fade-in-up">
-      Launch your <span class="block sm:inline text-gradient [overflow-wrap:anywhere]">.myanmardev.com</span>
-      <span class="block">subdomain in seconds</span>
-    </h1>
+  <!-- Accent rule -->
+  <div class="rise" style="width:clamp(4rem,10vw,7rem);height:2px;background:var(--accent);margin-top:1.25rem"></div>
 
-    <!-- Subtitle -->
-    <p class="text-lg sm:text-xl text-slate-500 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style="animation-delay: 0.1s">
-      Enter a subdomain, choose your hosting platform, and we'll create the DNS record
-      automatically via Cloudflare API. No manual configuration needed.
+  <!-- Two-column: description left, numbers right -->
+  <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,3rem);margin-top:1.5rem;align-items:start">
+    <p class="lede rise" style="max-width:34rem">
+      myanmardev.com provides automated subdomain registration for Myanmar
+      developers. Order your subdomain, pay instantly, and our automation
+      workers create the DNS record — zero human intervention from start to
+      finish. Built for developers who want their
+      <span class="mono" style="color:var(--accent)">.myanmardev.com</span> domain
+      without waiting.
     </p>
 
-    <!-- CTA -->
-    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style="animation-delay: 0.2s">
-      <a
-        href="#product"
-        class="group px-8 py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold text-lg rounded-xl hover:shadow-2xl hover:shadow-purple-500/25 hover:scale-[1.03] transition-all duration-300 inline-flex items-center gap-2"
-      >
-        Get Started
-        <svg class="w-5 h-5 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-        </svg>
-      </a>
-      <a
-        href="https://github.com/vibecode-ting/myanmardev.com"
-        target="_blank" rel="noopener"
-        class="px-8 py-4 border-2 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-semibold text-lg rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all duration-300"
-      >
-        View on GitHub
-      </a>
-    </div>
-
-    <!-- DNS Preview visual -->
-    <div class="mt-16 animate-fade-in-up" style="animation-delay: 0.3s">
-      <div class="relative max-w-xl mx-auto">
-        <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl blur-xl opacity-20"></div>
-        <div class="relative bg-slate-900/90 border border-slate-700/50 rounded-2xl p-5 shadow-2xl backdrop-blur">
-          <!-- Mock terminal/dns record -->
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
-            <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
-            <span class="ml-2 text-xs text-slate-500 font-mono">dns — myanmardev.com</span>
-          </div>
-          <div class="space-y-1.5">
-            <div class="flex items-center gap-3 text-sm font-mono">
-              <span class="text-green-400">CNAME</span>
-              <span class="text-slate-300">myapp</span>
-              <span class="text-slate-500">→</span>
-              <span class="text-purple-400">username.github.io</span>
-            </div>
-            <div class="flex items-center gap-3 text-sm font-mono">
-              <span class="text-amber-400">A</span>
-              <span class="text-slate-300">@</span>
-              <span class="text-slate-500">→</span>
-              <span class="text-purple-400">185.199.108.153</span>
-            </div>
-          </div>
-          <p class="mt-3 text-xs text-slate-500 font-mono">✓ Record created · DNS propagating...</p>
-        </div>
+    <!-- Numbers column -->
+    <div class="rise" style="display:flex;flex-direction:column;gap:1.1rem">
+      <div>
+        <p class="num" style="font-size:2rem;color:var(--accent);font-weight:700">1,200<span style="color:var(--muted);font-size:.75rem">+</span></p>
+        <p class="mono" style="font-size:.6875rem;color:var(--muted);margin-top:1px">subdomains registered</p>
+      </div>
+      <div style="height:1px;background:#1D232B"></div>
+      <div>
+        <p class="num" style="font-size:2rem;color:var(--accent);font-weight:700">99.9<span style="color:var(--muted);font-size:.75rem">%</span></p>
+        <p class="mono" style="font-size:.6875rem;color:var(--muted);margin-top:1px">uptime SLA</p>
+      </div>
+      <div style="height:1px;background:#1D232B"></div>
+      <div>
+        <p class="num" style="font-size:2rem;color:var(--accent);font-weight:700">&lt;30<span style="color:var(--muted);font-size:.75rem">s</span></p>
+        <p class="mono" style="font-size:.6875rem;color:var(--muted);margin-top:1px">from order to live</p>
       </div>
     </div>
   </div>
+
+  <!-- CTAs -->
+  <div class="rise" style="display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.9rem">
+    <a class="btn" href="#product" style="padding:1rem 2rem">Claim Your Subdomain</a>
+    <a class="btn btn--ghost" href="#how" style="padding:1rem 2rem">See How It Works</a>
+  </div>
+  <p class="mono rise" style="color:var(--muted);margin-top:1.4rem">100% automated · no account managers · results delivered via webhooks</p>
 </section>
 
 <style>
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in-up {
-    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 0;
+  @media (max-width: 768px) {
+    #hero > div:nth-child(4) {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
   }
 </style>

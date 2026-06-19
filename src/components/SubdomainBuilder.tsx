@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { checkSubdomain, createSubdomain } from '../lib/api';
 
 // ─── Types ──────────────────────────────────────────────
@@ -16,34 +16,10 @@ interface PlatformOption {
 }
 
 const PLATFORMS: PlatformOption[] = [
-  {
-    value: 'github',
-    label: 'GitHub Pages',
-    description: 'Host your site on GitHub Pages',
-    cnameTarget: '.github.io',
-    placeholder: 'your-username',
-  },
-  {
-    value: 'vercel',
-    label: 'Vercel',
-    description: 'Deploy with Vercel',
-    cnameTarget: 'cname.vercel-dns.com',
-    placeholder: 'your-project',
-  },
-  {
-    value: 'netlify',
-    label: 'Netlify',
-    description: 'Deploy on Netlify',
-    cnameTarget: 'netlify.app',
-    placeholder: 'your-site-name',
-  },
-  {
-    value: 'custom',
-    label: 'Custom CNAME',
-    description: 'Enter any CNAME target',
-    cnameTarget: '',
-    placeholder: 'your-target.example.com',
-  },
+  { value: 'github', label: 'GitHub Pages', description: 'Host your site on GitHub Pages', cnameTarget: '.github.io', placeholder: 'your-username' },
+  { value: 'vercel', label: 'Vercel', description: 'Deploy with Vercel', cnameTarget: 'cname.vercel-dns.com', placeholder: 'your-project' },
+  { value: 'netlify', label: 'Netlify', description: 'Deploy on Netlify', cnameTarget: 'netlify.app', placeholder: 'your-site-name' },
+  { value: 'custom', label: 'Custom CNAME', description: 'Enter any CNAME target', cnameTarget: '', placeholder: 'your-target.example.com' },
 ];
 
 // ─── Step Indicator ─────────────────────────────────────
@@ -52,39 +28,19 @@ function StepIndicator({ step }: { step: Step }) {
   const steps = [
     { num: 1, label: 'Subdomain' },
     { num: 2, label: 'Platform' },
-    { num: 3, label: 'Source' },
+    { num: 3, label: 'Deploy' },
   ];
 
   return (
-    <div className="flex items-center justify-center gap-2 sm:gap-4 mb-8">
+    <div className="tg-steps">
       {steps.map((s, i) => (
         <React.Fragment key={s.num}>
-          <div className="flex items-center gap-2">
-            <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
-                step === s.num
-                  ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/30 scale-110'
-                  : step > s.num
-                    ? 'bg-green-500 text-white'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
-              }`}
-            >
-              {step > s.num ? '✓' : s.num}
-            </div>
-            <span
-              className={`hidden sm:inline text-xs font-medium ${
-                step === s.num ? 'text-purple-600 dark:text-purple-400' : 'text-slate-500 dark:text-slate-400'
-              }`}
-            >
-              {s.label}
-            </span>
+          <div className={`tg-step${step === s.num ? ' active' : step > s.num ? ' done' : ''}`}>
+            <span className="tg-step-num">{step > s.num ? '✓' : s.num}</span>
+            <span className="tg-step-label">{s.label}</span>
           </div>
           {i < steps.length - 1 && (
-            <div
-              className={`w-8 sm:w-12 h-0.5 rounded transition-colors duration-300 ${
-                step > s.num ? 'bg-green-400' : 'bg-slate-200 dark:bg-slate-700'
-              }`}
-            />
+            <div className={`tg-step-line${step > s.num ? ' done' : ''}`} />
           )}
         </React.Fragment>
       ))}
@@ -101,34 +57,96 @@ function StatusAlert({ status, message }: { status: Status; message: string }) {
   const isError = status === 'unavailable' || status === 'error';
   const isLoading = status === 'checking' || status === 'creating';
 
+  const borderColor = isSuccess
+    ? 'color-mix(in srgb, var(--accent) 50%, transparent)'
+    : isError
+      ? 'color-mix(in srgb, #E8A33D 50%, transparent)'
+      : '#1D232B';
+
+  const bg = isSuccess
+    ? 'color-mix(in srgb, var(--accent) 8%, transparent)'
+    : isError
+      ? 'color-mix(in srgb, #E8A33D 8%, transparent)'
+      : 'var(--wash)';
+
+  const color = isSuccess ? 'var(--accent)' : isError ? '#E8A33D' : 'var(--muted)';
+
   return (
-    <div
-      className={`mt-4 p-4 rounded-xl border flex items-start gap-3 animate-fade-in ${
-        isSuccess
-          ? 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200'
-          : isError
-            ? 'bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200'
-            : 'bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200'
-      }`}
-    >
+    <div style={{ marginTop: '1rem', padding: '0.9rem 1rem', borderRadius: '6px', border: `1px solid ${borderColor}`, background: bg, fontSize: '0.8125rem', color, fontFamily: 'var(--mono)', display: 'flex', alignItems: 'flex-start', gap: '0.6rem', animation: 'tgFadeIn 0.3s ease-out' }}>
       {isLoading && (
-        <svg className="w-5 h-5 flex-shrink-0 animate-spin" fill="none" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+        <svg style={{ width: '16px', height: '16px', flexShrink: 0, marginTop: '1px', animation: 'tgSpin 1s linear infinite' }} viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" opacity="0.25" />
+          <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" opacity="0.75" />
         </svg>
       )}
-      {isSuccess && <span className="text-xl flex-shrink-0">✅</span>}
-      {isError && <span className="text-xl flex-shrink-0">❌</span>}
-      <div>
-        <p className="text-sm font-medium">{message}</p>
-        {status === 'success' && (
-          <p className="text-xs mt-1 opacity-75">
-            DNS propagation may take a few minutes. Your subdomain will be live shortly.
-          </p>
-        )}
-      </div>
+      <span>{message}</span>
     </div>
   );
+}
+
+// ─── Styles injected once ──────────────────────────────
+
+const INJECTED = 'tg-sb-styles';
+if (typeof document !== 'undefined' && !document.getElementById(INJECTED)) {
+  const style = document.createElement('style');
+  style.id = INJECTED;
+  style.textContent = `
+    .tg-steps { display:flex; align-items:center; justify-content:center; gap:0; margin-bottom:1.75rem }
+    .tg-step { display:flex; align-items:center; gap:.5rem }
+    .tg-step-num {
+      width:28px; height:28px; border-radius:4px; display:flex; align-items:center; justify-content:center;
+      font-family:'JetBrains Mono',monospace; font-size:.75rem; font-weight:700;
+      background:var(--wash); color:var(--muted); border:1px solid #1D232B; transition:all .2s
+    }
+    .tg-step.active .tg-step-num { background:var(--accent); color:var(--base); border-color:var(--accent) }
+    .tg-step.done .tg-step-num { background:color-mix(in srgb, var(--accent) 30%, transparent); color:var(--accent); border-color:color-mix(in srgb, var(--accent) 40%, transparent) }
+    .tg-step-label { font-family:'JetBrains Mono',monospace; font-size:.6875rem; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; display:none }
+    @media(min-width:480px){ .tg-step-label { display:inline } }
+    .tg-step.active .tg-step-label { color:var(--accent) }
+    .tg-step-line { width:clamp(1.5rem,4vw,3rem); height:1px; background:#1D232B; transition:background .2s }
+    .tg-step-line.done { background:color-mix(in srgb, var(--accent) 50%, transparent) }
+    @keyframes tgFadeIn { from { opacity:0; transform:translateY(4px) } to { opacity:1; transform:none } }
+    @keyframes tgSpin { to { transform:rotate(360deg) } }
+    .tg-input {
+      width:100%; padding:.75rem 1rem; border:1px solid #1D232B; border-radius:6px;
+      background:color-mix(in srgb, var(--base) 80%, #0D1117); color:var(--ink);
+      font-family:'JetBrains Mono',monospace; font-size:.875rem; outline:none;
+      transition:border-color .2s
+    }
+    .tg-input:focus { border-color:var(--accent) }
+    .tg-input::placeholder { color:var(--muted) }
+    .tg-input-suffix {
+      display:inline-flex; align-items:center; padding:0 .75rem;
+      background:#0D1117; color:var(--muted);
+      font-family:'JetBrains Mono',monospace; font-size:.8125rem;
+      border:1px solid #1D232B; border-left:0; border-radius:0 6px 6px 0; white-space:nowrap
+    }
+    .tg-input-group { display:flex; align-items:stretch }
+    .tg-input-group .tg-input { border-radius:6px 0 0 6px; border-right:0 }
+    .tg-label {
+      display:block; font-family:'JetBrains Mono',monospace; font-size:.6875rem;
+      font-weight:600; color:var(--ink); margin-bottom:.6rem;
+      text-transform:uppercase; letter-spacing:.06em
+    }
+    .tg-platform-grid { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-bottom:1rem }
+    @media(min-width:480px){ .tg-platform-grid { grid-template-columns:repeat(4,1fr) } }
+    .tg-platform-btn {
+      padding:.7rem .6rem; border-radius:6px; border:1px solid #1D232B;
+      background:var(--wash); color:var(--ink); text-align:left;
+      font-family:'Inter',system-ui,sans-serif; font-size:.8125rem;
+      cursor:pointer; transition:border-color .15s, background .15s
+    }
+    .tg-platform-btn:hover { border-color:color-mix(in srgb, var(--accent) 40%, transparent) }
+    .tg-platform-btn.active { border-color:var(--accent); background:color-mix(in srgb, var(--accent) 10%, transparent) }
+    .tg-platform-btn .pl { font-weight:600; font-size:.8rem }
+    .tg-platform-btn .pd { font-size:.6875rem; color:var(--muted); margin-top:2px }
+    .tg-mono-label { font-family:'JetBrains Mono',monospace; font-size:.6875rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:.4rem }
+    .tg-preview-row { display:flex; gap:.5rem; font-family:'JetBrains Mono',monospace; font-size:.75rem; color:color-mix(in srgb, var(--ink) 80%, transparent); overflow-x:auto }
+    .tg-preview-row span:nth-child(odd) { color:var(--muted); white-space:nowrap }
+    .tg-preview-row span:nth-child(even) { color:var(--accent); white-space:nowrap }
+    .tg-btn-row { display:flex; gap:.6rem; margin-top:1rem }
+  `;
+  document.head.appendChild(style);
 }
 
 // ─── Main Component ──────────────────────────────────────
@@ -141,98 +159,60 @@ export default function SubdomainBuilder() {
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState('');
 
-  // Inject fade-in keyframes on mount (browser only)
-  useEffect(() => {
-    if (typeof document === 'undefined') return;
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(8px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .animate-fade-in {
-        animation: fadeIn 0.3s ease-out forwards;
-      }
-    `;
-    document.head.appendChild(style);
-    return () => { style.remove(); };
-  }, []);
-
   const selectedPlatform = PLATFORMS.find((p) => p.value === platform)!;
 
-  // ── Step 1: Check availability ───────────────────────
   const handleCheck = useCallback(async () => {
     const trimmed = subdomain.trim().toLowerCase();
     if (!trimmed) return;
-
-    // Validate subdomain format
     if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(trimmed)) {
       setStatus('error');
-      setMessage('Invalid subdomain. Use only letters, numbers, and hyphens.');
+      setMessage('Invalid subdomain. Use letters, numbers, and hyphens.');
       return;
     }
-
     setStatus('checking');
     setMessage(`Checking ${trimmed}.myanmardev.com...`);
-
     try {
       const result = await checkSubdomain(trimmed);
-
       if (result.available) {
         setStatus('available');
-        setMessage(`✅ ${trimmed}.myanmardev.com is available!`);
+        setMessage(`${trimmed}.myanmardev.com is available`);
         setStep(2);
       } else {
         setStatus('unavailable');
-        setMessage(`❌ ${trimmed}.myanmardev.com is already taken. Try another name.`);
+        setMessage(`${trimmed}.myanmardev.com is already taken.`);
       }
     } catch (err: any) {
       setStatus('error');
-      setMessage(err.message || 'Failed to check subdomain. Please try again.');
+      setMessage(err.message || 'Check failed. Try again.');
     }
   }, [subdomain]);
 
-  // ── Step 3: Create DNS record ────────────────────────
   const handleCreate = useCallback(async () => {
     setStatus('creating');
     setMessage('Creating DNS record...');
-
     try {
       const result = await createSubdomain({
         subdomain: subdomain.trim().toLowerCase(),
         platform,
         sourceUrl: sourceUrl.trim(),
       });
-
       setStatus('success');
-      setMessage(`🎉 ${result.subdomain} has been created and points to ${result.record.content}`);
+      setMessage(`${result.subdomain} → ${result.record.content}`);
     } catch (err: any) {
       setStatus('error');
-      setMessage(err.message || 'Failed to create subdomain. Please try again.');
+      setMessage(err.message || 'Creation failed. Try again.');
     }
   }, [subdomain, platform, sourceUrl]);
 
-  // ── Reset ────────────────────────────────────────────
   const handleReset = useCallback(() => {
-    setStep(1);
-    setSubdomain('');
-    setPlatform('github');
-    setSourceUrl('');
-    setStatus('idle');
-    setMessage('');
+    setStep(1); setSubdomain(''); setPlatform('github');
+    setSourceUrl(''); setStatus('idle'); setMessage('');
   }, []);
 
-  // Determine CNAME preview
   const cnamePreview = (() => {
-    if (platform === 'github') {
-      return `${sourceUrl.trim() || 'username'}.github.io`;
-    }
-    if (platform === 'vercel') {
-      return 'cname.vercel-dns.com';
-    }
-    if (platform === 'netlify') {
-      return `${sourceUrl.trim() || 'site-name'}.netlify.app`;
-    }
+    if (platform === 'github') return `${sourceUrl.trim() || 'username'}.github.io`;
+    if (platform === 'vercel') return 'cname.vercel-dns.com';
+    if (platform === 'netlify') return `${sourceUrl.trim() || 'site-name'}.netlify.app`;
     return sourceUrl.trim() || 'your-target.example.com';
   })();
 
@@ -240,181 +220,126 @@ export default function SubdomainBuilder() {
     <div>
       <StepIndicator step={step} />
 
-      {/* Step 1: Subdomain input */}
+      {/* Step 1 */}
       {step === 1 && (
-        <div className="animate-fade-in">
-          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
-            Enter your subdomain
-          </label>
-          <div className="flex items-stretch gap-0 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-transparent transition-all">
+        <div>
+          <label className="tg-label">Enter your subdomain</label>
+          <div className="tg-input-group">
             <input
               type="text"
               value={subdomain}
-              onChange={(e) => {
-                setSubdomain(e.target.value);
-                if (status !== 'idle') {
-                  setStatus('idle');
-                  setMessage('');
-                }
-              }}
+              onChange={(e) => { setSubdomain(e.target.value); if (status !== 'idle') { setStatus('idle'); setMessage(''); } }}
               onKeyDown={(e) => e.key === 'Enter' && handleCheck()}
               placeholder="myapp"
-              className="min-w-0 flex-1 px-4 py-3 bg-white dark:bg-[#0a0a0b] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none text-base sm:text-lg"
+              className="tg-input"
             />
-            <span className="inline-flex shrink-0 items-center px-3 sm:px-4 py-3 bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-sm sm:text-lg font-medium border-l border-slate-300 dark:border-slate-600">
-              .myanmardev.com
-            </span>
+            <span className="tg-input-suffix">.myanmardev.com</span>
           </div>
-
-          <button
-            onClick={handleCheck}
-            disabled={status === 'checking' || !subdomain.trim()}
-            className="mt-4 w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300 flex items-center justify-center gap-2"
-          >
-            {status === 'checking' ? (
-              <>
-                <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                Checking...
-              </>
-            ) : (
-              'Check Availability'
-            )}
-          </button>
-
+          <div style={{ marginTop: '0.9rem' }}>
+            <button
+              onClick={handleCheck}
+              disabled={status === 'checking' || !subdomain.trim()}
+              className="btn"
+              style={{ width: '100%', justifyContent: 'center', opacity: (status === 'checking' || !subdomain.trim()) ? 0.5 : 1 }}
+            >
+              {status === 'checking' ? (
+                <>
+                  <svg style={{ width: '14px', height: '14px', animation: 'tgSpin 1s linear infinite' }} viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" opacity="0.25" />
+                    <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" opacity="0.75" />
+                  </svg>
+                  CHECKING
+                </>
+              ) : 'CHECK AVAILABILITY'}
+            </button>
+          </div>
           <StatusAlert status={status} message={message} />
         </div>
       )}
 
-      {/* Step 2: Choose platform */}
+      {/* Step 2 */}
       {step === 2 && (
-        <div className="animate-fade-in">
-          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-4">
-            Choose your hosting platform
-          </label>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+        <div>
+          <label className="tg-label">Choose your hosting platform</label>
+          <div className="tg-platform-grid">
             {PLATFORMS.map((p) => (
               <button
                 key={p.value}
                 onClick={() => setPlatform(p.value)}
-                className={`p-4 rounded-xl border text-left transition-all duration-200 ${
-                  platform === p.value
-                    ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20 ring-2 ring-purple-500/30'
-                    : 'border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-700 bg-white dark:bg-[#0a0a0b]'
-                }`}
+                className={`tg-platform-btn${platform === p.value ? ' active' : ''}`}
               >
-                <p className="font-semibold text-slate-900 dark:text-white text-sm">{p.label}</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{p.description}</p>
+                <div className="pl">{p.label}</div>
+                <div className="pd">{p.description}</div>
               </button>
             ))}
           </div>
-
           {platform === 'custom' && (
-            <div className="mb-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-xs">
-              Custom mode: you will enter the full CNAME target in the next step.
+            <div style={{ padding: '0.6rem 0.8rem', borderRadius: '4px', background: 'color-mix(in srgb, #E8A33D 10%, transparent)', border: '1px solid color-mix(in srgb, #E8A33D 30%, transparent)', fontFamily: 'var(--mono)', fontSize: '0.6875rem', color: '#E8A33D', marginBottom: '0.75rem' }}>
+              Custom mode: enter the full CNAME target in the next step.
             </div>
           )}
-
-          <div className="flex gap-3">
-            <button
-              onClick={() => setStep(1)}
-              className="px-4 py-2.5 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors text-sm font-medium"
-            >
+          <div className="tg-btn-row">
+            <button onClick={() => setStep(1)} className="btn btn--ghost" style={{ padding: '0.6rem 1.1rem' }}>
               ← Back
             </button>
-            <button
-              onClick={() => setStep(3)}
-              className="flex-1 px-6 py-2.5 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02] transition-all duration-300"
-            >
-              Continue
+            <button onClick={() => setStep(3)} className="btn" style={{ flex: 1, justifyContent: 'center' }}>
+              Continue →
             </button>
           </div>
         </div>
       )}
 
-      {/* Step 3: Source URL + Create */}
+      {/* Step 3 */}
       {step === 3 && (
-        <div className="animate-fade-in">
-          {/* Source URL input */}
-          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
-            {platform === 'github'
-              ? 'GitHub Username'
-              : platform === 'vercel'
-                ? 'Vercel Project'
-                : platform === 'netlify'
-                  ? 'Netlify Site Name'
-                  : 'CNAME Target'}
+        <div>
+          <label className="tg-label">
+            {platform === 'github' ? 'GitHub Username' : platform === 'vercel' ? 'Vercel Project' : platform === 'netlify' ? 'Netlify Site Name' : 'CNAME Target'}
           </label>
           <input
             type="text"
             value={sourceUrl}
             onChange={(e) => setSourceUrl(e.target.value)}
             placeholder={selectedPlatform.placeholder}
-            className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-[#0a0a0b] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+            className="tg-input"
             autoFocus
           />
 
           {/* DNS Preview */}
-          <div className="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-              DNS Record Preview
-            </p>
-            <div className="grid grid-cols-3 gap-2 text-sm">
-              <div>
-                <span className="text-slate-400 dark:text-slate-500">Type</span>
-                <p className="font-mono text-slate-900 dark:text-white font-semibold">CNAME</p>
-              </div>
-              <div>
-                <span className="text-slate-400 dark:text-slate-500">Name</span>
-                <p className="font-mono text-slate-900 dark:text-white font-semibold break-all">
-                  {subdomain}.myanmardev.com
-                </p>
-              </div>
-              <div>
-                <span className="text-slate-400 dark:text-slate-500">Target</span>
-                <p className="font-mono text-slate-900 dark:text-white font-semibold break-all">{cnamePreview}</p>
-              </div>
+          <div style={{ marginTop: '1rem', padding: '0.9rem 1rem', borderRadius: '6px', border: '1px solid #1D232B', background: '#0D1117' }}>
+            <div className="tg-mono-label">DNS Preview</div>
+            <div className="tg-preview-row" style={{ gap: '1.2rem' }}>
+              <span>TYPE</span><span>CNAME</span>
+              <span>NAME</span><span>{subdomain}.myanmardev.com</span>
+              <span>TARGET</span><span>{cnamePreview}</span>
             </div>
           </div>
 
-          <div className="flex gap-3 mt-4">
-            <button
-              onClick={() => setStep(2)}
-              disabled={status === 'creating'}
-              className="px-4 py-3 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors text-sm font-medium disabled:opacity-50"
-            >
+          <div className="tg-btn-row">
+            <button onClick={() => setStep(2)} disabled={status === 'creating'} className="btn btn--ghost" style={{ padding: '0.6rem 1.1rem', opacity: status === 'creating' ? 0.5 : 1 }}>
               ← Back
             </button>
             <button
               onClick={handleCreate}
               disabled={status === 'creating' || !sourceUrl.trim()}
-              className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300 flex items-center justify-center gap-2"
+              className="btn"
+              style={{ flex: 1, justifyContent: 'center', opacity: (status === 'creating' || !sourceUrl.trim()) ? 0.5 : 1 }}
             >
               {status === 'creating' ? (
                 <>
-                  <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  <svg style={{ width: '14px', height: '14px', animation: 'tgSpin 1s linear infinite' }} viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" opacity="0.25" />
+                    <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" opacity="0.75" />
                   </svg>
-                  Creating...
+                  DEPLOYING
                 </>
-              ) : (
-                'Create Subdomain'
-              )}
+              ) : 'DEPLOY SUBDOMAIN'}
             </button>
           </div>
 
           <StatusAlert status={status} message={message} />
 
-          {/* Success — offer to create another */}
           {status === 'success' && (
-            <button
-              onClick={handleReset}
-              className="mt-4 w-full px-6 py-2.5 border-2 border-purple-300 dark:border-purple-700 text-purple-600 dark:text-purple-400 font-semibold rounded-xl hover:bg-purple-50 dark:hover:bg-purple-950/20 transition-colors"
-            >
+            <button onClick={handleReset} className="btn btn--ghost" style={{ marginTop: '0.9rem', width: '100%', justifyContent: 'center' }}>
               Create Another Subdomain
             </button>
           )}
@@ -423,5 +348,3 @@ export default function SubdomainBuilder() {
     </div>
   );
 }
-
-// Keyframes injected via useEffect on mount — see component above.

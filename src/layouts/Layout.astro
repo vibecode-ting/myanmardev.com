@@ -2,22 +2,20 @@
 interface Props {
   title: string;
   description?: string;
-  ogImage?: string;
 }
 
-const { title, description, ogImage } = Astro.props;
+const { title, description } = Astro.props;
 const siteUrl = 'https://app.myanmardev.com';
-const metaDescription = description || 'Subdomain Builder — automate DNS record creation for myanmardev.com. Enter a subdomain, choose your hosting platform, and go live in seconds.';
-const ogImageUrl = ogImage || `${siteUrl}/og-image.png`;
+const metaDescription = description || 'Subdomain Register — automated DNS and web services for Myanmar developers. Get your own .myanmardev.com subdomain in seconds. No waiting, no hassle.';
 ---
 
 <!doctype html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={metaDescription} />
-    <meta name="theme-color" content="#7c3aed" />
+    <meta name="theme-color" content="#73a5f9" />
     <meta name="color-scheme" content="dark" />
 
     <!-- Open Graph -->
@@ -25,14 +23,12 @@ const ogImageUrl = ogImage || `${siteUrl}/og-image.png`;
     <meta property="og:url" content={siteUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={metaDescription} />
-    <meta property="og:image" content={ogImageUrl} />
     <meta property="og:site_name" content="myanmardev.com" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={metaDescription} />
-    <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="canonical" href={siteUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -40,46 +36,294 @@ const ogImageUrl = ogImage || `${siteUrl}/og-image.png`;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
+    <!-- Fonts: Sora (display), Inter (body), JetBrains Mono for labels -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   </head>
-  <body class="bg-white dark:bg-[#050506] text-slate-900 dark:text-slate-100 antialiased min-h-screen">
+  <body>
     <slot />
+    <!-- Grain overlay -->
+    <div class="grain"></div>
+    <noscript><style>.rise{opacity:1!important;transform:none!important}</style></noscript>
+    <script>
+      const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
+      document.querySelectorAll(".rise").forEach((el,i)=>{el.style.transitionDelay=Math.min(i%4*70,210)+"ms";io.observe(el)});
+    </script>
   </body>
 </html>
 
 <style is:global>
-  @import "tailwindcss";
-  @variant dark (&:where(.dark, .dark *));
-
-  @theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  :root {
+    --base: #0B0D10;
+    --ink: #E7EAEE;
+    --accent: #73a5f9;
+    --muted: #5B6470;
+    --wash: #12151A;
+    --display: 'Sora', sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
   }
 
-  @layer base {
-    *, *::before, *::after {
-      font-family: var(--font-sans);
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    ::selection {
-      background: #7c3aed;
-      color: white;
-    }
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
-  @utility text-gradient {
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    background-image: linear-gradient(to right, var(--color-purple-500), var(--color-violet-500), var(--color-indigo-500));
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--base);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--muted) 12%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--muted) 12%, transparent) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--base);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ─── Type scale ─── */
+  .h-display {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(2.6rem, 6.2vw, 4.5rem);
+    line-height: 1.03;
+    letter-spacing: -0.03em;
+  }
+
+  .h-section {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .mono {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .lede {
+    color: color-mix(in srgb, var(--ink) 62%, transparent);
+    max-width: 32rem;
+  }
+
+  /* ─── Section index ─── */
+  body { counter-reset: tg-sx; }
+  .sx {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+  .sx b { font-weight: 700; }
+  .sx b::before {
+    counter-increment: tg-sx;
+    content: counter(tg-sx, decimal-leading-zero);
+  }
+  .sx span {
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+    font-weight: 400;
+  }
+  .sx::after {
+    content: "";
+    flex: 0 0 auto;
+    width: clamp(2rem, 8vw, 5rem);
+    height: 1px;
+    background: color-mix(in srgb, var(--accent) 40%, transparent);
+    align-self: center;
+  }
+
+  /* ─── Live status dot ─── */
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); }
+    50% { box-shadow: 0 0 0 6px transparent; }
+  }
+
+  /* ─── Buttons ─── */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: var(--accent);
+    color: var(--base);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.8rem 1.5rem;
+    border-radius: 2px;
+    border: 0;
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.15s ease;
+  }
+  .btn::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-left: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+  .btn::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid currentColor;
+    border-top: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn:active { transform: scale(0.98); }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid color-mix(in srgb, var(--muted) 60%, transparent);
+  }
+  .btn--ghost::before, .btn--ghost::after { border-color: var(--accent); }
+  .btn--ghost:hover { filter: none; border-color: var(--accent); }
+
+  /* ─── Panels ─── */
+  .panel {
+    background: var(--wash);
+    border: 1px solid #1D232B;
+    border-radius: 10px;
+    transition: border-color 0.2s ease;
+  }
+  .panel:hover {
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .panel .ph {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid #1D232B;
+  }
+
+  /* ─── Terminal block ─── */
+  .term {
+    background: #0D1117;
+    border: 1px solid #1D232B;
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    line-height: 1.75;
+  }
+  .term .bar {
+    display: flex;
+    gap: 6px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #1D232B;
+  }
+  .term .bar i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #252B33;
+  }
+  .term pre {
+    padding: 1rem 1.1rem;
+    overflow-x: auto;
+    color: color-mix(in srgb, var(--ink) 80%, transparent);
+  }
+  .term .c { color: var(--muted); }
+  .term .g { color: var(--accent); }
+  .term .y { color: #E8A33D; }
+
+  /* ─── Corner ticks ─── */
+  .ticks { position: relative; }
+  .ticks::before, .ticks::after {
+    content: "+";
+    position: absolute;
+    font-family: var(--mono);
+    color: color-mix(in srgb, var(--muted) 55%, transparent);
+    font-size: 0.875rem;
+  }
+  .ticks::before { top: -10px; left: -10px; }
+  .ticks::after { bottom: -10px; right: -10px; }
+
+  /* ─── Number/metric style ─── */
+  .num {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ─── Rise entrance ─── */
+  .rise {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .rise.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise { opacity: 1; transform: none; transition: none; }
+    .dot { animation: none; }
+  }
+
+  /* ─── Grain texture ─── */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 </style>
