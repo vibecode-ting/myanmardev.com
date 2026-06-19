@@ -1,61 +1,29 @@
-<!--
-  Editorial Dossier hero: massive serif statement top-left, accent rule,
-  two-column (description + numbers), then CTAs. No image, no center.
--->
-<section style="padding:clamp(3.5rem,10vh,6rem) clamp(1.25rem,4vw,3rem);max-width:78rem;margin:0 auto" id="hero">
-  <!-- Status eyebrow -->
-  <p class="eyebrow rise"><span class="dot"></span> all systems nominal · zero human touch required</p>
+---
+import { t, type Language } from '../i18n/utils';
 
-  <!-- Headline with masked line-reveal -->
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+---
+
+<section style="padding:clamp(3.5rem,10vh,6rem) clamp(1.25rem,4vw,3rem);max-width:78rem;margin:0 auto" id="hero">
+  <p class="eyebrow rise"><span class="dot"></span> {t(lang, 'hero.eyebrow')}</p>
+
   <h1 class="h-display rise" style="margin-top:1.4rem;max-width:42rem">
-    Your Subdomain.<br/>Instantly Deployed.
+    {t(lang, 'hero.heading')}
   </h1>
 
-  <!-- Accent rule -->
   <div class="rise" style="width:clamp(4rem,10vw,7rem);height:2px;background:var(--accent);margin-top:1.25rem"></div>
 
-  <!-- Two-column: description left, numbers right -->
-  <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,3rem);margin-top:1.5rem;align-items:start">
-    <p class="lede rise" style="max-width:34rem">
-      myanmardev.com provides automated subdomain registration for Myanmar
-      developers. Order your subdomain, pay instantly, and our automation
-      workers create the DNS record — zero human intervention from start to
-      finish. Built for developers who want their
-      <span class="mono" style="color:var(--accent)">.myanmardev.com</span> domain
-      without waiting.
-    </p>
+  <p class="lede rise" style="margin-top:1.5rem;max-width:36rem">
+    {t(lang, 'hero.lede')}
+  </p>
 
-    <!-- Numbers column -->
-    <div class="rise" style="display:flex;flex-direction:column;gap:1.1rem">
-      <div>
-        <p class="num" style="font-size:2rem;color:var(--accent);font-weight:700">1,200<span style="color:var(--muted);font-size:.75rem">+</span></p>
-        <p class="mono" style="font-size:.6875rem;color:var(--muted);margin-top:1px">subdomains registered</p>
-      </div>
-      <div style="height:1px;background:#1D232B"></div>
-      <div>
-        <p class="num" style="font-size:2rem;color:var(--accent);font-weight:700">99.9<span style="color:var(--muted);font-size:.75rem">%</span></p>
-        <p class="mono" style="font-size:.6875rem;color:var(--muted);margin-top:1px">uptime SLA</p>
-      </div>
-      <div style="height:1px;background:#1D232B"></div>
-      <div>
-        <p class="num" style="font-size:2rem;color:var(--accent);font-weight:700">&lt;30<span style="color:var(--muted);font-size:.75rem">s</span></p>
-        <p class="mono" style="font-size:.6875rem;color:var(--muted);margin-top:1px">from order to live</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTAs -->
   <div class="rise" style="display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.9rem">
-    <a class="btn" href="#product" style="padding:1rem 2rem">Claim Your Subdomain</a>
-    <a class="btn btn--ghost" href="#how" style="padding:1rem 2rem">See How It Works</a>
+    <a class="btn" href="#product" style="padding:1rem 2rem">{t(lang, 'hero.cta')}</a>
+    <a class="btn btn--ghost" href="#how" style="padding:1rem 2rem">{t(lang, 'hero.how')}</a>
   </div>
-  <p class="mono rise" style="color:var(--muted);margin-top:1.4rem">100% automated · no account managers · results delivered via webhooks</p>
+  <p class="mono rise" style="color:var(--muted);margin-top:1.4rem">{t(lang, 'hero.footnote')}</p>
 </section>
-
-<style>
-  @media (max-width: 768px) {
-    #hero > div:nth-child(4) {
-      grid-template-columns: minmax(0, 1fr) !important;
-    }
-  }
-</style>

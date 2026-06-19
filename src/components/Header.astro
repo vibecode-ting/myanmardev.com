@@ -1,20 +1,34 @@
+---
+import AuthButton from './AuthButton';
+import LanguageSwitcher from './LanguageSwitcher';
+import { t, type Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+---
+
 <header style="position:sticky;top:0;z-index:40;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 clamp(1.25rem,4vw,3rem);background:color-mix(in srgb,var(--wash) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid #1D232B">
   <a href="/" style="font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:-0.01em;display:flex;align-items:center;gap:0.5rem">
     <span style="color:var(--accent)">myanmardev</span>.com
   </a>
-  <nav class="mono" style="display:flex;align-items:center;gap:1.5rem;color:color-mix(in srgb,var(--ink) 70%,transparent)" id="tg-links">
-    <a href="#product">product</a>
-    <a href="#how">how it works</a>
-    <a href="#coming-soon">coming soon</a>
-    <span class="mono" style="color:var(--muted);font-size:.6875rem">v1.0.0</span>
-    <a class="btn" style="padding:.5rem 1.1rem" href="#product">Get Started</a>
+  <nav class="mono" style="display:flex;align-items:center;gap:1.2rem;color:color-mix(in srgb,var(--ink) 70%,transparent)" id="tg-links">
+    <a href="/">{t(lang, 'nav.home')}</a>
+    <a href="#product">{t(lang, 'nav.product')}</a>
+    <a href="#coming-soon">{t(lang, 'nav.coming')}</a>
+    <a href="#contact">{t(lang, 'nav.contact')}</a>
   </nav>
+  <div style="display:flex;align-items:center;gap:.6rem">
+    <LanguageSwitcher lang={lang} client:load />
+    <AuthButton lang={lang} client:load />
+  </div>
 </header>
 
 <style>
-  #tg-links a:not(.btn):hover { color: var(--ink); }
+  #tg-links a:hover { color: var(--ink); }
   @media (max-width: 720px) {
-    #tg-links a:not(.btn),
-    #tg-links span { display: none; }
+    #tg-links { display: none; }
   }
 </style>

@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "home": "Home",
+    "product": "Product",
+    "coming": "Coming Soon",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "eyebrow": "fully automated · zero human touch",
+    "heading": "Your Subdomain. Instantly Deployed.",
+    "lede": "Get your own .myanmardev.com subdomain in seconds. Choose your name, pick a hosting platform, and our automation workers create the DNS record — no waiting, no manual setup.",
+    "cta": "Claim Your Subdomain",
+    "how": "See How It Works",
+    "footnote": "powered by Cloudflare API · instant DNS propagation"
+  },
+  "how": {
+    "section": "/ pipeline",
+    "heading": "Order. Pay. Deploy. Zero human touch.",
+    "step1": "Pick your subdomain",
+    "step1desc": "Choose any available name under .myanmardev.com. Our system checks DNS availability instantly against live Cloudflare records.",
+    "step2": "Choose platform & confirm",
+    "step2desc": "Connect to GitHub Pages, Vercel, Netlify, or any custom CNAME. We map your subdomain to your live project endpoint automatically.",
+    "step3": "DNS created. You go live.",
+    "step3desc": "The worker creates the CNAME record via Cloudflare API the moment your payment succeeds. No approval queue. No support ticket."
+  },
+  "product": {
+    "section": "/ product",
+    "heading": "Subdomain Register — Live Demo"
+  },
+  "coming": {
+    "section": "/ roadmap",
+    "heading": "More products coming. All automated.",
+    "p1": "Static Website Builder",
+    "p1desc": "Order a professionally designed static site with custom domain. Pick a template, fill your content, deploy automatically.",
+    "p2": "Developer Portfolio",
+    "p2desc": "Showcase your projects with a polished portfolio. Add repos, deploy links, and custom branding in one flow.",
+    "p3": "Business Website",
+    "p3desc": "Full business site with contact forms, service pages, and SEO optimization. Deploy with your custom subdomain.",
+    "p4": "Restaurant QR Menu",
+    "p4desc": "Digital menu with QR code generation. Customers scan and browse your menu instantly. No app download.",
+    "p5": "Online Ordering System",
+    "p5desc": "Full e-commerce ordering with payment integration. Inventory management and automated order fulfillment.",
+    "p6": "Point of Sale System",
+    "p6desc": "Cloud POS with receipt printing, sales tracking, and inventory sync. Web-based, works on any device.",
+    "p7": "Education Platform",
+    "p7desc": "Online course platform with video hosting, quizzes, certificates. Build your own learning platform."
+  },
+  "cta": {
+    "heading": "Ready to claim your subdomain?",
+    "btn": "Claim Your Subdomain",
+    "footnote": "100% automated · no account manager · instant deploy"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "signedInAs": "Signed in as"
+  },
+  "footer": {
+    "desc": "Automated subdomain registration and web services for Myanmar developers. Order, deploy, done.",
+    "built": "Built for Myanmar Developers"
+  },
+  "language": "Language"
+}

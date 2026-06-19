@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "home": "ပင်မ",
+    "product": "ထုတ်ကုန်",
+    "coming": "မကြာခင်လာမည့်",
+    "contact": "ဆက်သွယ်ရန်"
+  },
+  "hero": {
+    "eyebrow": "အလိုအလျောက်စနစ် · လူထိတွေ့မှုမရှိ",
+    "heading": "သင့်ရဲ့ Subdomain. ချက်ချင်းတင်သည်။",
+    "lede": "စက္ကန့်ပိုင်းအတွင်း သင့်ရဲ့ .myanmardev.com subdomain ကိုရယူပါ။ နာမည်ရွေးပါ၊ hosting platform ရွေးပါ၊ ကျွန်ုပ်တို့၏ automation workers များက DNS record ကို အလိုအလျောက် ဖန်တီးပေးပါမည်။",
+    "cta": "သင့် Subdomain ရယူပါ",
+    "how": "ဘယ်လိုအလုပ်လုပ်လဲ",
+    "footnote": "Cloudflare API ဖြင့် · ချက်ချင်း DNS ဖြန့်ဝေသည်"
+  },
+  "how": {
+    "section": "/ လုပ်ငန်းစဉ်",
+    "heading": "မှာယူ။ ငွေပေး။ Deploy။ လူထိတွေ့မှုမရှိ။",
+    "step1": "သင့် subdomain ရွေးပါ",
+    "step1desc": ".myanmardev.com အောက်ရှိ ရရှိနိုင်သော နာမည်ကို ရွေးချယ်ပါ။ Cloudflare DNS မှတ်တမ်းများတွင် ရရှိနိုင်မှုကို ချက်ချင်းစစ်ဆေးပေးပါသည်။",
+    "step2": "Platform ရွေး၍ အတည်ပြုပါ",
+    "step2desc": "GitHub Pages, Vercel, Netlify သို့မဟုတ် custom CNAME သို့ ချိတ်ဆက်ပါ။ သင့် subdomain ကို သင့်ရဲ့ live project သို့ အလိုအလျောက် လမ်းကြောင်းပေးပါမည်။",
+    "step3": "DNS ဖန်တီးပြီးပါပြီ။ Live!",
+    "step3desc": "ငွေပေးချေမှု အောင်မြင်သည်နှင့် Cloudflare API မှ CNAME record ကို worker က ဖန်တီးပေးပါသည်။ အတည်ပြုချက်စောင့်ရန်မလို၊ support ticket မလိုပါ။"
+  },
+  "product": {
+    "section": "/ ထုတ်ကုန်",
+    "heading": "Subdomain Register — Live Demo"
+  },
+  "coming": {
+    "section": "/ လမ်းပြမြေပုံ",
+    "heading": "နောက်ထပ် ထုတ်ကုန်များ လာမည်။ အားလုံးအလိုအလျောက်။",
+    "p1": "Static Website Builder",
+    "p1desc": "စိတ်ကြိုက် domain ဖြင့် ကျွမ်းကျင်စွာ ဒီဇိုင်းဆွဲထားသော static site ကို မှာယူပါ။ template ရွေးပါ၊ အကြောင်းအရာဖြည့်ပါ၊ အလိုအလျောက် deploy ပါ။",
+    "p2": "Developer Portfolio",
+    "p2desc": "သင့်ရဲ့ project များကို ပြောင်မြောက်သော portfolio ဖြင့် ပြသပါ။ repo များ၊ deploy link များ၊ စိတ်ကြိုက် branding ထည့်ပါ။",
+    "p3": "Business Website",
+    "p3desc": "ဆက်သွယ်ရန် form၊ service စာမျက်နှာများ၊ SEO optimization ပါဝင်သော စီးပွားရေး site အပြည့်အစုံ။",
+    "p4": "စားသောက်ဆိုင် QR Menu",
+    "p4desc": "QR code ထုတ်ပေးမှုဖြင့် ဒစ်ဂျစ်တယ် menu။ ဖောက်သည်များ scan လုပ်၍ menu ကို ချက်ချင်းကြည့်ရှုနိုင်သည်။",
+    "p5": "Online Ordering System",
+    "p5desc": "ငွေပေးချေမှုစနစ် ပေါင်းစပ်ထားသော e-commerce ordering။ inventory management နှင့် အလိုအလျောက် order ဖြည့်ဆည်းမှု။",
+    "p6": "Point of Sale System",
+    "p6desc": "ပြေစာထုတ်ခြင်း၊ အရောင်းခြေရာခံခြင်း၊ inventory sync ပါဝင်သော cloud POS။ မည်သည့် device တွင်မဆို အလုပ်လုပ်သည်။",
+    "p7": "Education Platform",
+    "p7desc": "video hosting၊ quizzes၊ certificates များပါဝင်သော အွန်လိုင်းသင်တန်း platform။ သင့်ကိုယ်ပိုင် သင်ကြားရေး platform တည်ဆောက်ပါ။"
+  },
+  "cta": {
+    "heading": "သင့် subdomain ရယူရန် အဆင်သင့်ဖြစ်ပြီလား?",
+    "btn": "သင့် Subdomain ရယူပါ",
+    "footnote": "100% အလိုအလျောက် · account manager မလို · ချက်ချင်း deploy"
+  },
+  "auth": {
+    "signIn": "အကောင့်ဝင်ပါ",
+    "signOut": "အကောင့်ထွက်ပါ",
+    "signedInAs": "အကောင့်ဝင်ထားသူ"
+  },
+  "footer": {
+    "desc": "မြန်မာ developer များအတွက် အလိုအလျောက် subdomain မှတ်ပုံတင်ခြင်းနှင့် web ဝန်ဆောင်မှုများ။ မှာယူ၊ deploy၊ ပြီးပါပြီ။",
+    "built": "မြန်မာ Developer များအတွက် တည်ဆောက်ထားသည်"
+  },
+  "language": "ဘာသာစကား"
+}

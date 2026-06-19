@@ -1,0 +1,51 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "builder": "Site Builder",
+    "docs": "Documentation",
+    "contact": "Contact"
+  },
+  "header": {
+    "title": "Static Sites Builder",
+    "subtitle": "with myanmardev.com",
+    "tagline": "Create beautiful static websites with ease"
+  },
+  "hero": {
+    "heading": "Build Static Sites Faster",
+    "subheading": "Create professional static websites without coding",
+    "cta": "Get Started",
+    "description": "Our powerful static site builder lets you create stunning websites in minutes, not hours."
+  },
+  "features": {
+    "title": "Powerful Features",
+    "fast": {
+      "title": "Lightning Fast",
+      "description": "Static sites load instantly with zero server overhead"
+    },
+    "secure": {
+      "title": "Secure by Default",
+      "description": "No databases or server vulnerabilities to worry about"
+    },
+    "seo": {
+      "title": "SEO Optimized",
+      "description": "Built-in optimization for search engines"
+    },
+    "firebase": {
+      "title": "Firebase Powered",
+      "description": "Connect your Firebase backend for dynamic content"
+    }
+  },
+  "builder": {
+    "title": "Site Builder",
+    "description": "Start building your website now",
+    "templates": "Choose a template",
+    "customize": "Customize your site",
+    "deploy": "Deploy instantly"
+  },
+  "footer": {
+    "copyright": "© 2026 Static Sites Builder. All rights reserved.",
+    "myanmardev": "Made with ❤️ for Myanmar Developers"
+  },
+  "language": "Language"
+}

@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { t } from '../../i18n/utils';
+
+const lang = 'my';
+const title = t(lang, 'builder.title');
+---
+
+<Layout title={title} lang={lang}>
+  <section class="py-20 sm:py-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h1 class="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+          {t(lang, 'builder.title')}
+        </h1>
+        <p class="text-xl text-slate-600 dark:text-slate-300">
+          {t(lang, 'builder.description')}
+        </p>
+      </div>
+
+      <!-- Templates Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {['ပုဂ္ဂလ', 'ဆိုင်ရာ', 'ဘလော့ဂ်', 'အေဂျင်စီ', 'အရောင်း', 'အလုပ်အကိုင်'].map((template) => (
+          <div class="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:scale-105 transition-all duration-300">
+            <div class="w-full h-40 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg mb-4"></div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+              {template}
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400 mb-4">
+              {template} ဆိုက်များအတွက် အကောင်းဆုံး
+            </p>
+            <button class="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all">
+              တစ်ခုကို အသုံးပြုပါ
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <!-- Customization Options -->
+      <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-8 mb-16">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8">
+          သင့်ရဲ့ ဆိုက် စိတ်ကြိုက်ပြင်ဆင်ပါ
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="flex flex-col items-center text-center">
+            <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white text-xl mb-4">
+              🎨
+            </div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-2">အရောင်များ</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">
+              လှပသော အရောင်အစုံများမှ ရွေးချယ်ပါ
+            </p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center text-white text-xl mb-4">
+              ✍️
+            </div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-2">အကြောင်းအရာ</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">
+              သင့်ရဲ့ကိုယ်ပိုင် စာသားနှင့် ပုံများ ထည့်သွင်းပါ
+            </p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center text-white text-xl mb-4">
+              📐
+            </div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-2">အပြင်အဆင်</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">
+              အခန်းများနှင့် အပြင်အဆင်များ စိတ်ကြိုက်ပြင်ဆင်ပါ
+            </p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center text-white text-xl mb-4">
+              🚀
+            </div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-2">ဖြန့်ဝေပါ</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">
+              GitHub Pages သို့ ချက်ချင်း ဖြန့်ဝေပါ
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center">
+        <button class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+          ယခုအခါ ဆောက်တည်ရန် စတင်ပါ
+        </button>
+      </div>
+    </div>
+  </section>
+</Layout>

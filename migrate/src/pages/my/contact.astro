@@ -1,0 +1,190 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { t } from '../../i18n/utils';
+
+const lang = 'my';
+const title = 'ဆက်သွယ်ရန်';
+---
+
+<Layout title={title} lang={lang}>
+  <section class="py-20 sm:py-32">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h1 class="text-5xl font-bold text-slate-900 dark:text-white mb-6">
+          ကျွန်ုပ်တို့ထံ ဆက်သွယ်ပါ
+        </h1>
+        <p class="text-xl text-slate-600 dark:text-slate-300">
+          မေးခွန်းများ ရှိပါသလား? ကျွန်ုပ်တို့သည် သင့်ထံမှ သုံးသပ်ချက် ကြားလိုသည်။ သင့်ထံ စာတစ်封ပို့ပြီး ကျွန်ုပ်တို့သည် ဖြစ်နိုင်သလောက် မြန်မြန် ပြန်လည်ဖြေကြားပါ။
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <!-- Contact Info -->
+        <div class="lg:col-span-1">
+          <div class="space-y-8">
+            <!-- Email -->
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                  ✉️
+                </div>
+              </div>
+              <div>
+                <h3 class="text-lg font-medium text-slate-900 dark:text-white">အီမေးလ်</h3>
+                <p class="mt-2 text-slate-600 dark:text-slate-400">
+                  <a href="mailto:hello@myanmardev.com" class="hover:text-blue-500">
+                    hello@myanmardev.com
+                  </a>
+                </p>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+                  📞
+                </div>
+              </div>
+              <div>
+                <h3 class="text-lg font-medium text-slate-900 dark:text-white">ဖုန်း</h3>
+                <p class="mt-2 text-slate-600 dark:text-slate-400">
+                  +95 (0) 123 456 789
+                </p>
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-pink-500 text-white">
+                  📍
+                </div>
+              </div>
+              <div>
+                <h3 class="text-lg font-medium text-slate-900 dark:text-white">တည်နေရာ</h3>
+                <p class="mt-2 text-slate-600 dark:text-slate-400">
+                  ရန်ကုန်၊ မြန်မာ
+                </p>
+              </div>
+            </div>
+
+            <!-- Social -->
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
+                  🌐
+                </div>
+              </div>
+              <div>
+                <h3 class="text-lg font-medium text-slate-900 dark:text-white">လူမှုကွန်ယက်</h3>
+                <div class="mt-2 flex gap-4">
+                  <a href="#" class="text-slate-600 dark:text-slate-400 hover:text-blue-500">Twitter</a>
+                  <a href="#" class="text-slate-600 dark:text-slate-400 hover:text-blue-500">GitHub</a>
+                  <a href="#" class="text-slate-600 dark:text-slate-400 hover:text-blue-500">Discord</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="lg:col-span-2">
+          <form class="space-y-6 bg-slate-50 dark:bg-slate-900 p-8 rounded-xl">
+            <div>
+              <label for="name" class="block text-sm font-medium text-slate-900 dark:text-white mb-2">
+                အမည်အပြည့်အစုံ
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                placeholder="သင့်ရဲ့ အမည်"
+              />
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-slate-900 dark:text-white mb-2">
+                အီမေးလ် လိပ်စာ
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                placeholder="သင့်ရဲ့@အီမေးလ်.com"
+              />
+            </div>
+
+            <div>
+              <label for="subject" class="block text-sm font-medium text-slate-900 dark:text-white mb-2">
+                အခေါ်အဝေါ်
+              </label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                placeholder="ကျွန်ုပ်တို့သည် သင့်အား မည်သို့ကူညီနိုင်သည်?"
+              />
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium text-slate-900 dark:text-white mb-2">
+                စာတိုက်
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-none"
+                placeholder="သင့်ရဲ့ စာတိုက် ဒီတွင်..."
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
+            >
+              စာတိုက် ပို့ပါ
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-8">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8">
+          မကြေးမုံးမုံးမေးခွန်းများ
+        </h2>
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+              တုံ့ပြန်ချိန်သည် အဘယ်နည်း?
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              ကျွန်ုပ်တို့သည် ပုံမှန်အားဖြင့် လုပ်ငန်းနေ့များတွင် နာရီ ၂၄ အတွင်း မေးခွန်းများကို တုံ့ပြန်သည်။
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+              သင်များသည် ဗမာ ဘာသာစကားဖြင့် အကူအညီ ပေးသည်လား?
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              ဟုတ်ကဲ့။ ကျွန်ုပ်တို့သည် အင်္ဂလိပ်နှင့် ဗမာ ဘာသာစကားဖြင့် အကူအညီ ပေးသည်။
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+              ကျွန်ုပ်သည် ခေါ်ဆိုမှု အစီအစဉ်ချနိုင်ပါသလား?
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              အလွန်ကောင်းမွန်သည်။ သင့်ရဲ့ စာတိုက်တွင် သင်နှစ်သက်ရာ အချိန်ကို ဖော်ပြပါ။
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

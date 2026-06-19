@@ -2,15 +2,16 @@
 interface Props {
   title: string;
   description?: string;
+  lang?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, lang = 'en' } = Astro.props;
 const siteUrl = 'https://app.myanmardev.com';
 const metaDescription = description || 'Subdomain Register — automated DNS and web services for Myanmar developers. Get your own .myanmardev.com subdomain in seconds. No waiting, no hassle.';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

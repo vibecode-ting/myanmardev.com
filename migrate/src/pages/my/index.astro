@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Features from '../../components/Features.astro';
+import { t } from '../../i18n/utils';
+
+const lang = 'my';
+const title = t(lang, 'header.title');
+---
+
+<Layout title={title} lang={lang}>
+  <Hero lang={lang} />
+  <Features lang={lang} />
+
+  <!-- CTA Section -->
+  <section class="py-20 sm:py-32 bg-gradient-to-r from-blue-500 to-purple-600">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-6">
+        သင့်ရဲ့ ဆိုက် ဆောက်တည်ရန် အဆင်သင့်ပြီလား?
+      </h2>
+      <p class="text-xl text-blue-100 mb-8">
+        ယခုအခါ ကျွန်ုပ်တို့၏ အစွမ်းထက်သော ဆောက်တည်ရန်ကိရိယာဖြင့် လှပသော အခြေခံမဖြစ်သော ဆိုက်များ ဆောက်တည်ရန် စတင်ပါ။
+      </p>
+      <button class="px-8 py-4 bg-white text-blue-600 font-bold rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+        အခမဲ့ စတင်ပါ
+      </button>
+    </div>
+  </section>
+</Layout>

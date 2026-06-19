@@ -5,80 +5,44 @@ import Hero from '../components/Hero.astro';
 import HowItWorks from '../components/HowItWorks.astro';
 import ProductCard from '../components/ProductCard.astro';
 import ProductsComingSoon from '../components/ProductsComingSoon.astro';
+import { t, type Language } from '../i18n/utils';
 
-const title = 'myanmardev.com — Automated Subdomain Registration for Myanmar Developers';
-const description = 'myanmardev.com — automated subdomain registration and web services for Myanmar developers. Order your subdomain, pay instantly, and our workers deploy DNS automatically. No human in the loop.';
+const lang: Language = 'en';
+const title = 'myanmardev.com — Automated Subdomain Registration';
+const description = 'Get your own .myanmardev.com subdomain in seconds. Fully automated — no human touch. Built for Myanmar developers.';
 ---
 
-<Layout title={title} description={description}>
-  <Header />
+<Layout title={title} description={description} lang={lang}>
+  <Header lang={lang} />
   <main>
-    <Hero />
+    <Hero lang={lang} />
     <HowItWorks />
     <ProductCard />
     <ProductsComingSoon />
 
-    <!-- CTA Footer -->
-    <section style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);text-align:center">
-      <div class="sx rise" style="justify-content:center"><b></b> <span>/ start</span></div>
-      <h2 class="h-section rise" style="margin-top:.9rem">Ready to claim your subdomain?</h2>
-      <div class="term rise" style="max-width:32rem;margin:1.75rem auto 0;text-align:left">
-        <div class="bar"><i></i><i></i><i></i><span class="mono" style="margin-left:auto;color:var(--muted);font-size:.6875rem">yourapps --available</span></div>
-        <pre>&gt; npx myanmardev register
-<span class="g">&#10003;</span> checking <span class="g">myapp.myanmardev.com</span>
-<span class="g">&#10003;</span> available · platform: github
-<span class="g">&#10003;</span> CNAME record created in 2.1s
-<span class="g">&#10003;</span> propagated · live at <span class="g">https://myapp.myanmardev.com</span></pre>
-      </div>
-      <a class="btn rise" style="margin-top:1.75rem;padding:1rem 2.4rem" href="#product">Claim Your Subdomain</a>
-      <p class="mono rise" style="color:var(--muted);margin-top:1rem">100% automated · no account manager · instant deploy</p>
+    <!-- Contact Us -->
+    <section id="contact" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);text-align:center;border-top:1px solid #1D232B">
+      <div class="sx rise" style="justify-content:center"><b></b> <span>/ contact</span></div>
+      <h2 class="h-section rise" style="margin-top:.9rem">Get in touch</h2>
+      <p class="lede rise" style="margin:.6rem auto 0">Questions, custom requests, or partnership inquiries? Reach us directly.</p>
+      <a class="btn rise" style="margin-top:1.5rem;padding:1rem 2.4rem" href="mailto:hello@myanmardev.com">hello@myanmardev.com</a>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer style="border-top:1px solid #1D232B;background:color-mix(in srgb,var(--wash) 50%,transparent)">
-    <div style="max-width:78rem;margin:0 auto;padding:clamp(2.5rem,6vw,4rem) clamp(1.25rem,4vw,3rem) clamp(1.75rem,4vw,2.5rem);display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:2rem 1.5rem" id="tg-foot">
+    <div style="max-width:78rem;margin:0 auto;padding:clamp(2rem,4vw,3rem) clamp(1.25rem,4vw,3rem);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem">
       <div>
-        <a href="/" style="font-family:var(--display);font-weight:600;font-size:1.4rem;letter-spacing:-.02em">
+        <a href="/" style="font-family:var(--display);font-weight:600;font-size:1.1rem;letter-spacing:-.02em">
           <span style="color:var(--accent)">myanmardev</span>.com
         </a>
-        <p class="mono" style="color:color-mix(in srgb,var(--ink) 55%,transparent);font-size:.75rem;margin-top:.9rem;max-width:16rem;line-height:1.7">
-          Automated subdomain registration and web services for Myanmar developers. Order, deploy, done — zero human touch.
-        </p>
-        <p class="mono rise" style="display:flex;align-items:center;gap:.5rem;margin-top:1.1rem;color:color-mix(in srgb,var(--ink) 70%,transparent);font-size:.75rem">
-          <span class="dot" style="width:6px;height:6px"></span> all systems nominal
+        <p class="mono" style="color:color-mix(in srgb,var(--ink) 55%,transparent);font-size:.6875rem;margin-top:.4rem;max-width:22rem">
+          {t(lang, 'footer.desc')}
         </p>
       </div>
-      <nav class="mono" style="display:flex;flex-direction:column;gap:.7rem;font-size:.8125rem">
-        <span style="color:var(--accent);font-size:.6875rem">// product</span>
-        <a href="#product" style="color:color-mix(in srgb,var(--ink) 70%,transparent)">Subdomain Register</a>
-        <a href="#how" style="color:color-mix(in srgb,var(--ink) 70%,transparent)">How it works</a>
-        <a href="#coming-soon" style="color:color-mix(in srgb,var(--ink) 70%,transparent)">Coming Soon</a>
-      </nav>
-      <nav class="mono" style="display:flex;flex-direction:column;gap:.7rem;font-size:.8125rem">
-        <span style="color:var(--accent);font-size:.6875rem">// developers</span>
-        <a href="#" style="color:color-mix(in srgb,var(--ink) 70%,transparent)">API Docs</a>
-        <a href="#" style="color:color-mix(in srgb,var(--ink) 70%,transparent)">DNS Guide</a>
-        <a href="https://github.com/vibecode-ting/myanmardev.com" target="_blank" rel="noopener" style="color:color-mix(in srgb,var(--ink) 70%,transparent)">Open Source</a>
-      </nav>
-      <nav class="mono" style="display:flex;flex-direction:column;gap:.7rem;font-size:.8125rem">
-        <span style="color:var(--accent);font-size:.6875rem">// company</span>
-        <a href="#" style="color:color-mix(in srgb,var(--ink) 70%,transparent)">About</a>
-        <a href="#" style="color:color-mix(in srgb,var(--ink) 70%,transparent)">Privacy</a>
-        <a href="#" style="color:color-mix(in srgb,var(--ink) 70%,transparent)">Contact</a>
-      </nav>
-    </div>
-    <div style="max-width:78rem;margin:0 auto;padding:1.1rem clamp(1.25rem,4vw,3rem);border-top:1px solid #1D232B;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 2rem" class="mono">
-      <span style="color:color-mix(in srgb,var(--ink) 62%,transparent);font-size:.75rem">&copy; {new Date().getFullYear()} myanmardev.com — Built for Myanmar Developers</span>
-      <span style="color:color-mix(in srgb,var(--ink) 62%,transparent);font-size:.75rem">v1.0.0 · fully automated <span class="dot" style="width:6px;height:6px"></span></span>
+      <div style="display:flex;align-items:center;gap:.5rem" class="mono">
+        <span style="color:color-mix(in srgb,var(--ink) 62%,transparent);font-size:.6875rem">&copy; {new Date().getFullYear()} {t(lang, 'footer.built')}</span>
+        <span class="dot" style="width:6px;height:6px"></span>
+      </div>
     </div>
   </footer>
 </Layout>
-
-<style>
-  #tg-foot a:hover { color: var(--ink) !important; }
-  @media (max-width: 720px) {
-    #tg-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; }
-    #tg-foot > div:first-child { grid-column: span 2; }
-  }
-</style>

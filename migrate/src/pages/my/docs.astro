@@ -1,0 +1,134 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { t } from '../../i18n/utils';
+
+const lang = 'my';
+const title = 'စာ類';
+---
+
+<Layout title={title} lang={lang}>
+  <section class="py-20 sm:py-32">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-16">
+        <h1 class="text-5xl font-bold text-slate-900 dark:text-white mb-6">
+          စာ類
+        </h1>
+        <p class="text-xl text-slate-600 dark:text-slate-300">
+          အခြေခံမဖြစ်သော ဆိုက်များ ဆောက်တည်ရန် အသုံးပြုနည်း လေ့လာပါ
+        </p>
+      </div>
+
+      <!-- Documentation Sections -->
+      <div class="space-y-12">
+        <!-- Getting Started -->
+        <div class="border-l-4 border-blue-500 pl-6">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            စတင်ခြင်း
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 mb-4">
+            အခြေခံမဖြစ်သော ဆိုက်များ ဆောက်တည်ရန် လွယ်ကူစွာ လှပသော ဆိုက်များ ဆောက်တည်နိုင်ပါသည်။ အောက်ပါ အဆင့်များ လိုက်နာပါ:
+          </p>
+          <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+            <li>ကျွန်ုပ်တို့၏ စုစုပေါင်းမှ တစ်ခုကို ရွေးချယ်ပါ</li>
+            <li>အရောင်များ၊ ဖောင့်များ နှင့် အပြင်အဆင် စိတ်ကြိုက်ပြင်ဆင်ပါ</li>
+            <li>သင့်ရဲ့ အကြောင်းအရာ နှင့် ပုံများ ထည့်သွင်းပါ</li>
+            <li>GitHub Pages သို့ တစ်ကလစ်ဖြင့် ဖြန့်ဝေပါ</li>
+          </ol>
+        </div>
+
+        <!-- Templates -->
+        <div class="border-l-4 border-purple-500 pl-6">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            အသုံးပြုနိုင်သော တစ်ခုများ
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 mb-4">
+            ကျွန်ုပ်တို့သည် ကျွမ်းကျင်သောဒီဇိုင်းထုတ်ထားသော တစ်ခုများ ပေးလျှက်ရှိသည်:
+          </p>
+          <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+            <li><strong>ပုဂ္ဂလ:</strong> သင့်ရဲ့ အလုပ်များ နှင့် ပရောဂျက်များ ပြသပါ</li>
+            <li><strong>ဆိုင်ရာ:</strong> ကျွမ်းကျင်သော ဆိုင်ရာ ဆိုက်</li>
+            <li><strong>ဘလော့ဂ်:</strong> သင့်ရဲ့ အတွေးများ နှင့် အယူအဆများ မျှဝေပါ</li>
+            <li><strong>အေဂျင်စီ:</strong> သင့်ရဲ့ ဝန်ဆောင်မှုများ ကျေးဇူးပြုပြသပါ</li>
+            <li><strong>အရောင်း:</strong> သင့်ရဲ့ ထုတ်ကုန်များ အွန်လိုင်းတွင် ရောင်းချပါ</li>
+            <li><strong>အလုပ်အကိုင်:</strong> အွန်လိုင်း CV ဆောက်တည်ပါ</li>
+          </ul>
+        </div>
+
+        <!-- Customization -->
+        <div class="border-l-4 border-pink-500 pl-6">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            စိတ်ကြိုက်ပြင်ဆင်ခြင်း
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 mb-4">
+            ကျွန်ုပ်တို့၏ လွယ်ကူသော စိတ်ကြိုက်ပြင်ဆင်ရန် ကိရိယာများဖြင့် သင့်ရဲ့ ဆိုက် ကိုယ်ပိုင်ပြုလုပ်ပါ:
+          </p>
+          <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+            <p class="text-slate-600 dark:text-slate-300 font-mono text-sm">
+              ဆောက်တည်ရန်ကိရိယာတွင် အရောင်များ၊ ဖောင့်များ၊ အကွာအဝေး နှင့် အခြားများ တည်းဖြတ်ပါ
+            </p>
+          </div>
+        </div>
+
+        <!-- Deployment -->
+        <div class="border-l-4 border-green-500 pl-6">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            ဖြန့်ဝေခြင်း
+          </h2>
+          <p class="text-slate-600 dark:text-slate-300 mb-4">
+            သင့်ရဲ့ ဆိုက်ကို GitHub Pages သို့ စက္ကန့်အနည်းငယ်အတွင်း ဖြန့်ဝေပါ:
+          </p>
+          <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300">
+            <li>ဖြန့်ဝေခြင်း ခလုတ်ကို နှိပ်ပါ</li>
+            <li>သင့်ရဲ့ GitHub အကောင့် ချိတ်ဆက်ပါ</li>
+            <li>သင့်ရဲ့ ဆိုက် ချက်ချင်း အသက်သွင်းခြင်း</li>
+            <li>အဆင့်မြှင့်တင်မှုများ အလိုအလျောက်ဖြစ်သည်</li>
+          </ol>
+        </div>
+
+        <!-- FAQ -->
+        <div class="border-l-4 border-yellow-500 pl-6">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            မကြေးမုံးမုံးမေးခွန်းများ
+          </h2>
+          <div class="space-y-4">
+            <div>
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">
+                ဒါကအတုယူခြင်းလား?
+              </h3>
+              <p class="text-slate-600 dark:text-slate-300">
+                ဟုတ်ကဲ့။ အခြေခံမဖြစ်သော ဆိုက်များ ဆောက်တည်ရန် လုံးလုံးအခမဲ့ဖြစ်သည်။ သင်သည် GitHub အကောင့်သာလိုအပ်သည်။
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">
+                ကျွန်ုပ်သည် ကိုယ်ပိုင်ဒိုမိန်းကို အသုံးပြုနိုင်ပါသလား?
+              </h3>
+              <p class="text-slate-600 dark:text-slate-300">
+                ဟုတ်ကဲ့။ သင်သည် သင့်ကိုယ်ပိုင်ဒိုမိန်းကို GitHub Pages ဆိုက်သို့ ချိတ်ဆက်နိုင်သည်။
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">
+                ကျွန်ုပ်သည် ကိုယ်ပိုင်ဆိုက်ကို အဆင့်မြှင့်တင်ပါသည်လား?
+              </h3>
+              <p class="text-slate-600 dark:text-slate-300">
+                ဆောက်တည်ရန်ကိရိယာတွင် သင့်ရဲ့ အကြောင်းအရာ တည်းဖြတ်ပြီး ထပ်မံဖြန့်ဝေပါ။ ဒါအလွယ်တကူပါ။
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="mt-16 p-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white text-center">
+        <h2 class="text-2xl font-bold mb-4">အကူအညီ လိုအပ်ပါသလား?</h2>
+        <p class="mb-6">
+          သင်ရှာဖွေနေသည့်အရာ မတွေ့ရှိပါသလား? ကျွန်ုပ်တို့၏ အကူအညီ အဖွဲ့ထံ ဆက်သွယ်ပါ။
+        </p>
+        <button class="px-6 py-2 bg-white text-blue-600 font-semibold rounded-lg hover:shadow-lg transition-all">
+          အကူအညီ ရယူပါ
+        </button>
+      </div>
+    </div>
+  </section>
+</Layout>
