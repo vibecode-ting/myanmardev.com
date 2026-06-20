@@ -18,14 +18,14 @@ const { lang } = Astro.props;
   </a>
   <nav class="mono" style="display:flex;align-items:center;gap:1.2rem;color:color-mix(in srgb,var(--ink) 70%,transparent)" id="tg-links">
     <a href="/">{t(lang, 'nav.home')}</a>
-    <a href="#product">{t(lang, 'nav.product')}</a>
+    <a href="#products">{t(lang, 'nav.product')}</a>
     <a href="#coming-soon">{t(lang, 'nav.coming')}</a>
     <a href="#contact">{t(lang, 'nav.contact')}</a>
   </nav>
   <div style="display:flex;align-items:center;gap:.6rem">
     <TokenBalance client:load />
     <AuthGate client:load />
-    <LanguageSwitcher lang={lang} client:load />
+    <LanguageSwitcher client:load />
     <AuthButton client:load />
   </div>
 </header>
