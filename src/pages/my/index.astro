@@ -1,51 +1,63 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
-import Hero from '../../components/Hero.astro';
-import HowItWorks from '../../components/HowItWorks.astro';
-import Products from '../../components/Products.astro';
-import ProductCard from '../../components/ProductCard.astro';
-import ProductsComingSoon from '../../components/ProductsComingSoon.astro';
-import Pricing from '../../components/Pricing.astro';
+import App from '../../components/App';
 import { t, type Language } from '../../i18n/utils';
 const lang: Language = 'my';
-const title = 'myanmardev.com — တည်ဆောက်ပြီး ချက်ချင်းတင်ပါ';
-const description = 'မြန်မာ developer များအတွက် အလိုအလျောက် web ဝန်ဆောင်မှုများ။ သင့်ကိုယ်ပိုင် .myanmardev.com subdomain ရယူပါ။ ခရက်ဒစ်ကတ် မလိုပါ။';
+const title = 'myanmardev.com — သင့် Subdomain။ ၃၀ စက္ကန့်အတွင်း Live။';
+const description = 'Coding မလို။ စောင့်ရန်မလို။ ချက်ချင်း deploy။ မြန်မာ developer များအတွက်။';
 ---
 
 <Layout title={title} description={description} lang={lang}>
   <Header lang={lang} />
-  <main>
-    <Hero lang={lang} />
-    <HowItWorks lang={lang} />
-    <Products />
-    <ProductCard />
-    <ProductsComingSoon />
-    <Pricing />
+  <App client:load />
 
-    <!-- Contact Us -->
-    <section id="contact" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);text-align:center;border-top:1px solid #1D232B">
-      <div class="sx rise" style="justify-content:center"><b></b> <span>/ contact</span></div>
-      <h2 class="h-section rise" style="margin-top:.9rem">ဆက်သွယ်ရန်</h2>
-      <p class="lede rise" style="margin:.6rem auto 0">မေးခွန်းများ၊ စိတ်ကြိုက်တောင်းဆိုမှုများ သို့မဟုတ် မိတ်ဖက်ဆိုင်ရာ မေးမြန်းမှုများ? ကျွန်ုပ်တို့ထံ တိုက်ရိုက်ဆက်သွယ်ပါ။</p>
-      <a class="btn rise" style="margin-top:1.5rem;padding:1rem 2.4rem" href="mailto:hello@myanmardev.com">hello@myanmardev.com</a>
-    </section>
-  </main>
+  <!-- Contact -->
+  <section id="contact" style={{
+    padding: 'clamp(3rem,8vw,5rem) clamp(1.25rem,4vw,3rem)',
+    borderTop: '1px solid #1D232B',
+    textAlign: 'center',
+  }}>
+    <h2 style={{
+      fontFamily: 'var(--display)',
+      fontSize: 'clamp(1.5rem,3vw,2rem)',
+      fontWeight: 600,
+      color: 'var(--ink)',
+      marginBottom: '1rem',
+    }}>
+      ဆက်သွယ်ရန်
+    </h2>
+    <a
+      href="mailto:hello@myanmardev.com"
+      className="btn"
+      style={{ padding: '1rem 2rem' }}
+    >
+      hello@myanmardev.com
+    </a>
+  </section>
 
-  <footer style="border-top:1px solid #1D232B;background:color-mix(in srgb,var(--wash) 50%,transparent)">
-    <div style="max-width:78rem;margin:0 auto;padding:clamp(2rem,4vw,3rem) clamp(1.25rem,4vw,3rem);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem">
-      <div>
-        <a href="/" style="font-family:var(--display);font-weight:600;font-size:1.1rem;letter-spacing:-.02em">
-          <span style="color:var(--accent)">myanmardev</span>.com
-        </a>
-        <p class="mono" style="color:color-mix(in srgb,var(--ink) 55%,transparent);font-size:.6875rem;margin-top:.4rem;max-width:22rem">
-          {t(lang, 'footer.desc')}
-        </p>
-      </div>
-      <div style="display:flex;align-items:center;gap:.5rem" class="mono">
-        <span style="color:color-mix(in srgb,var(--ink) 62%,transparent);font-size:.6875rem">&copy; {new Date().getFullYear()} {t(lang, 'footer.built')}</span>
-        <span class="dot" style="width:6px;height:6px"></span>
-      </div>
-    </div>
+  <!-- Footer -->
+  <footer style={{
+    borderTop: '1px solid #1D232B',
+    background: 'color-mix(in srgb, var(--wash) 50%, transparent)',
+    padding: '2rem clamp(1.25rem,4vw,3rem)',
+    textAlign: 'center',
+  }}>
+    <a href="/" style={{
+      fontFamily: 'var(--display)',
+      fontWeight: 600,
+      fontSize: '1.1rem',
+      letterSpacing: '-0.02em',
+    }}>
+      <span style={{ color: 'var(--accent)' }}>myanmardev</span>.com
+    </a>
+    <p style={{
+      fontFamily: 'var(--mono)',
+      fontSize: '0.75rem',
+      color: 'var(--muted)',
+      marginTop: '0.5rem',
+    }}>
+      {t(lang, 'footer.rights')} · {t(lang, 'footer.built')}
+    </p>
   </footer>
 </Layout>

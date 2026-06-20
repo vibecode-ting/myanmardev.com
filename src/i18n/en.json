@@ -1,102 +1,109 @@
 {
   "nav": {
     "home": "Home",
-    "product": "Products",
-    "coming": "Coming Soon",
-    "contact": "Contact Us",
-    "dashboard": "Dashboard"
+    "products": "Products",
+    "pricing": "Pricing",
+    "contact": "Contact"
   },
   "hero": {
-    "eyebrow": "fully automated · zero human touch",
-    "heading": "Build & Deploy Instantly",
-    "lede": "Automated web services for Myanmar developers. Get your own .myanmardev.com subdomain, build websites, and deploy in seconds. No credit card required.",
-    "cta": "View Products",
-    "how": "See How It Works",
-    "footnote": "powered by Cloudflare API · instant DNS propagation"
+    "eyebrow": "Instant Deploy",
+    "heading": "Your Subdomain. Live in 30 Seconds.",
+    "sub": "No coding. No waiting. Just deploy.",
+    "cta": "Get Started Free",
+    "see": "See How It Works"
+  },
+  "products": {
+    "section": "/ products",
+    "heading": "What We Build",
+    "sub": "Automated web services for Myanmar developers",
+    "p1": {
+      "name": "Subdomain",
+      "desc": "yourname.myanmardev.com",
+      "price": "1 Token",
+      "status": "Live"
+    },
+    "p2": {
+      "name": "Website",
+      "desc": "Template-based sites",
+      "price": "3 Tokens",
+      "status": "Soon"
+    },
+    "p3": {
+      "name": "Portfolio",
+      "desc": "GitHub-powered showcase",
+      "price": "2 Tokens",
+      "status": "Soon"
+    }
   },
   "how": {
-    "section": "/ how it works",
-    "heading": "Simple 3-Step Process",
-    "step1": "Choose Your Product",
-    "step1desc": "Browse our catalog of automated web services. Each product has a clear token cost. No hidden fees.",
-    "step2": "Sign In & Pay with Tokens",
-    "step2desc": "Sign in with Google or GitHub. Use your token balance to purchase products instantly.",
-    "step3": "Deploy Instantly",
-    "step3desc": "Our automation creates your resource instantly. No waiting. No approval queues. Live in seconds."
-  },
-  "product": {
-    "section": "/ products",
-    "heading": "What We Offer",
-    "lede": "Automated web services designed for Myanmar developers. No credit card required. Deploy instantly."
-  },
-  "coming": {
-    "section": "/ roadmap",
-    "heading": "More products coming. All automated.",
-    "p1": "Static Website Builder",
-    "p1desc": "Build professional websites from templates. No coding required. Just pick a template, add your content, and deploy.",
-    "p2": "Developer Portfolio",
-    "p2desc": "Showcase your projects with a polished portfolio. Auto-fetches your GitHub repos and contributions.",
-    "p3": "Business Website",
-    "p3desc": "Full business site with contact forms, service pages, and SEO optimization. Deploy with your custom subdomain.",
-    "p4": "Restaurant QR Menu",
-    "p4desc": "Digital menu with QR code generation. Customers scan and browse your menu instantly. No app download.",
-    "p5": "Online Ordering System",
-    "p5desc": "Full e-commerce ordering with payment integration. Inventory management and automated order fulfillment.",
-    "p6": "Point of Sale System",
-    "p6desc": "Cloud POS with receipt printing, sales tracking, and inventory sync. Web-based, works on any device.",
-    "p7": "Education Platform",
-    "p7desc": "Online course platform with video hosting, quizzes, certificates. Build your own learning platform."
+    "section": "/ how",
+    "heading": "3 Steps. That's It.",
+    "s1": "Choose Product",
+    "s1d": "Pick what you need",
+    "s2": "Sign In",
+    "s2d": "Google or GitHub",
+    "s3": "Deploy",
+    "s3d": "Live instantly"
   },
   "pricing": {
     "section": "/ pricing",
-    "heading": "How Tokens Work",
-    "lede": "Tokens are our universal currency. Buy once, use across all products. No subscriptions, no hidden fees.",
-    "starter": "Starter",
-    "basic": "Basic",
-    "pro": "Pro",
-    "business": "Business",
+    "heading": "Simple Pricing",
+    "sub": "1 USD = 4,000 MMK",
     "popular": "Popular",
-    "buyTokens": "Buy Tokens",
-    "redeemCode": "Have a Promo Code?",
-    "redeemLede": "Sign in and redeem your code for free tokens. No credit card required."
+    "perToken": "/token",
+    "buy": "Buy Now",
+    "starter": {
+      "name": "Starter",
+      "tokens": "5",
+      "usd": "$2.50",
+      "mmk": "10,000 MMK"
+    },
+    "basic": {
+      "name": "Basic",
+      "tokens": "10",
+      "usd": "$4.00",
+      "mmk": "16,000 MMK"
+    },
+    "pro": {
+      "name": "Pro",
+      "tokens": "25",
+      "usd": "$8.00",
+      "mmk": "32,000 MMK"
+    },
+    "business": {
+      "name": "Business",
+      "tokens": "50",
+      "usd": "$12.00",
+      "mmk": "48,000 MMK"
+    }
+  },
+  "payment": {
+    "heading": "Choose Payment",
+    "usd": "USD",
+    "mmk": "MMK",
+    "methods": "Payment Methods",
+    "aya": "AYA Pay",
+    "kbz": "KBZ Pay",
+    "wave": "Wave Pay",
+    "cb": "CB Pay",
+    "bank": "Bank Transfer",
+    "confirm": "Confirm Payment",
+    "cancel": "Cancel"
   },
   "auth": {
     "signIn": "Sign In",
     "signOut": "Sign Out",
-    "signedInAs": "Signed in as",
-    "signInWithGoogle": "Continue with Google",
-    "signInWithGitHub": "Continue with GitHub",
-    "signInToContinue": "Sign In to Continue",
-    "chooseMethod": "Choose your preferred sign-in method"
+    "google": "Continue with Google",
+    "github": "Continue with GitHub",
+    "title": "Sign In to Continue"
   },
   "tokens": {
     "balance": "Tokens",
-    "buyTokens": "Buy Tokens",
-    "redeemCode": "Redeem Code",
-    "costPerSubdomain": "Cost per subdomain",
-    "yourBalance": "Your balance"
-  },
-  "dashboard": {
-    "title": "Your Dashboard",
-    "lede": "Manage your tokens, view order history, and track your deployments.",
-    "welcome": "Welcome back",
-    "tokensAvailable": "Tokens Available",
-    "quickActions": "Quick Actions",
-    "accountInfo": "Account Info",
-    "email": "Email",
-    "provider": "Provider",
-    "githubUsername": "GitHub Username",
-    "orderHistory": "Order History",
-    "noOrders": "No orders yet. Start by creating a subdomain!"
-  },
-  "cta": {
-    "heading": "Ready to claim your subdomain?",
-    "btn": "Claim Your Subdomain",
-    "footnote": "100% automated · no account manager · instant deploy"
+    "buy": "Buy",
+    "redeem": "Redeem"
   },
   "footer": {
-    "desc": "Automated subdomain registration and web services for Myanmar developers. Order, deploy, done.",
-    "built": "Built for Myanmar Developers"
-  },
-  "language": "Language"
+    "built": "Built for Myanmar Devs",
+    "rights": "© 2026 myanmardev.com"
+  }
 }
