@@ -3,13 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import HowItWorks from '../components/HowItWorks.astro';
+import Products from '../components/Products.astro';
 import ProductCard from '../components/ProductCard.astro';
 import ProductsComingSoon from '../components/ProductsComingSoon.astro';
+import Pricing from '../components/Pricing.astro';
 import { t, type Language } from '../i18n/utils';
-
 const lang: Language = 'en';
-const title = 'myanmardev.com — Automated Subdomain Registration';
-const description = 'Get your own .myanmardev.com subdomain in seconds. Fully automated — no human touch. Built for Myanmar developers.';
+const title = 'myanmardev.com — Build & Deploy Instantly';
+const description = 'Automated web services for Myanmar developers. Get your own .myanmardev.com subdomain, build websites, and deploy instantly. No credit card required.';
 ---
 
 <Layout title={title} description={description} lang={lang}>
@@ -17,8 +18,10 @@ const description = 'Get your own .myanmardev.com subdomain in seconds. Fully au
   <main>
     <Hero lang={lang} />
     <HowItWorks />
+    <Products />
     <ProductCard />
     <ProductsComingSoon />
+    <Pricing />
 
     <!-- Contact Us -->
     <section id="contact" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);text-align:center;border-top:1px solid #1D232B">

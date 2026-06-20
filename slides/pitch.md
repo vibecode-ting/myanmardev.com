@@ -35,13 +35,13 @@ To get a professional URL today, a Myanmar dev must:
 # What I built
 <!-- 20s -->
 
-**myanmardev.com** — automated subdomain registration in 3 steps.
+**myanmardev.com** — a full product platform for Myanmar developers.
 
-1. **Pick a subdomain** → checks Cloudflare DNS availability live
-2. **Choose platform** → GitHub Pages, Vercel, Netlify, or custom
-3. **Deploy** → Cloudflare Worker creates the CNAME record instantly
+**Public storefront:** Product showcase, token pricing, 3-step subdomain builder — all visible without sign-in.
 
-No credit card. No DNS manual. No waiting.
+**Token economy:** Buy tokens (Starter to Business), redeem promo codes, spend across products.
+
+**Dual auth:** Sign in with Google or GitHub — your dashboard tracks balance and order history.
 
 Built in **Burmese + English**, full bilingual UI.
 
@@ -51,11 +51,12 @@ Built in **Burmese + English**, full bilingual UI.
 # How I built it
 <!-- 20s -->
 
-**Stack:** Astro + React + Tailwind CSS 4 + Cloudflare Workers
+**Stack:** Astro + React + Tailwind CSS 4 + Cloudflare Workers + Firebase Auth/Firestore
 
 - **MCP:** `context7` for API docs, `memory` for session context, `github` for repo workflow
 - **Skill:** `deploy-cloudflare` — automates build → Worker deploy → Pages deploy → verify flow
 - **Agent:** `cf-worker-helper` — expert Cloudflare Worker assistant for DNS API, subdomain validation, wrangler secrets, endpoint testing
+- **New systems:** Token economy, dual OAuth (Google + GitHub), order management, user dashboard, public product showcase
 
 Claude Code drove implementation, debugging, and review across the full stack.
 
@@ -69,7 +70,8 @@ For a Myanmar dev shipping their first project:
 
 - Goes from `username.github.io` → **`myapp.myanmardev.com`** in under 2 minutes
 - Zero DNS knowledge needed
-- No credit card barrier
+- No credit card barrier — buy tokens or redeem a promo code
+- Personal dashboard tracks balance, orders, and deployments
 - Professional URL = confidence to share their work
 
 **The real person:** a university student who built a portfolio — now it lives at `theirname.myanmardev.com` instead of a generic subdomain.
@@ -84,6 +86,6 @@ For a Myanmar dev shipping their first project:
 - [x] MCP + skill + agent used — `.mcp.json`, `deploy-cloudflare` skill, `cf-worker-helper` agent
 - [x] 3 AI files committed and pushed
 - [x] report.md in team repo — `ch-3/vibecode-ting/report.md`
-- [ ] 3 GitHub stars ⭐⭐⭐
-- [ ] `doctor.sh ch-3` all green
-- [ ] Submitted in Discord `#ch-3`
+- [x] 3 GitHub stars ⭐⭐⭐
+- [x] `doctor.sh ch-3` all green
+- [x] Submitted in Discord `#ch-3`

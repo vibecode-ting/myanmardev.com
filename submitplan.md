@@ -16,10 +16,10 @@
 | 4 | `.claude/skills/<name>/SKILL.md` | Project repo | ✅ Done |
 | 5 | `.claude/agents/<name>.md` | Project repo | ✅ Done |
 | 6 | 6-slide PechaKucha | `slides/pitch.md` in project repo | ✅ Done |
-| 7 | 3 GitHub stars ⭐ | Project repo | ❌ 1/3 |
+| 7 | 3 GitHub stars ⭐ | Project repo | ✅ Done |
 | 8 | `report.md` | `ch-3/vibecode-ting/report.md` in team-05 | ✅ Done |
-| 9 | `doctor.sh ch-3` — all green | Terminal | ❌ TODO |
-| 10 | Post in `#ch-3` Discord | Discord | ❌ TODO |
+| 9 | `doctor.sh ch-3` — all green | Terminal | ✅ Done |
+| 10 | Post in `#ch-3` Discord | Discord | ✅ Done |
 
 ---
 
@@ -129,13 +129,8 @@ auto-advance: 20
 | Star | Who | Done? |
 |---|---|---|
 | ⭐ 1 | (existing) | ✅ 1 |
-| ⭐ 2 | Ask a teammate | ❌ |
-| ⭐ 3 | Ask a teammate | ❌ |
-
-**Send your repo link in your team channel:**
-> Hey team, please ⭐ my ch-3 project: https://github.com/vibecode-ting/myanmardev.com — I'll star yours back!
-
-**Teammates to ask:** a-k-m, itotheconnn, samm24tt, winnaingsoe6666, zhiqiangwu1406
+| ⭐ 2 | (teammate) | ✅ 2 |
+| ⭐ 3 | (teammate) | ✅ 3 |
 
 ---
 
@@ -156,25 +151,19 @@ auto-advance: 20
 
 ---
 
-### Step 6 — Run doctor.sh
+### Step 6 — Run doctor.sh (✅ Complete)
 
 ```bash
 bash doctor.sh ch-3
 ```
 
-This checks:
-- 3 AI files exist in your project repo
-- 3 stars on your repo
-- 6 slides with 20s auto-advance
-- report.md filled in team repo
-
-Fix any red ❌ until everything is green ✅.
+All checks passed green — 3 AI files present, 3 stars confirmed, 6 slides with 20s auto-advance, report.md filled.
 
 ---
 
-### Step 7 — Submit in Discord
+### Step 7 — Submit in Discord (✅ Complete)
 
-Post in `#ch-3`:
+Posted in `#ch-3`:
 ```
 @vibecode-ting ch-3 submission
 Repo: https://github.com/vibecode-ting/myanmardev.com
@@ -182,7 +171,7 @@ Report: ch-3/vibecode-ting/report.md
 Slides: slides/pitch.md
 ```
 
-Instructor reacts ✅ → you unlock Chapter 4.
+Instructor reacted ✅ — Chapter 4 unlocked.
 
 ---
 
@@ -190,10 +179,36 @@ Instructor reacts ✅ → you unlock Chapter 4.
 
 | Priority | Task | Effort |
 |---|---|---|
-| 🔴 **P1** | Get 2 more stars from teammates (have 1/3) | Ask now |
-| 🔴 **P1** | Push AI files + slides to GitHub: `cd ~/myanmardev.com && git add . && git commit -m "ch-3: add MCP, skill, agent, and slides" && git push` | 2 min |
-| 🟢 **P2** | Run `doctor.sh ch-3` | 2 min |
-| 🟢 **P2** | Post in Discord `#ch-3` | 1 min |
+| All tasks complete | ch-3 submission fully done | -- |
+
+---
+
+## Features Implemented Since Initial Plan
+
+### Token Economy System
+- **Token packages:** Starter (5/$2.50), Basic (10/$4.00), Pro (25/$8.00), Business (50/$12.00)
+- **Redeem codes:** Promo codes for free tokens — admin-created, single or multi-use, with expiry
+- **Order system:** Token purchase orders (pending/admin-approved) and product orders (instant completion)
+- **Key files:** `src/lib/orders.ts`, `src/lib/redeem.ts`, `src/components/BuyTokensModal.tsx`, `src/components/RedeemCodeModal.tsx`, `src/components/TokenBalance.tsx`, `src/components/OrderHistory.tsx`
+
+### Dual Authentication (Google + GitHub)
+- **Firebase Auth** with both Google and GitHub OAuth providers
+- **User profiles** stored in Firestore with provider info, token balance, GitHub username extraction
+- **Sign-in modal** with both providers side-by-side
+- **Auth state management** via React context (AuthProvider)
+- **Key files:** `src/lib/auth.ts`, `src/components/AuthProvider.tsx`, `src/components/SignInModal.tsx`, `src/components/AuthButton.tsx`, `src/components/AuthGuard.tsx`, `src/components/AuthGate.tsx`
+
+### Public Product Showcase
+- **Products page section** visible to all visitors — lists Subdomain Registration (available), Static Website Builder (coming soon), Developer Portfolio (coming soon)
+- **Pricing page section** with token package cards and "How Tokens Work" explainer
+- **Key files:** `src/components/Products.astro`, `src/components/Pricing.astro`, `src/components/ProductCard.astro`, `src/components/ProductsComingSoon.astro`
+
+### User Dashboard
+- **Dedicated dashboard page** at `/en/dashboard` for signed-in users
+- **Token balance display** with buy/redeem quick actions
+- **Account info** showing email, auth provider, GitHub username
+- **Order history** with filtering by type (token purchase, subdomain, website, portfolio)
+- **Key files:** `src/pages/en/dashboard.astro`, `src/components/DashboardContent.tsx`
 
 ---
 
@@ -205,22 +220,50 @@ myanmardev.com/
 ├── package.json
 ├── tsconfig.json
 ├── src/
-│   ├── components/     (Header, Hero, HowItWorks, ProductCard, LanguageSwitcher, etc.)
-│   ├── i18n/           (en.json, my.json, utils.ts)
-│   ├── layouts/        (Layout.astro)
-│   ├── lib/            (api.ts, firebase.ts, firestore.ts)
-│   └── pages/          (index.astro)
-├── workers/            (subdomain-api.js, wrangler.toml)
-├── migrate/            (migration project)
-├── public/             (favicon.svg)
-└── .github/workflows/  (deploy.yml)
+│   ├── components/
+│   │   ├── AuthProvider.tsx       (React context for auth state)
+│   │   ├── AuthButton.tsx         (Sign in/out button)
+│   │   ├── AuthGuard.tsx          (Route protection)
+│   │   ├── AuthGate.tsx           (Conditional rendering)
+│   │   ├── SignInModal.tsx         (Google + GitHub sign-in)
+│   │   ├── TokenBalance.tsx       (Token display widget)
+│   │   ├── BuyTokensModal.tsx     (Token purchase flow)
+│   │   ├── RedeemCodeModal.tsx    (Promo code redemption)
+│   │   ├── OrderHistory.tsx       (Order list with filters)
+│   │   ├── DashboardContent.tsx   (Full dashboard layout)
+│   │   ├── SubdomainBuilder.tsx   (3-step subdomain flow)
+│   │   ├── Header.astro           (Site header)
+│   │   ├── Hero.astro             (Landing hero)
+│   │   ├── HowItWorks.astro       (3-step explainer)
+│   │   ├── Products.astro         (Product showcase)
+│   │   ├── Pricing.astro          (Token pricing cards)
+│   │   ├── ProductCard.astro      (Individual product)
+│   │   ├── ProductsComingSoon.astro
+│   │   ├── LanguageSwitcher.tsx    (EN/MY toggle)
+│   │   └── AccessGate.tsx         (Legacy access check)
+│   ├── i18n/                      (en.json, my.json, utils.ts)
+│   ├── layouts/                   (Layout.astro)
+│   ├── lib/
+│   │   ├── api.ts                 (Cloudflare Worker API calls)
+│   │   ├── auth.ts                (User profiles, token balance, Firestore CRUD)
+│   │   ├── firebase.ts            (Firebase init)
+│   │   ├── firestore.ts           (Firestore helpers)
+│   │   ├── orders.ts              (Token/product order management)
+│   │   └── redeem.ts              (Redeem code system)
+│   └── pages/
+│       ├── index.astro            (Landing page)
+│       └── en/
+│           └── dashboard.astro    (User dashboard)
+├── workers/                       (subdomain-api.js, wrangler.toml)
+├── migrate/                       (migration project)
+├── public/                        (favicon.svg)
+└── .github/workflows/             (deploy.yml)
 ```
 
 ---
 
 ## Notes
 
-- Your proposal is now aligned with myanmardev.com — what's in `member-proposals/vibecode-ting.md` matches what you're building.
 - `slides_url` MUST be a file path like `slides/pitch.md`, NOT a full `https://` link. This is the #1 mistake people make.
 - The report goes in the TEAM repo (`team-05/ch-3/vibecode-ting/report.md`), NOT in myanmardev.com.
-- Team-level files (`team-proposal.md`, `spec.md`, `working-agreement.md`, `decision.md`) are for the TEAM project — you don't need those for your personal ch-3 submission.
+- All ch-3 checklist items are complete. Project is ready for submission.

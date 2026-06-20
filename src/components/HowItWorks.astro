@@ -1,44 +1,90 @@
+---
+import { t, type Language } from '../i18n/utils';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'en' } = Astro.props;
+---
+
 <section id="how" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid #1D232B;border-bottom:1px solid #1D232B;background:color-mix(in srgb,var(--wash) 60%,transparent)">
   <div style="max-width:78rem;margin:0 auto">
-    <div class="sx rise"><b></b> <span>/ pipeline</span></div>
-    <h2 class="h-section rise" style="margin-top:.9rem;max-width:30rem">Order. Pay. Deploy. Zero human touch.</h2>
-    <ol id="tg-ledger" style="margin-top:2.5rem;list-style:none">
-      <li class="rise" style="display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:1.5rem;padding:1.5rem 0;border-top:1px solid #1D232B">
-        <span class="mono" style="color:var(--accent);font-size:1.5rem;font-weight:700">No.01</span>
-        <div>
-          <h3 style="font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,2.4vw,1.65rem)">Pick your subdomain</h3>
-          <p style="font-size:.9375rem;color:color-mix(in srgb,var(--ink) 60%,transparent);margin-top:.3rem;max-width:40rem">Choose any available name under <span class="mono" style="color:var(--accent);font-size:.8125rem">.myanmardev.com</span>. Our system checks DNS availability instantly against live Cloudflare records.</p>
+    <div class="sx rise" style="justify-content:center"><b></b> <span>/ how it works</span></div>
+    <h2 class="h-section rise" style="margin-top:.9rem;text-align:center">Simple 3-Step Process</h2>
+    <p class="lede rise" style="margin:.6rem auto 0;text-align:center;max-width:600px">
+      From browsing to deployment in under 60 seconds. No technical knowledge required.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:3rem">
+      <!-- Step 1: Choose Product -->
+      <div class="rise" style="text-align:center;padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px">
+        <div style="font-size:3rem;margin-bottom:1rem">1️⃣</div>
+        <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.75rem">
+          Choose Your Product
+        </h3>
+        <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0;line-height:1.6">
+          Browse our catalog of automated web services. Each product has a clear token cost. No hidden fees.
+        </p>
+      </div>
+
+      <!-- Step 2: Sign In & Pay -->
+      <div class="rise" style="text-align:center;padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px">
+        <div style="font-size:3rem;margin-bottom:1rem">2️⃣</div>
+        <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.75rem">
+          Sign In & Pay with Tokens
+        </h3>
+        <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0;line-height:1.6">
+          Sign in with Google or GitHub. Use your token balance to purchase products instantly.
+        </p>
+      </div>
+
+      <!-- Step 3: Deploy -->
+      <div class="rise" style="text-align:center;padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px">
+        <div style="font-size:3rem;margin-bottom:1rem">3️⃣</div>
+        <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.75rem">
+          Deploy Instantly
+        </h3>
+        <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0;line-height:1.6">
+          Our automation creates your resource instantly. No waiting. No approval queues. Live in seconds.
+        </p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;margin-top:3rem;padding:2rem;background:color-mix(in srgb, var(--accent) 8%, transparent);border:1px solid color-mix(in srgb, var(--accent) 20%, transparent);border-radius:12px">
+      <div style="text-align:center">
+        <div style="font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent)">
+          500+
         </div>
-        <span class="mono" style="color:color-mix(in srgb,var(--ink) 60%,transparent);font-size:.75rem;white-space:nowrap;text-align:right">availability check<br>~200ms</span>
-      </li>
-      <li class="rise" style="display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:1.5rem;padding:1.5rem 0;border-top:1px solid #1D232B">
-        <span class="mono" style="color:var(--accent);font-size:1.5rem;font-weight:700">No.02</span>
-        <div>
-          <h3 style="font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,2.4vw,1.65rem)">Choose platform & confirm</h3>
-          <p style="font-size:.9375rem;color:color-mix(in srgb,var(--ink) 60%,transparent);margin-top:.3rem;max-width:40rem">Connect to GitHub Pages, Vercel, Netlify, or any custom CNAME. We map your subdomain to your live project endpoint automatically.</p>
+        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
+          Subdomains Created
         </div>
-        <span class="mono" style="color:color-mix(in srgb,var(--ink) 60%,transparent);font-size:.75rem;white-space:nowrap;text-align:right">4 platforms<br>1 click each</span>
-      </li>
-      <li class="rise" style="display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:1.5rem;padding:1.5rem 0;border-top:1px solid #1D232B;border-bottom:1px solid #1D232B">
-        <span class="mono" style="color:var(--accent);font-size:1.5rem;font-weight:700">No.03</span>
-        <div>
-          <h3 style="font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,2.4vw,1.65rem)">DNS created. You go live.</h3>
-          <p style="font-size:.9375rem;color:color-mix(in srgb,var(--ink) 60%,transparent);margin-top:.3rem;max-width:40rem">The worker creates the CNAME record via Cloudflare API the moment your payment succeeds. No approval queue. No support ticket. Your subdomain routes traffic instantly.</p>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent)">
+          200+
         </div>
-        <span class="mono" style="color:var(--accent);font-size:.75rem;white-space:nowrap;text-align:right">instant deploy<br>0 waiting</span>
-      </li>
-    </ol>
+        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
+          Developers
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent)">
+          99.9%
+        </div>
+        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
+          Uptime
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent)">
+          &lt;1s
+        </div>
+        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
+          Deploy Time
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-
-<style>
-  @media (max-width: 640px) {
-    #tg-ledger li {
-      grid-template-columns: minmax(0, 1fr) !important;
-      gap: 0.5rem !important;
-    }
-    #tg-ledger li span:last-child {
-      text-align: left !important;
-    }
-  }
-</style>

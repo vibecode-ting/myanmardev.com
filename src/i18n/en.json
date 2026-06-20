@@ -1,39 +1,41 @@
 {
   "nav": {
     "home": "Home",
-    "product": "Product",
+    "product": "Products",
     "coming": "Coming Soon",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "dashboard": "Dashboard"
   },
   "hero": {
     "eyebrow": "fully automated · zero human touch",
-    "heading": "Your Subdomain. Instantly Deployed.",
-    "lede": "Get your own .myanmardev.com subdomain in seconds. Choose your name, pick a hosting platform, and our automation workers create the DNS record — no waiting, no manual setup.",
-    "cta": "Claim Your Subdomain",
+    "heading": "Build & Deploy Instantly",
+    "lede": "Automated web services for Myanmar developers. Get your own .myanmardev.com subdomain, build websites, and deploy in seconds. No credit card required.",
+    "cta": "View Products",
     "how": "See How It Works",
     "footnote": "powered by Cloudflare API · instant DNS propagation"
   },
   "how": {
-    "section": "/ pipeline",
-    "heading": "Order. Pay. Deploy. Zero human touch.",
-    "step1": "Pick your subdomain",
-    "step1desc": "Choose any available name under .myanmardev.com. Our system checks DNS availability instantly against live Cloudflare records.",
-    "step2": "Choose platform & confirm",
-    "step2desc": "Connect to GitHub Pages, Vercel, Netlify, or any custom CNAME. We map your subdomain to your live project endpoint automatically.",
-    "step3": "DNS created. You go live.",
-    "step3desc": "The worker creates the CNAME record via Cloudflare API the moment your payment succeeds. No approval queue. No support ticket."
+    "section": "/ how it works",
+    "heading": "Simple 3-Step Process",
+    "step1": "Choose Your Product",
+    "step1desc": "Browse our catalog of automated web services. Each product has a clear token cost. No hidden fees.",
+    "step2": "Sign In & Pay with Tokens",
+    "step2desc": "Sign in with Google or GitHub. Use your token balance to purchase products instantly.",
+    "step3": "Deploy Instantly",
+    "step3desc": "Our automation creates your resource instantly. No waiting. No approval queues. Live in seconds."
   },
   "product": {
-    "section": "/ product",
-    "heading": "Subdomain Register — Live Demo"
+    "section": "/ products",
+    "heading": "What We Offer",
+    "lede": "Automated web services designed for Myanmar developers. No credit card required. Deploy instantly."
   },
   "coming": {
     "section": "/ roadmap",
     "heading": "More products coming. All automated.",
     "p1": "Static Website Builder",
-    "p1desc": "Order a professionally designed static site with custom domain. Pick a template, fill your content, deploy automatically.",
+    "p1desc": "Build professional websites from templates. No coding required. Just pick a template, add your content, and deploy.",
     "p2": "Developer Portfolio",
-    "p2desc": "Showcase your projects with a polished portfolio. Add repos, deploy links, and custom branding in one flow.",
+    "p2desc": "Showcase your projects with a polished portfolio. Auto-fetches your GitHub repos and contributions.",
     "p3": "Business Website",
     "p3desc": "Full business site with contact forms, service pages, and SEO optimization. Deploy with your custom subdomain.",
     "p4": "Restaurant QR Menu",
@@ -45,15 +47,52 @@
     "p7": "Education Platform",
     "p7desc": "Online course platform with video hosting, quizzes, certificates. Build your own learning platform."
   },
-  "cta": {
-    "heading": "Ready to claim your subdomain?",
-    "btn": "Claim Your Subdomain",
-    "footnote": "100% automated · no account manager · instant deploy"
+  "pricing": {
+    "section": "/ pricing",
+    "heading": "How Tokens Work",
+    "lede": "Tokens are our universal currency. Buy once, use across all products. No subscriptions, no hidden fees.",
+    "starter": "Starter",
+    "basic": "Basic",
+    "pro": "Pro",
+    "business": "Business",
+    "popular": "Popular",
+    "buyTokens": "Buy Tokens",
+    "redeemCode": "Have a Promo Code?",
+    "redeemLede": "Sign in and redeem your code for free tokens. No credit card required."
   },
   "auth": {
     "signIn": "Sign In",
     "signOut": "Sign Out",
-    "signedInAs": "Signed in as"
+    "signedInAs": "Signed in as",
+    "signInWithGoogle": "Continue with Google",
+    "signInWithGitHub": "Continue with GitHub",
+    "signInToContinue": "Sign In to Continue",
+    "chooseMethod": "Choose your preferred sign-in method"
+  },
+  "tokens": {
+    "balance": "Tokens",
+    "buyTokens": "Buy Tokens",
+    "redeemCode": "Redeem Code",
+    "costPerSubdomain": "Cost per subdomain",
+    "yourBalance": "Your balance"
+  },
+  "dashboard": {
+    "title": "Your Dashboard",
+    "lede": "Manage your tokens, view order history, and track your deployments.",
+    "welcome": "Welcome back",
+    "tokensAvailable": "Tokens Available",
+    "quickActions": "Quick Actions",
+    "accountInfo": "Account Info",
+    "email": "Email",
+    "provider": "Provider",
+    "githubUsername": "GitHub Username",
+    "orderHistory": "Order History",
+    "noOrders": "No orders yet. Start by creating a subdomain!"
+  },
+  "cta": {
+    "heading": "Ready to claim your subdomain?",
+    "btn": "Claim Your Subdomain",
+    "footnote": "100% automated · no account manager · instant deploy"
   },
   "footer": {
     "desc": "Automated subdomain registration and web services for Myanmar developers. Order, deploy, done.",

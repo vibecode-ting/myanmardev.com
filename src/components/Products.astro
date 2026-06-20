@@ -1,0 +1,89 @@
+---
+// Products showcase - visible to everyone
+---
+
+<section id="products" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid #1D232B">
+  <div style="max-width:78rem;margin:0 auto">
+    <div class="sx rise" style="justify-content:center"><b></b> <span>/ products</span></div>
+    <h2 class="h-section rise" style="margin-top:.9rem;text-align:center">What We Offer</h2>
+    <p class="lede rise" style="margin:.6rem auto 0;text-align:center;max-width:600px">
+      Automated web services designed for Myanmar developers. No credit card required. Deploy instantly.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem">
+      <!-- Product 1: Subdomain Registration -->
+      <div class="product-card rise" style="padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px;transition:all 0.3s">
+        <div style="font-size:2.5rem;margin-bottom:1rem">🌐</div>
+        <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.5rem">
+          Subdomain Registration
+        </h3>
+        <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0 0 1.5rem;line-height:1.6">
+          Get your own <code style="background:#1D232B;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:0.875rem">.myanmardev.com</code> subdomain instantly. Choose from GitHub Pages, Vercel, Netlify, or custom CNAME.
+        </p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+          <span style="font-family:var(--mono);font-size:0.875rem;font-weight:700;color:var(--accent)">
+            🪙 1 Token
+          </span>
+          <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);background:#1D232B;padding:4px 8px;border-radius:4px">
+            Available Now
+          </span>
+        </div>
+        <a href="#product" class="btn" style="width:100%;justify-content:center;padding:0.75rem">
+          Get Started
+        </a>
+      </div>
+
+      <!-- Product 2: Static Website Builder -->
+      <div class="product-card rise" style="padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px;transition:all 0.3s;opacity:0.7">
+        <div style="font-size:2.5rem;margin-bottom:1rem">🏗️</div>
+        <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.5rem">
+          Static Website Builder
+        </h3>
+        <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0 0 1.5rem;line-height:1.6">
+          Build professional websites from templates. No coding required. Just pick a template, add your content, and deploy.
+        </p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+          <span style="font-family:var(--mono);font-size:0.875rem;font-weight:700;color:var(--accent)">
+            🪙 3 Tokens
+          </span>
+          <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);background:#1D232B;padding:4px 8px;border-radius:4px">
+            Coming Soon
+          </span>
+        </div>
+        <button disabled style="width:100%;justify-content:center;padding:0.75rem;background:#1D232B;color:var(--muted);border:none;border-radius:6px;font-family:var(--mono);font-size:0.875rem;font-weight:600;cursor:not-allowed">
+          Coming Soon
+        </button>
+      </div>
+
+      <!-- Product 3: Developer Portfolio -->
+      <div class="product-card rise" style="padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px;transition:all 0.3s;opacity:0.7">
+        <div style="font-size:2.5rem;margin-bottom:1rem">💼</div>
+        <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.5rem">
+          Developer Portfolio
+        </h3>
+        <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0 0 1.5rem;line-height:1.6">
+          Showcase your projects with a polished portfolio. Auto-fetches your GitHub repos and contributions. Perfect for job hunting.
+        </p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+          <span style="font-family:var(--mono);font-size:0.875rem;font-weight:700;color:var(--accent)">
+            🪙 2 Tokens
+          </span>
+          <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);background:#1D232B;padding:4px 8px;border-radius:4px">
+            Coming Soon
+          </span>
+        </div>
+        <button disabled style="width:100%;justify-content:center;padding:0.75rem;background:#1D232B;color:var(--muted);border:none;border-radius:6px;font-family:var(--mono);font-size:0.875rem;font-weight:600;cursor:not-allowed">
+          Coming Soon
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .product-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent) !important;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+</style>

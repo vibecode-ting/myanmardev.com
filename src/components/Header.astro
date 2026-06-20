@@ -1,5 +1,7 @@
 ---
 import AuthButton from './AuthButton';
+import AuthGate from './AuthGate';
+import TokenBalance from './TokenBalance';
 import LanguageSwitcher from './LanguageSwitcher';
 import { t, type Language } from '../i18n/utils';
 
@@ -21,8 +23,10 @@ const { lang } = Astro.props;
     <a href="#contact">{t(lang, 'nav.contact')}</a>
   </nav>
   <div style="display:flex;align-items:center;gap:.6rem">
+    <TokenBalance client:load />
+    <AuthGate client:load />
     <LanguageSwitcher lang={lang} client:load />
-    <AuthButton lang={lang} client:load />
+    <AuthButton client:load />
   </div>
 </header>
 

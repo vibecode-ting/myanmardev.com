@@ -1,5 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { checkSubdomain, createSubdomain } from '../lib/api';
+import { useAuth } from './AuthProvider';
+import { deductTokens } from '../lib/auth';
+import { createProductOrder } from '../lib/orders';
+import SignInModal from './SignInModal';
+import BuyTokensModal from './BuyTokensModal';
 
 // ─── Types ──────────────────────────────────────────────
 
@@ -21,6 +26,8 @@ const PLATFORMS: PlatformOption[] = [
   { value: 'netlify', label: 'Netlify', description: 'Deploy on Netlify', cnameTarget: 'netlify.app', placeholder: 'your-site-name' },
   { value: 'custom', label: 'Custom CNAME', description: 'Enter any CNAME target', cnameTarget: '', placeholder: 'your-target.example.com' },
 ];
+
+const TOKEN_COST = 1; // Cost in tokens for subdomain registration
 
 // ─── Step Indicator ─────────────────────────────────────
 
@@ -152,12 +159,15 @@ if (typeof document !== 'undefined' && !document.getElementById(INJECTED)) {
 // ─── Main Component ──────────────────────────────────────
 
 export default function SubdomainBuilder() {
+  const { isSignedIn, profile, signInWithGoogle, signInWithGitHub, refreshProfile } = useAuth();
   const [step, setStep] = useState<Step>(1);
   const [subdomain, setSubdomain] = useState('');
   const [platform, setPlatform] = useState<Platform>('github');
   const [sourceUrl, setSourceUrl] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState('');
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showBuyTokensModal, setShowBuyTokensModal] = useState(false);
 
   const selectedPlatform = PLATFORMS.find((p) => p.value === platform)!;
 
@@ -169,6 +179,19 @@ export default function SubdomainBuilder() {
       setMessage('Invalid subdomain. Use letters, numbers, and hyphens.');
       return;
     }
+
+    // Check if user is signed in
+    if (!isSignedIn) {
+      setShowSignInModal(true);
+      return;
+    }
+
+    // Check if user has enough tokens
+    if (!profile || profile.tokenBalance < TOKEN_COST) {
+      setShowBuyTokensModal(true);
+      return;
+    }
+
     setStatus('checking');
     setMessage(`Checking ${trimmed}.myanmardev.com...`);
     try {
@@ -185,24 +208,59 @@ export default function SubdomainBuilder() {
       setStatus('error');
       setMessage(err.message || 'Check failed. Try again.');
     }
-  }, [subdomain]);
+  }, [subdomain, isSignedIn, profile]);
 
   const handleCreate = useCallback(async () => {
+    // Double-check auth and tokens
+    if (!isSignedIn || !profile) {
+      setShowSignInModal(true);
+      return;
+    }
+
+    if (profile.tokenBalance < TOKEN_COST) {
+      setShowBuyTokensModal(true);
+      return;
+    }
+
     setStatus('creating');
     setMessage('Creating DNS record...');
     try {
+      // 1. Create the subdomain
       const result = await createSubdomain({
         subdomain: subdomain.trim().toLowerCase(),
         platform,
         sourceUrl: sourceUrl.trim(),
       });
+
+      // 2. Deduct tokens
+      const deducted = await deductTokens(profile.uid, TOKEN_COST);
+      if (!deducted) {
+        throw new Error('Insufficient tokens. Please purchase more tokens.');
+      }
+
+      // 3. Record the order
+      await createProductOrder(
+        profile.uid,
+        profile.email,
+        'subdomain',
+        TOKEN_COST,
+        {
+          subdomain: `${subdomain.trim().toLowerCase()}.myanmardev.com`,
+          platform,
+          sourceUrl: sourceUrl.trim(),
+        }
+      );
+
+      // 4. Refresh profile to update token balance
+      await refreshProfile();
+
       setStatus('success');
       setMessage(`${result.subdomain} → ${result.record.content}`);
     } catch (err: any) {
       setStatus('error');
       setMessage(err.message || 'Creation failed. Try again.');
     }
-  }, [subdomain, platform, sourceUrl]);
+  }, [subdomain, platform, sourceUrl, isSignedIn, profile, refreshProfile]);
 
   const handleReset = useCallback(() => {
     setStep(1); setSubdomain(''); setPlatform('github');
@@ -235,6 +293,62 @@ export default function SubdomainBuilder() {
             />
             <span className="tg-input-suffix">.myanmardev.com</span>
           </div>
+
+          {/* Token Cost Info */}
+          <div style={{
+            marginTop: '0.75rem',
+            padding: '0.75rem 1rem',
+            background: 'color-mix(in srgb, var(--accent) 8%, transparent)',
+            border: '1px solid color-mix(in srgb, var(--accent) 20%, transparent)',
+            borderRadius: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontFamily: 'var(--mono)',
+            fontSize: '0.75rem',
+          }}>
+            <span style={{ color: 'var(--muted)' }}>Cost per subdomain:</span>
+            <span style={{ color: 'var(--accent)', fontWeight: 700 }}>🪙 {TOKEN_COST} Token</span>
+          </div>
+
+          {/* Auth Status */}
+          {isSignedIn && profile ? (
+            <div style={{
+              marginTop: '0.5rem',
+              padding: '0.5rem 1rem',
+              background: 'var(--wash)',
+              border: '1px solid #1D232B',
+              borderRadius: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontFamily: 'var(--mono)',
+              fontSize: '0.75rem',
+            }}>
+              <span style={{ color: 'var(--muted)' }}>Your balance:</span>
+              <span style={{
+                color: profile.tokenBalance >= TOKEN_COST ? 'var(--accent)' : '#E8A33D',
+                fontWeight: 700,
+              }}>
+                🪙 {profile.tokenBalance} Tokens
+              </span>
+            </div>
+          ) : (
+            <div style={{
+              marginTop: '0.5rem',
+              padding: '0.5rem 1rem',
+              background: 'color-mix(in srgb, #E8A33D 8%, transparent)',
+              border: '1px solid color-mix(in srgb, #E8A33D 20%, transparent)',
+              borderRadius: '6px',
+              fontFamily: 'var(--mono)',
+              fontSize: '0.75rem',
+              color: '#E8A33D',
+              textAlign: 'center',
+            }}>
+              Sign in to check availability and deploy
+            </div>
+          )}
+
           <div style={{ marginTop: '0.9rem' }}>
             <button
               onClick={handleCheck}
@@ -250,7 +364,7 @@ export default function SubdomainBuilder() {
                   </svg>
                   CHECKING
                 </>
-              ) : 'CHECK AVAILABILITY'}
+              ) : isSignedIn ? 'CHECK AVAILABILITY' : 'SIGN IN TO CHECK'}
             </button>
           </div>
           <StatusAlert status={status} message={message} />
@@ -314,6 +428,42 @@ export default function SubdomainBuilder() {
             </div>
           </div>
 
+          {/* Token Cost Summary */}
+          <div style={{
+            marginTop: '1rem',
+            padding: '1rem',
+            background: 'color-mix(in srgb, var(--accent) 8%, transparent)',
+            border: '1px solid color-mix(in srgb, var(--accent) 20%, transparent)',
+            borderRadius: '6px',
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontFamily: 'var(--mono)',
+              fontSize: '0.8125rem',
+              marginBottom: '0.5rem',
+            }}>
+              <span style={{ color: 'var(--muted)' }}>Token Cost:</span>
+              <span style={{ color: 'var(--accent)', fontWeight: 700 }}>🪙 {TOKEN_COST} Token</span>
+            </div>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontFamily: 'var(--mono)',
+              fontSize: '0.8125rem',
+            }}>
+              <span style={{ color: 'var(--muted)' }}>Your Balance:</span>
+              <span style={{
+                color: profile && profile.tokenBalance >= TOKEN_COST ? 'var(--accent)' : '#E8A33D',
+                fontWeight: 700,
+              }}>
+                🪙 {profile?.tokenBalance || 0} Tokens
+              </span>
+            </div>
+          </div>
+
           <div className="tg-btn-row">
             <button onClick={() => setStep(2)} disabled={status === 'creating'} className="btn btn--ghost" style={{ padding: '0.6rem 1.1rem', opacity: status === 'creating' ? 0.5 : 1 }}>
               ← Back
@@ -332,7 +482,7 @@ export default function SubdomainBuilder() {
                   </svg>
                   DEPLOYING
                 </>
-              ) : 'DEPLOY SUBDOMAIN'}
+              ) : `DEPLOY SUBDOMAIN (🪙 ${TOKEN_COST} Token)`}
             </button>
           </div>
 
@@ -345,6 +495,27 @@ export default function SubdomainBuilder() {
           )}
         </div>
       )}
+
+      {/* Sign In Modal */}
+      <SignInModal
+        isOpen={showSignInModal}
+        onClose={() => setShowSignInModal(false)}
+        onSignInGoogle={async () => {
+          setShowSignInModal(false);
+          await signInWithGoogle();
+        }}
+        onSignInGitHub={async () => {
+          setShowSignInModal(false);
+          await signInWithGitHub();
+        }}
+      />
+
+      {/* Buy Tokens Modal */}
+      <BuyTokensModal
+        isOpen={showBuyTokensModal}
+        onClose={() => setShowBuyTokensModal(false)}
+        onSuccess={refreshProfile}
+      />
     </div>
   );
 }

@@ -1,0 +1,140 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================================
+    // USERS — User profiles with token balance
+    // =========================================================================
+    // Created on first sign-in (GitHub or Google OAuth).
+    // Fields: uid, email, displayName, photoURL, provider, githubUsername,
+    //         tokenBalance (number), createdAt, lastLoginAt
+    //
+    // Security:
+    //   - Users can read and update ONLY their own profile
+    //   - Any authenticated user can create a profile (happens on first login)
+    //   - Token balance is updated via atomic increment in client code
+    //     (deductTokens, updateTokenBalance in src/lib/firestore.ts)
+    // =========================================================================
+    match /users/{userId} {
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
+    }
+
+    // =========================================================================
+    // APPROVED_USERS — Legacy GitHub approval system
+    // =========================================================================
+    // Document ID = lowercase GitHub username
+    // Fields: githubUsername (string), addedAt (ISO timestamp)
+    //
+    // This is the original access control mechanism. Before dual auth was
+    // added, only GitHub users listed here could sign in. It is kept for
+    // backward compatibility.
+    //
+    // Security:
+    //   - Anyone can read (the frontend checks this on GitHub sign-in)
+    //   - Writes are denied from the client — managed via:
+    //       * Firebase Console (manual)
+    //       * scripts/approve-user.mjs (admin CLI)
+    // =========================================================================
+    match /approved_users/{username} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // =========================================================================
+    // ORDERS — Token purchase orders and product orders
+    // =========================================================================
+    // Two order types:
+    //
+    // 1. Token Purchase Orders (type: "token_purchase")
+    //    - User selects a token package (5/10/25/50 tokens)
+    //    - Order is created with status "pending"
+    //    - Admin approves via: node scripts/add-tokens.mjs --order-id <id> --approve
+    //    - Approval adds tokens to user balance and sets status to "approved"
+    //
+    // 2. Product Orders (type: "subdomain" | "website" | "portfolio")
+    //    - Created when user spends tokens on a product
+    //    - Tokens are deducted immediately at creation
+    //    - Status is "completed" on creation (no admin approval needed)
+    //
+    // Security:
+    //   - Authenticated users can read ONLY their own orders
+    //   - Authenticated users can create orders
+    //   - Updates are denied from the client — only admin can change status
+    //     (via scripts/add-tokens.mjs which uses the Firestore REST API)
+    // =========================================================================
+    match /orders/{orderId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null;
+      allow update: if false;
+    }
+
+    // =========================================================================
+    // REDEEM_CODES — Promotional codes for free tokens
+    // =========================================================================
+    // Document ID = the code string (UPPERCASE)
+    // Fields: code, tokenAmount, maxUses, currentUses, usedBy (array of userIds),
+    //         expiresAt, createdAt, createdBy, description
+    //
+    // Users enter a code in the Redeem Code modal. The system:
+    //   1. Validates the code exists, is not expired, and has uses remaining
+    //   2. Checks the user hasn't already redeemed it
+    //   3. Atomically increments currentUses, adds userId to usedBy array
+    //   4. Adds tokenAmount to the user's tokenBalance
+    //   5. Records the redemption in userRedeems collection
+    //
+    // Security:
+    //   - Authenticated users can read codes (to validate before redeeming)
+    //   - Writes are denied from the client — managed via:
+    //       * scripts/create-redeem-code.mjs (admin CLI)
+    // =========================================================================
+    match /redeemCodes/{code} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // =========================================================================
+    // USER_REDEEMS — Redemption history per user
+    // =========================================================================
+    // Document ID = userId
+    // Fields: userId, redeems (array of { code, tokens, redeemedAt })
+    //
+    // Created/updated when a user successfully redeems a code.
+    // Used to show redemption history in the dashboard.
+    //
+    // Security:
+    //   - Users can read ONLY their own redemption history
+    //   - Authenticated users can create their history document
+    //   - Updates happen via atomic arrayUnion (no direct writes needed)
+    // =========================================================================
+    match /userRedeems/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
+    }
+
+    // =========================================================================
+    // PRODUCTS — Product catalog
+    // =========================================================================
+    // Defines available products/services (subdomains, websites, portfolios).
+    // This is a read-only catalog — the frontend displays these to users.
+    //
+    // Security:
+    //   - Anyone can read (public catalog, no login required)
+    //   - Writes are denied from the client — managed by admin
+    // =========================================================================
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // =========================================================================
+    // DEFAULT — Deny everything else
+    // =========================================================================
+    // Any collection not explicitly matched above is denied.
+    // This prevents unauthorized access to future collections.
+    // =========================================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

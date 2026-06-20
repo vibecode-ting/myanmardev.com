@@ -1,4 +1,22 @@
-# 🔐 Cloudflare Setup Guide — myanmardev.com
+# Cloudflare Setup Guide — myanmardev.com
+
+## Overview
+
+The Cloudflare Worker is a serverless API proxy that handles DNS record
+management. It is the only component that holds the Cloudflare API token —
+the Astro frontend never has direct access.
+
+**Flow:**
+```
+Browser -> Astro Frontend -> Cloudflare Worker -> Cloudflare API -> DNS
+```
+
+The Worker exposes three endpoints:
+- `GET  /health`  — Health check
+- `POST /check`   — Check if a subdomain is available
+- `POST /create`  — Create a CNAME DNS record for a subdomain
+
+---
 
 ## Step 1: Get Your Cloudflare Zone ID
 
@@ -7,20 +25,24 @@
 3. Scroll to **API** section on the right sidebar
 4. Copy the **Zone ID** — it looks like `abc123def456...`
 
+---
+
 ## Step 2: Create an API Token
 
 1. Go to https://dash.cloudflare.com/profile/api-tokens
-2. Click **"Create Token"** → Under **Custom Token**, click **"Get started"**
+2. Click **"Create Token"** -> Under **Custom Token**, click **"Get started"**
 3. Configure:
 
-| Field | Value |
-|-------|-------|
-| Token name | `myanmardev.com DNS Manager` |
-| Permissions | Zone → DNS → Edit |
-| Zone Resources | Include → Specific zone → `myanmardev.com` |
+| Field           | Value                                       |
+|-----------------|---------------------------------------------|
+| Token name      | `myanmardev.com DNS Manager`                |
+| Permissions     | Zone -> DNS -> Edit                         |
+| Zone Resources  | Include -> Specific zone -> `myanmardev.com`|
 
-4. Click **"Continue to summary"** → **"Create Token"**
+4. Click **"Continue to summary"** -> **"Create Token"**
 5. **Copy the token immediately** — you won't see it again!
+
+---
 
 ## Step 3: Deploy the Worker
 
@@ -31,20 +53,32 @@ npm install -g wrangler
 # Login to Cloudflare
 wrangler login
 
-# Set secrets
-wrangler secret put CLOUDFLARE_API_TOKEN   # Paste your API token
-wrangler secret put CLOUDFLARE_ZONE_ID     # Paste your zone ID
+# Navigate to workers directory
+cd workers
+
+# Set secrets (paste your values when prompted)
+wrangler secret put CLOUDFLARE_API_TOKEN
+wrangler secret put CLOUDFLARE_ZONE_ID
 
 # Deploy the worker
-cd workers
 wrangler deploy
 ```
 
-The worker will deploy to `https://subdomain-api.myanmardev.com` (or whatever subdomain you configured).
+The worker will deploy to `https://subdomain-api.myanmardev.com` (or whatever
+subdomain you configured in `wrangler.toml`).
+
+---
 
 ## Step 4: Create the Worker Subdomain
 
-You'll need to create a CNAME record for `subdomain-api` pointing to your Cloudflare Worker in the Workers & Pages dashboard.
+You need a DNS record for the Worker subdomain. In the Cloudflare dashboard:
+
+1. Go to Workers & Pages -> your worker -> Settings -> Domains & Routes
+2. Add a custom domain: `subdomain-api.myanmardev.com`
+
+Or create a CNAME record manually pointing `subdomain-api` to your worker.
+
+---
 
 ## Step 5: Verify
 
@@ -58,11 +92,33 @@ curl -X POST https://subdomain-api.myanmardev.com/check \
   -d '{"subdomain": "test"}'
 ```
 
-## Step 6: Add to GitHub Actions Variables
+---
 
-Go to https://github.com/vibecode-ting/myanmardev.com/settings/variables/actions
+## Step 6: Configure Frontend Environment Variable
 
-Add variable:
-- `PUBLIC_WORKER_API_URL` = `https://subdomain-api.myanmardev.com`
+The Astro frontend needs to know where the Worker is. Set:
 
-(This is already set as a default in the deploy workflow, but add it as a variable too.)
+```
+PUBLIC_WORKER_API_URL=https://subdomain-api.myanmardev.com
+```
+
+- For local development: add to `.env` (copy from `.env.example`)
+- For GitHub Actions: add as a Variable at:
+  https://github.com/vibecode-ting/myanmardev.com/settings/variables/actions
+
+See `GITHUB_SECRETS_GUIDE.md` for the full list of required variables.
+
+---
+
+## How It Fits the Token System
+
+When an authenticated user creates a subdomain:
+
+1. User has enough tokens in their Firestore profile (`users/{uid}.tokenBalance`)
+2. Tokens are deducted via `deductTokens()` in `src/lib/firestore.ts`
+3. A product order is created in Firestore (`orders` collection)
+4. The frontend calls the Worker's `/create` endpoint
+5. Worker creates the DNS CNAME record via Cloudflare API
+
+If the user has insufficient tokens, the request is blocked client-side before
+calling the Worker.

@@ -318,6 +318,40 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     .dot { animation: none; }
   }
 
+  /* ─── Auth gating ─── */
+  body:not([data-auth="signed-in"]) .auth-only { display: none; }
+  body[data-auth="signed-in"] .auth-only { display: unset; }
+  body[data-auth="signed-in"] .anon-only { display: none; }
+  body:not([data-auth="signed-in"]) .anon-only { display: unset; }
+
+  .gate-fallback-card {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    border: 1px solid #1D232B;
+    border-radius: 10px;
+    background: var(--wash);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .gate-fallback-card .gate-fallback-icon {
+    font-size: 1.6rem;
+    margin-bottom: .5rem;
+  }
+  .gate-fallback-card .gate-fallback-heading {
+    font-family: var(--mono);
+    font-size: .75rem;
+    color: var(--accent);
+    margin-bottom: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .gate-fallback-card .gate-fallback-text {
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+    font-size: .875rem;
+    margin: 0;
+    line-height: 1.7;
+  }
+
   /* ─── Grain texture ─── */
   .grain {
     position: fixed;

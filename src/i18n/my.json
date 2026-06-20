@@ -1,39 +1,41 @@
 {
   "nav": {
     "home": "ပင်မ",
-    "product": "ထုတ်ကုန်",
+    "product": "ထုတ်ကုန်များ",
     "coming": "မကြာခင်လာမည့်",
-    "contact": "ဆက်သွယ်ရန်"
+    "contact": "ဆက်သွယ်ရန်",
+    "dashboard": "Dashboard"
   },
   "hero": {
     "eyebrow": "အလိုအလျောက်စနစ် · လူထိတွေ့မှုမရှိ",
-    "heading": "သင့်ရဲ့ Subdomain. ချက်ချင်းတင်သည်။",
-    "lede": "စက္ကန့်ပိုင်းအတွင်း သင့်ရဲ့ .myanmardev.com subdomain ကိုရယူပါ။ နာမည်ရွေးပါ၊ hosting platform ရွေးပါ၊ ကျွန်ုပ်တို့၏ automation workers များက DNS record ကို အလိုအလျောက် ဖန်တီးပေးပါမည်။",
-    "cta": "သင့် Subdomain ရယူပါ",
+    "heading": "တည်ဆောက်ပြီး ချက်ချင်းတင်ပါ",
+    "lede": "မြန်မာ developer များအတွက် အလိုအလျောက် web ဝန်ဆောင်မှုများ။ သင့်ကိုယ်ပိုင် .myanmardev.com subdomain ရယူပါ၊ website တည်ဆောက်ပြီး စက္ကန့်ပိုင်းအတွင်း deploy ပါ။ ခရက်ဒစ်ကတ် မလိုပါ။",
+    "cta": "ထုတ်ကုန်များကြည့်ရန်",
     "how": "ဘယ်လိုအလုပ်လုပ်လဲ",
     "footnote": "Cloudflare API ဖြင့် · ချက်ချင်း DNS ဖြန့်ဝေသည်"
   },
   "how": {
-    "section": "/ လုပ်ငန်းစဉ်",
-    "heading": "မှာယူ။ ငွေပေး။ Deploy။ လူထိတွေ့မှုမရှိ။",
-    "step1": "သင့် subdomain ရွေးပါ",
-    "step1desc": ".myanmardev.com အောက်ရှိ ရရှိနိုင်သော နာမည်ကို ရွေးချယ်ပါ။ Cloudflare DNS မှတ်တမ်းများတွင် ရရှိနိုင်မှုကို ချက်ချင်းစစ်ဆေးပေးပါသည်။",
-    "step2": "Platform ရွေး၍ အတည်ပြုပါ",
-    "step2desc": "GitHub Pages, Vercel, Netlify သို့မဟုတ် custom CNAME သို့ ချိတ်ဆက်ပါ။ သင့် subdomain ကို သင့်ရဲ့ live project သို့ အလိုအလျောက် လမ်းကြောင်းပေးပါမည်။",
-    "step3": "DNS ဖန်တီးပြီးပါပြီ။ Live!",
-    "step3desc": "ငွေပေးချေမှု အောင်မြင်သည်နှင့် Cloudflare API မှ CNAME record ကို worker က ဖန်တီးပေးပါသည်။ အတည်ပြုချက်စောင့်ရန်မလို၊ support ticket မလိုပါ။"
+    "section": "/ အလုပ်လုပ်ပုံ",
+    "heading": "ရိုးရှင်းသော အဆင့် ၃ ဆင့်",
+    "step1": "ထုတ်ကုန်ရွေးပါ",
+    "step1desc": "ကျွန်ုပ်တို့၏ အလိုအလျောက် web ဝန်ဆောင်မှုများကို ကြည့်ရှုပါ။ ထုတ်ကုန်တစ်ခုချင်းစီတွင် token ကုန်ကျစရိတ် ရှင်းလင်းစွာ ဖော်ပြထားပါသည်။",
+    "step2": "အကောင့်ဝင်ပြီး Token ဖြင့် ပေးချေပါ",
+    "step2desc": "Google သို့မဟုတ် GitHub ဖြင့် အကောင့်ဝင်ပါ။ သင့် token လက်ကျန်ဖြင့် ထုတ်ကုန်များကို ချက်ချင်း ဝယ်ယူပါ။",
+    "step3": "ချက်ချင်း Deploy ပါ",
+    "step3desc": "ကျွန်ုပ်တို့၏ automation က သင့် resource ကို ချက်ချင်း ဖန်တီးပေးပါသည်။ စောင့်ရန် မလိုပါ။ စက္ကန့်ပိုင်းအတွင်း live ဖြစ်ပါပြီ။"
   },
   "product": {
-    "section": "/ ထုတ်ကုန်",
-    "heading": "Subdomain Register — Live Demo"
+    "section": "/ ထုတ်ကုန်များ",
+    "heading": "ကျွန်ုပ်တို့ ဘာတွေ ပေးစွမ်းသလဲ",
+    "lede": "မြန်မာ developer များအတွက် ဒီဇိုင်းထုတ်ထားသော အလိုအလျောက် web ဝန်ဆောင်မှုများ။ ခရက်ဒစ်ကတ် မလိုပါ။ ချက်ချင်း deploy ပါ။"
   },
   "coming": {
     "section": "/ လမ်းပြမြေပုံ",
     "heading": "နောက်ထပ် ထုတ်ကုန်များ လာမည်။ အားလုံးအလိုအလျောက်။",
     "p1": "Static Website Builder",
-    "p1desc": "စိတ်ကြိုက် domain ဖြင့် ကျွမ်းကျင်စွာ ဒီဇိုင်းဆွဲထားသော static site ကို မှာယူပါ။ template ရွေးပါ၊ အကြောင်းအရာဖြည့်ပါ၊ အလိုအလျောက် deploy ပါ။",
+    "p1desc": "Template များမှ ကျွမ်းကျင်သော website များ တည်ဆောက်ပါ။ Coding မလိုပါ။ Template ရွေးပါ၊ အကြောင်းအရာထည့်ပြီး deploy ပါ။",
     "p2": "Developer Portfolio",
-    "p2desc": "သင့်ရဲ့ project များကို ပြောင်မြောက်သော portfolio ဖြင့် ပြသပါ။ repo များ၊ deploy link များ၊ စိတ်ကြိုက် branding ထည့်ပါ။",
+    "p2desc": "သင့် project များကို ပြောင်မြောက်သော portfolio ဖြင့် ပြသပါ။ GitHub repo များနှင့် contributions များကို အလိုအလျောက် ယူပါ။",
     "p3": "Business Website",
     "p3desc": "ဆက်သွယ်ရန် form၊ service စာမျက်နှာများ၊ SEO optimization ပါဝင်သော စီးပွားရေး site အပြည့်အစုံ။",
     "p4": "စားသောက်ဆိုင် QR Menu",
@@ -45,15 +47,52 @@
     "p7": "Education Platform",
     "p7desc": "video hosting၊ quizzes၊ certificates များပါဝင်သော အွန်လိုင်းသင်တန်း platform။ သင့်ကိုယ်ပိုင် သင်ကြားရေး platform တည်ဆောက်ပါ။"
   },
-  "cta": {
-    "heading": "သင့် subdomain ရယူရန် အဆင်သင့်ဖြစ်ပြီလား?",
-    "btn": "သင့် Subdomain ရယူပါ",
-    "footnote": "100% အလိုအလျောက် · account manager မလို · ချက်ချင်း deploy"
+  "pricing": {
+    "section": "/ စျေးနှုန်း",
+    "heading": "Token များ ဘယ်လိုအလုပ်လုပ်သလဲ",
+    "lede": "Token များသည် ကျွန်ုပ်တို့၏ universal currency ဖြစ်ပါသည်။ တစ်ကြိမ်ဝယ်ပြီး ထုတ်ကုန်အားလုံးတွင် အသုံးပြုပါ။ Subscription မလို၊ ဝှက်ထားသော ကုန်ကျစရိတ် မရှိပါ။",
+    "starter": "Starter",
+    "basic": "Basic",
+    "pro": "Pro",
+    "business": "Business",
+    "popular": "လူကြိုက်များ",
+    "buyTokens": "Token ဝယ်ရန်",
+    "redeemCode": "Promo Code ရှိပါသလား?",
+    "redeemLede": "အကောင့်ဝင်ပြီး သင့် code ဖြင့် အခမဲ့ token များ ရယူပါ။ ခရက်ဒစ်ကတ် မလိုပါ။"
   },
   "auth": {
     "signIn": "အကောင့်ဝင်ပါ",
     "signOut": "အကောင့်ထွက်ပါ",
-    "signedInAs": "အကောင့်ဝင်ထားသူ"
+    "signedInAs": "အကောင့်ဝင်ထားသူ",
+    "signInWithGoogle": "Google ဖြင့် ဆက်လက်လုပ်ဆောင်ပါ",
+    "signInWithGitHub": "GitHub ဖြင့် ဆက်လက်လုပ်ဆောင်ပါ",
+    "signInToContinue": "ဆက်လက်လုပ်ဆောင်ရန် အကောင့်ဝင်ပါ",
+    "chooseMethod": "သင်နှစ်သက်သော အကောင့်ဝင်နည်းကို ရွေးချယ်ပါ"
+  },
+  "tokens": {
+    "balance": "Token များ",
+    "buyTokens": "Token ဝယ်ရန်",
+    "redeemCode": "Code ရွေးရန်",
+    "costPerSubdomain": "Subdomain တစ်ခုလျှင် ကုန်ကျစရိတ်",
+    "yourBalance": "သင့်လက်ကျန်"
+  },
+  "dashboard": {
+    "title": "သင့် Dashboard",
+    "lede": "သင့် token များကို စီမံပါ၊ order မှတ်တမ်းကြည့်ရှုပြီး သင့် deployments များကို ခြေရာခံပါ။",
+    "welcome": "ပြန်လာတာ ကြိုဆိုပါတယ်",
+    "tokensAvailable": "ရရှိနိုင်သော Token များ",
+    "quickActions": "လျင်မြန်သော လုပ်ဆောင်ချက်များ",
+    "accountInfo": "အကောင့် အချက်အလက်",
+    "email": "Email",
+    "provider": "Provider",
+    "githubUsername": "GitHub Username",
+    "orderHistory": "Order မှတ်တမ်း",
+    "noOrders": "Order မရှိသေးပါ။ Subdomain တစ်ခု ဖန်တီးခြင်းဖြင့် စတင်ပါ!"
+  },
+  "cta": {
+    "heading": "သင့် subdomain ရယူရန် အဆင်သင့်ဖြစ်ပြီလား?",
+    "btn": "သင့် Subdomain ရယူပါ",
+    "footnote": "100% အလိုအလျောက် · account manager မလို · ချက်ချင်း deploy"
   },
   "footer": {
     "desc": "မြန်မာ developer များအတွက် အလိုအလျောက် subdomain မှတ်ပုံတင်ခြင်းနှင့် web ဝန်ဆောင်မှုများ။ မှာယူ၊ deploy၊ ပြီးပါပြီ။",
