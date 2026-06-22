@@ -12,45 +12,44 @@ const { lang } = Astro.props;
   <p class="eyebrow rise"><span class="dot"></span> {t(lang, 'hero.eyebrow')}</p>
 
   <h1 class="h-display rise" style="margin-top:1.4rem;max-width:42rem">
-    Build & Deploy<br>
-    <span style="color:var(--accent)">Instantly</span>
+    {t(lang, 'hero.heading')}
   </h1>
 
   <div class="rise" style="width:clamp(4rem,10vw,7rem);height:2px;background:var(--accent);margin-top:1.25rem"></div>
 
   <p class="lede rise" style="margin-top:1.5rem;max-width:36rem">
-    Automated web services for Myanmar developers. Get your own .myanmardev.com subdomain, build websites, and deploy in seconds. No credit card required.
+    {t(lang, 'hero.sub')}
   </p>
 
   <div class="rise" style="display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.9rem">
-    <a class="btn" href="#products" style="padding:1rem 2rem">View Products</a>
-    <a class="btn btn--ghost" href="#pricing" style="padding:1rem 2rem">See Pricing</a>
+    <a class="btn" href="#products" style="padding:1rem 2rem">{t(lang, 'hero.cta')}</a>
+    <a class="btn btn--ghost" href="#how" style="padding:1rem 2rem">{t(lang, 'hero.see')}</a>
   </div>
 
   <!-- Trust Badges -->
   <div class="rise" style="display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:2.5rem">
     <div style="display:flex;align-items:center;gap:0.5rem">
-      <span style="font-size:1.25rem">⚡</span>
+      <span style="font-size:1.25rem">&#9889;</span>
       <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
         100% Automated
       </span>
     </div>
     <div style="display:flex;align-items:center;gap:0.5rem">
-      <span style="font-size:1.25rem">🚀</span>
+      <span style="font-size:1.25rem">&#128640;</span>
       <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
         Instant Deploy
       </span>
     </div>
     <div style="display:flex;align-items:center;gap:0.5rem">
-      <span style="font-size:1.25rem">💳</span>
+      <span style="font-size:1.25rem">&#128179;</span>
       <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
         No Credit Card
       </span>
     </div>
     <div style="display:flex;align-items:center;gap:0.5rem">
-      <span style="font-size:1.25rem">🔒</span>
+      <span style="font-size:1.25rem">&#128274;</span>
       <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
-        Secure & Reliable
+        Secure &amp; Reliable
       </span>
     </div>
   </div>

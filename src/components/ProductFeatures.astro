@@ -1,0 +1,60 @@
+---
+interface Props {
+  lang?: string;
+  features: string[];
+}
+
+const { lang = 'en', features } = Astro.props;
+---
+
+<div class="product-features" data-lang={lang}>
+  {features.map((feature) => (
+    <div class="feature-item">
+      <span class="feature-check" aria-hidden="true">&#x2713;</span>
+      <span class="feature-text">{feature}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  .product-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .product-features {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+
+  .feature-check {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 0.125rem;
+  }
+
+  .feature-text {
+    font-family: var(--body);
+    font-size: 0.9375rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+</style>

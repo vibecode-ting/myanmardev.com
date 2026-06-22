@@ -13,7 +13,8 @@
     "heading": "Your Subdomain. Live in 30 Seconds.",
     "sub": "No coding. No waiting. Just deploy.",
     "cta": "Get Started Free",
-    "see": "See How It Works"
+    "see": "See How It Works",
+    "footnote": "No credit card required. Free to start."
   },
   "products": {
     "section": "/ products",
@@ -137,8 +138,52 @@
     "dark": "Dark",
     "light": "Light"
   },
+  "testimonials": {
+    "section": "/ testimonials",
+    "heading": "What Developers Say",
+    "sub": "Trusted by Myanmar developers",
+    "t1": {
+      "q": "myanmardev.com made deploying my portfolio site incredibly fast. No config headaches.",
+      "a": "Aung Khant",
+      "role": "Full-Stack Developer, Yangon"
+    },
+    "t2": {
+      "q": "The token system is simple and affordable. I got my subdomain live in under a minute.",
+      "a": "Zin Mar Oo",
+      "role": "Frontend Developer, Mandalay"
+    },
+    "t3": {
+      "q": "Finally a platform built for Myanmar devs. Great support and easy to use.",
+      "a": "Hein Htet",
+      "role": "Freelance Developer, Naypyidaw"
+    }
+  },
+  "cta": {
+    "heading": "Start Building Today",
+    "sub": "Join Myanmar's fastest growing developer platform",
+    "start": "Get Started Free",
+    "pricing": "See Pricing"
+  },
   "footer": {
     "built": "Built for Myanmar Devs",
     "rights": "© 2026 myanmardev.com"
+  },
+  "productPages": {
+    "subdomain": {
+      "title": "Subdomain Registration",
+      "desc": "Get your own .myanmardev.com subdomain in seconds",
+      "features": {
+        "f1": "Instant DNS provisioning",
+        "f2": "GitHub Pages, Vercel, Netlify support",
+        "f3": "Custom CNAME records",
+        "f4": "99.9% uptime guarantee",
+        "f5": "Free SSL certificates",
+        "f6": "No technical knowledge required"
+      }
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "products": "Products"
+    }
   }
 }
