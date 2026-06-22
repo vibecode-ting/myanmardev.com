@@ -90,6 +90,17 @@ Translations in `src/i18n/en.json` and `src/i18n/my.json`. Use `t(lang, 'key')` 
 
 This project is managed by the **vibecode-ting** global orchestrator (see `../CLAUDE.md`).
 
+### Git Branch Rules
+
+```
+✅ CORRECT: git push origin ting_remotework → create PR → main
+❌ WRONG:   git push origin main (NEVER do this)
+```
+
+- **Always** commit and push to `ting_remotework` branch
+- **Never** push directly to `main`
+- Create PR: `ting_remotework` → `main`, user merges manually
+
 ### Available MCP Servers
 
 | Server | Type | Purpose |
