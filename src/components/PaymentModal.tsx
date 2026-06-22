@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from './AuthProvider';
-
-const EXCHANGE_RATE_MMK = 4000;
-
-type PaymentMethod = 'tokens' | 'crypto' | 'card' | 'bank';
+import { processPayment, type PaymentMethod } from '../lib/payments';
+import { getExchangeRate, formatDual } from '../lib/exchange-rate';
 
 interface Props {
   isOpen: boolean;
@@ -25,12 +23,14 @@ export default function PaymentModal({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [comingSoon, setComingSoon] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
 
   // Derive price from token cost (assume 1 token = $2.50 for display)
+  const exchangeRate = getExchangeRate();
   const priceUSD = tokenCost * 2.5;
-  const priceMMK = Math.round(priceUSD * EXCHANGE_RATE_MMK);
+  const priceMMK = Math.round(priceUSD * exchangeRate);
   const tokenBalance = profile?.tokenBalance ?? 0;
   const hasEnoughTokens = tokenBalance >= tokenCost;
 
@@ -95,6 +95,7 @@ export default function PaymentModal({
       setLoading(false);
       setSuccess(false);
       setComingSoon(false);
+      setPaymentError(null);
     }
   }, [isOpen]);
 
@@ -105,29 +106,38 @@ export default function PaymentModal({
     if (selectedMethod === 'tokens') {
       if (!hasEnoughTokens) return;
       setLoading(true);
+      setPaymentError(null);
+
       try {
-        // TODO: integrate real payment gateway — deduct tokens via Firestore
-        const { deductTokens } = await import('../lib/auth');
         if (!profile) return;
-        const ok = await deductTokens(profile.uid, tokenCost);
-        if (!ok) {
-          setLoading(false);
-          return;
+
+        const result = await processPayment({
+          product: productName,
+          amount: tokenCost,
+          currency: 'USD',
+          method: 'tokens',
+          userId: profile.uid,
+        });
+
+        if (result.success) {
+          await refreshProfile();
+          setSuccess(true);
+          onPaymentComplete();
+          setTimeout(() => {
+            onClose();
+            setSuccess(false);
+          }, 2500);
+        } else {
+          setPaymentError(result.error || 'Payment failed. Please try again.');
         }
-        await refreshProfile();
-        setSuccess(true);
-        onPaymentComplete();
-        setTimeout(() => {
-          onClose();
-          setSuccess(false);
-        }, 2500);
       } catch (err) {
         console.error('Token payment failed:', err);
+        setPaymentError('An unexpected error occurred. Please try again.');
       } finally {
         setLoading(false);
       }
     } else {
-      // TODO: integrate real payment gateways — crypto / card / bank
+      // Non-token methods are not yet available
       setComingSoon(true);
     }
   };
@@ -277,7 +287,7 @@ export default function PaymentModal({
                     color: 'var(--ink)',
                   }}
                 >
-                  ${priceUSD.toFixed(2)} / {priceMMK.toLocaleString()} MMK
+                  {formatDual(priceUSD)}
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
@@ -334,6 +344,7 @@ export default function PaymentModal({
                   { key: 'crypto', label: 'Crypto (USDT)', desc: 'Wallet transfer', icon: '\u{20BF}' },
                   { key: 'card', label: 'Card (Stripe)', desc: 'Credit / Debit', icon: '\u{1F4B3}' },
                   { key: 'bank', label: 'Local Banks', desc: 'AYA / KBZ / CB / Wave', icon: '\u{1F3E6}' },
+                  { key: 'mmk_wallet', label: 'MMK Wallet', desc: 'Mobile money', icon: '\u{1F4F1}' },
                 ] as const
               ).map((method) => {
                 const selected = selectedMethod === method.key;
@@ -343,6 +354,7 @@ export default function PaymentModal({
                     onClick={() => {
                       setSelectedMethod(method.key);
                       setComingSoon(false);
+                      setPaymentError(null);
                     }}
                     style={{
                       padding: '0.75rem',
@@ -414,7 +426,6 @@ export default function PaymentModal({
                   lineHeight: 1.6,
                 }}
               >
-                {/* TODO: integrate real payment gateway — show actual USDT wallet address */}
                 <div style={{ marginBottom: '0.25rem', color: 'var(--ink)', fontWeight: 600 }}>
                   USDT (TRC-20)
                 </div>
@@ -447,7 +458,6 @@ export default function PaymentModal({
                   lineHeight: 1.6,
                 }}
               >
-                {/* TODO: integrate real payment gateway — Stripe Checkout redirect */}
                 Stripe Checkout will open in a new window. You can pay with Visa, Mastercard, or
                 AMEX.
               </div>
@@ -467,13 +477,52 @@ export default function PaymentModal({
                   lineHeight: 1.6,
                 }}
               >
-                {/* TODO: integrate real payment gateway — local bank transfer details */}
                 <div style={{ marginBottom: '0.25rem', color: 'var(--ink)', fontWeight: 600 }}>
                   Supported Banks
                 </div>
                 AYA Bank, KBZ Bank, CB Bank, WavePay
                 <br />
                 Transfer details will be shown after confirmation.
+              </div>
+            )}
+
+            {selectedMethod === 'mmk_wallet' && (
+              <div
+                style={{
+                  padding: '0.75rem 1rem',
+                  background: 'var(--wash)',
+                  border: '1px solid #1D232B',
+                  borderRadius: '6px',
+                  fontFamily: 'var(--mono)',
+                  fontSize: '0.75rem',
+                  color: 'var(--muted)',
+                  marginBottom: '1rem',
+                  lineHeight: 1.6,
+                }}
+              >
+                <div style={{ marginBottom: '0.25rem', color: 'var(--ink)', fontWeight: 600 }}>
+                  MMK Mobile Wallet
+                </div>
+                Pay directly from your mobile wallet in Myanmar Kyat.
+              </div>
+            )}
+
+            {/* ─── Error message from PaymentResult ─── */}
+            {paymentError && (
+              <div
+                style={{
+                  padding: '0.75rem 1rem',
+                  background: 'color-mix(in srgb, #E8A33D 10%, transparent)',
+                  border: '1px solid color-mix(in srgb, #E8A33D 30%, transparent)',
+                  borderRadius: '6px',
+                  fontFamily: 'var(--mono)',
+                  fontSize: '0.8125rem',
+                  color: '#E8A33D',
+                  marginBottom: '1rem',
+                  textAlign: 'center',
+                }}
+              >
+                {paymentError}
               </div>
             )}
 

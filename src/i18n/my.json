@@ -185,5 +185,31 @@
       "home": "ပင်မ",
       "products": "ထုတ်ကုန်"
     }
+  },
+  "dashboard": {
+    "profile": {
+      "title": "ပရိုဖိုင်",
+      "memberSince": "အဖွဲ့ဝင် စတင်ချိန်",
+      "tokenBalance": "Token လက်ကျန်"
+    },
+    "products": {
+      "title": "ကျွန်ုပ်၏ ထုတ်ကုန်များ",
+      "empty": "ထုတ်ကုန် မရှိသေးပါ",
+      "browse": "ထုတ်ကုန်များ ကြည့်ရန်"
+    },
+    "subdomains": {
+      "title": "ကျွန်ုပ်၏ Subdomain များ",
+      "empty": "Subdomain မရှိသေးပါ",
+      "create": "Subdomain ဖန်တီးရန်"
+    },
+    "settings": {
+      "title": "ငွေပေးချေမှု ဆက်တင်များ",
+      "defaultMethod": "မူလ နည်းလမ်း",
+      "currency": "ငွေကြေး ဦးစားပေး"
+    },
+    "notify": {
+      "button": "ရရှိနိုင်သောအခါ အကြောင်းကြားပါ",
+      "success": "{product} စတင်သောအခါ အကြောင်းကြားပါမည်!"
+    }
   }
 }

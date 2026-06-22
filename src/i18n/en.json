@@ -185,5 +185,31 @@
       "home": "Home",
       "products": "Products"
     }
+  },
+  "dashboard": {
+    "profile": {
+      "title": "Profile",
+      "memberSince": "Member since",
+      "tokenBalance": "Token Balance"
+    },
+    "products": {
+      "title": "My Products",
+      "empty": "No products yet",
+      "browse": "Browse Products"
+    },
+    "subdomains": {
+      "title": "My Subdomains",
+      "empty": "No subdomains yet",
+      "create": "Create Subdomain"
+    },
+    "settings": {
+      "title": "Payment Settings",
+      "defaultMethod": "Default Method",
+      "currency": "Currency Preference"
+    },
+    "notify": {
+      "button": "Notify Me When Available",
+      "success": "We'll notify you when {product} launches!"
+    }
   }
 }
