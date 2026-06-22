@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import ProductGallery from '../../components/ProductGallery.astro';
+import ProductsComingSoon from '../../components/ProductsComingSoon.astro';
+import { t, type Language } from '../../i18n/utils';
+
+const lang: Language = 'en';
+const title = 'Products | myanmardev.com';
+const description = 'Browse all products and services from myanmardev.com. Subdomains, websites, portfolios and more.';
+---
+
+<Layout title={title} description={description} lang={lang}>
+  <Header lang={lang} />
+
+  <main style="padding:clamp(2rem,5vw,4rem) clamp(1.25rem,4vw,3rem)">
+    <div style="max-width:78rem;margin:0 auto">
+      <!-- Breadcrumb -->
+      <nav class="mono rise" style="font-size:0.75rem;color:var(--muted);margin-bottom:2rem">
+        <a href="/" style="color:var(--muted);transition:color 0.2s">{t(lang, 'productPages.breadcrumb.home')}</a>
+        <span style="margin:0 0.5rem">/</span>
+        <span style="color:var(--accent)">{t(lang, 'productPages.breadcrumb.products')}</span>
+      </nav>
+
+      <!-- Section Header -->
+      <div class="sx rise"><b></b> <span>/ products</span></div>
+      <h1 class="h-section rise" style="margin-top:.9rem">{t(lang, 'products.heading')}</h1>
+      <p class="lede rise" style="margin:.6rem 0 0">
+        {t(lang, 'products.sub')}
+      </p>
+
+      <!-- Product Gallery -->
+      <ProductGallery lang={lang} />
+
+      <!-- Coming Soon / Roadmap -->
+      <ProductsComingSoon />
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid #1D232B;background:color-mix(in srgb,var(--wash) 50%,transparent);margin-top:4rem">
+    <div style="max-width:78rem;margin:0 auto;padding:clamp(2rem,4vw,3rem) clamp(1.25rem,4vw,3rem);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem">
+      <div>
+        <a href="/" style="font-family:var(--display);font-weight:600;font-size:1.1rem;letter-spacing:-.02em">
+          <span style="color:var(--accent)">myanmardev</span>.com
+        </a>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem" class="mono">
+        <span style="color:color-mix(in srgb,var(--ink) 62%,transparent);font-size:.6875rem">&copy; {new Date().getFullYear()} {t(lang, 'footer.rights')}</span>
+        <span class="dot" style="width:6px;height:6px"></span>
+      </div>
+    </div>
+  </footer>
+</Layout>

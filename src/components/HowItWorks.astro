@@ -2,88 +2,49 @@
 import { t, type Language } from '../i18n/utils';
 
 interface Props {
-  lang?: Language;
+  lang: Language;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang } = Astro.props;
 ---
 
 <section id="how" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid #1D232B;border-bottom:1px solid #1D232B;background:color-mix(in srgb,var(--wash) 60%,transparent)">
   <div style="max-width:78rem;margin:0 auto">
-    <div class="sx rise" style="justify-content:center"><b></b> <span>/ how it works</span></div>
-    <h2 class="h-section rise" style="margin-top:.9rem;text-align:center">Simple 3-Step Process</h2>
-    <p class="lede rise" style="margin:.6rem auto 0;text-align:center;max-width:600px">
-      From browsing to deployment in under 60 seconds. No technical knowledge required.
-    </p>
+    <div class="sx rise" style="justify-content:center"><b></b> <span>{t(lang, 'how.section')}</span></div>
+    <h2 class="h-section rise" style="margin-top:.9rem;text-align:center">{t(lang, 'how.heading')}</h2>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:3rem">
-      <!-- Step 1: Choose Product -->
+      <!-- Step 1 -->
       <div class="rise" style="text-align:center;padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px">
-        <div style="font-size:3rem;margin-bottom:1rem">1️⃣</div>
+        <div style="font-size:3rem;margin-bottom:1rem">1</div>
         <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.75rem">
-          Choose Your Product
+          {t(lang, 'how.s1')}
         </h3>
         <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0;line-height:1.6">
-          Browse our catalog of automated web services. Each product has a clear token cost. No hidden fees.
+          {t(lang, 'how.s1d')}
         </p>
       </div>
 
-      <!-- Step 2: Sign In & Pay -->
+      <!-- Step 2 -->
       <div class="rise" style="text-align:center;padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px">
-        <div style="font-size:3rem;margin-bottom:1rem">2️⃣</div>
+        <div style="font-size:3rem;margin-bottom:1rem">2</div>
         <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.75rem">
-          Sign In & Pay with Tokens
+          {t(lang, 'how.s2')}
         </h3>
         <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0;line-height:1.6">
-          Sign in with Google or GitHub. Use your token balance to purchase products instantly.
+          {t(lang, 'how.s2d')}
         </p>
       </div>
 
-      <!-- Step 3: Deploy -->
+      <!-- Step 3 -->
       <div class="rise" style="text-align:center;padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px">
-        <div style="font-size:3rem;margin-bottom:1rem">3️⃣</div>
+        <div style="font-size:3rem;margin-bottom:1rem">3</div>
         <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.75rem">
-          Deploy Instantly
+          {t(lang, 'how.s3')}
         </h3>
         <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0;line-height:1.6">
-          Our automation creates your resource instantly. No waiting. No approval queues. Live in seconds.
+          {t(lang, 'how.s3d')}
         </p>
-      </div>
-    </div>
-
-    <!-- Stats -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;margin-top:3rem;padding:2rem;background:color-mix(in srgb, var(--accent) 8%, transparent);border:1px solid color-mix(in srgb, var(--accent) 20%, transparent);border-radius:12px">
-      <div style="text-align:center">
-        <div style="font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent)">
-          500+
-        </div>
-        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
-          Subdomains Created
-        </div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent)">
-          200+
-        </div>
-        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
-          Developers
-        </div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent)">
-          99.9%
-        </div>
-        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
-          Uptime
-        </div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent)">
-          &lt;1s
-        </div>
-        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
-          Deploy Time
-        </div>
       </div>
     </div>
   </div>

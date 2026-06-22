@@ -1,0 +1,57 @@
+---
+import { t, type Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+
+const products = [
+  { key: 'p1', icon: '🌐', href: '/products/subdomain', available: true },
+  { key: 'p2', icon: '🏗️', href: null, available: false },
+  { key: 'p3', icon: '💼', href: null, available: false },
+];
+---
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2.5rem">
+  {products.map((product) => (
+    <div
+      class="product-card rise"
+      style={`padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px;transition:all 0.3s;${product.available ? '' : 'opacity:0.6'}`}
+    >
+      <div style="font-size:2.5rem;margin-bottom:1rem">{product.icon}</div>
+      <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink);margin:0 0 0.5rem">
+        {t(lang, `products.${product.key}.name`)}
+      </h3>
+      <p style="font-family:var(--body);font-size:0.9375rem;color:var(--muted);margin:0 0 1.5rem;line-height:1.6">
+        {t(lang, `products.${product.key}.desc`)}
+      </p>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+        <span style="font-family:var(--mono);font-size:0.875rem;font-weight:700;color:var(--accent)">
+          {t(lang, `products.${product.key}.price`)}
+        </span>
+        <span style={`font-family:var(--mono);font-size:0.75rem;color:${product.available ? 'var(--accent)' : 'var(--muted)'};background:${product.available ? 'color-mix(in srgb, var(--accent) 15%, transparent)' : '#1D232B'};padding:4px 8px;border-radius:4px`}>
+          {t(lang, `products.${product.key}.status`)}
+        </span>
+      </div>
+      {product.available && product.href ? (
+        <a href={product.href} class="btn" style="width:100%;justify-content:center;padding:0.75rem">
+          {t(lang, 'common.actions.order')}
+        </a>
+      ) : (
+        <button disabled style="width:100%;justify-content:center;padding:0.75rem;background:#1D232B;color:var(--muted);border:none;border-radius:6px;font-family:var(--mono);font-size:0.875rem;font-weight:600;cursor:not-allowed">
+          {t(lang, `products.${product.key}.status`)}
+        </button>
+      )}
+    </div>
+  ))}
+</div>
+
+<style>
+  .product-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent) !important;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+</style>

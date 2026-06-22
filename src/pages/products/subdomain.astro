@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import AuthProvider from '../../components/AuthProvider';
+import SubdomainBuilder from '../../components/SubdomainBuilder';
+import { t, type Language } from '../../i18n/utils';
+
+const lang: Language = 'en';
+const title = 'Subdomain Registration | myanmardev.com';
+const description = 'Get your own .myanmardev.com subdomain in seconds. Instant DNS, free SSL, GitHub Pages & Vercel support.';
+
+const features = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6'] as const;
+---
+
+<Layout title={title} description={description} lang={lang}>
+  <Header lang={lang} />
+
+  <main>
+    <!-- Breadcrumb -->
+    <nav class="mono" style="font-size:0.75rem;color:var(--muted);padding:clamp(1.5rem,3vw,2rem) clamp(1.25rem,4vw,3rem) 0;max-width:78rem;margin:0 auto">
+      <a href="/" style="color:var(--muted);transition:color 0.2s">{t(lang, 'productPages.breadcrumb.home')}</a>
+      <span style="margin:0 0.5rem">/</span>
+      <a href="/products" style="color:var(--muted);transition:color 0.2s">{t(lang, 'productPages.breadcrumb.products')}</a>
+      <span style="margin:0 0.5rem">/</span>
+      <span style="color:var(--accent)">{t(lang, 'productPages.subdomain.title')}</span>
+    </nav>
+
+    <!-- Hero Section -->
+    <section style="padding:clamp(2rem,5vw,3.5rem) clamp(1.25rem,4vw,3rem)">
+      <div style="max-width:78rem;margin:0 auto">
+        <div class="sx rise"><b></b> <span>/ product</span></div>
+        <h1 class="h-display rise" style="margin-top:.9rem;max-width:40rem">
+          {t(lang, 'productPages.subdomain.title')}
+        </h1>
+        <p class="lede rise" style="margin:.8rem 0 0;font-size:1.0625rem;max-width:36rem">
+          {t(lang, 'productPages.subdomain.desc')}
+        </p>
+
+        <!-- Price Badge -->
+        <div class="rise" style="margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
+          <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1.25rem;background:color-mix(in srgb,var(--accent) 10%,transparent);border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);border-radius:8px">
+            <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">Price</span>
+            <span style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--accent)">1 Token</span>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center">
+            <span style="font-family:var(--mono);font-size:0.8125rem;color:var(--muted)">$2.50</span>
+            <span style="color:color-mix(in srgb,var(--muted) 40%,transparent)">|</span>
+            <span style="font-family:var(--mono);font-size:0.8125rem;color:var(--muted)">10,000 MMK</span>
+          </div>
+        </div>
+
+        <!-- Order Now CTA -->
+        <div class="rise" style="margin-top:1.5rem">
+          <a href="#builder" class="btn" style="padding:0.85rem 2rem">
+            {t(lang, 'common.actions.order')}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section style="padding:clamp(2rem,5vw,3.5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid #1D232B">
+      <div style="max-width:78rem;margin:0 auto">
+        <div class="sx rise"><b></b> <span>/ features</span></div>
+        <h2 class="h-section rise" style="margin-top:.9rem">What You Get</h2>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:2rem">
+          {features.map((f, i) => (
+            <div class="rise" style={`display:flex;align-items:flex-start;gap:0.85rem;padding:1.1rem 1.25rem;background:var(--wash);border:1px solid #1D232B;border-radius:10px;transition:border-color 0.2s`}>
+              <span style="font-family:var(--mono);font-size:0.75rem;font-weight:700;color:var(--accent);min-width:1.5rem;height:1.5rem;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--accent) 12%,transparent);border-radius:4px;flex-shrink:0">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span style="font-size:0.9375rem;color:var(--ink);line-height:1.5">
+                {t(lang, `productPages.subdomain.features.${f}`)}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section style="padding:clamp(2rem,5vw,3.5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid #1D232B">
+      <div style="max-width:78rem;margin:0 auto">
+        <div class="sx rise"><b></b> <span>/ pricing</span></div>
+        <h2 class="h-section rise" style="margin-top:.9rem">Pricing</h2>
+        <p class="lede rise" style="margin:.6rem 0 0">Simple token-based pricing. No hidden fees.</p>
+
+        <div class="rise" style="margin-top:2rem;max-width:420px">
+          <div style="padding:1.75rem;background:var(--wash);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:12px">
+            <div style="display:flex;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem">
+              <span style="font-family:var(--display);font-size:2.25rem;font-weight:700;color:var(--accent)">1</span>
+              <span style="font-family:var(--mono);font-size:0.8125rem;color:var(--muted);text-transform:uppercase">Token</span>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:center;margin-bottom:1.25rem">
+              <span style="font-family:var(--mono);font-size:0.9375rem;color:var(--ink)">$2.50 USD</span>
+              <span style="color:color-mix(in srgb,var(--muted) 40%,transparent)">|</span>
+              <span style="font-family:var(--mono);font-size:0.9375rem;color:var(--ink)">10,000 MMK</span>
+            </div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.6rem">
+              <li style="display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;color:color-mix(in srgb,var(--ink) 80%,transparent)">
+                <span style="color:var(--accent)">&#10003;</span> One subdomain registration
+              </li>
+              <li style="display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;color:color-mix(in srgb,var(--ink) 80%,transparent)">
+                <span style="color:var(--accent)">&#10003;</span> Instant DNS provisioning
+              </li>
+              <li style="display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;color:color-mix(in srgb,var(--ink) 80%,transparent)">
+                <span style="color:var(--accent)">&#10003;</span> Free SSL certificate
+              </li>
+              <li style="display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;color:color-mix(in srgb,var(--ink) 80%,transparent)">
+                <span style="color:var(--accent)">&#10003;</span> 99.9% uptime SLA
+              </li>
+            </ul>
+            <a href="#builder" class="btn" style="width:100%;justify-content:center;margin-top:1.5rem;padding:0.8rem">
+              {t(lang, 'common.actions.order')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SubdomainBuilder Section -->
+    <section id="builder" style="padding:clamp(2rem,5vw,3.5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid #1D232B">
+      <div style="max-width:78rem;margin:0 auto">
+        <div class="sx rise"><b></b> <span>/ deploy</span></div>
+        <h2 class="h-section rise" style="margin-top:.9rem">Register Your Subdomain</h2>
+        <p class="lede rise" style="margin:.6rem 0 0">Choose a name, pick a platform, deploy instantly.</p>
+
+        <div class="rise" style="margin-top:2rem;max-width:560px">
+          <AuthProvider client:load>
+            <SubdomainBuilder client:load />
+          </AuthProvider>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid #1D232B;background:color-mix(in srgb,var(--wash) 50%,transparent);margin-top:2rem">
+    <div style="max-width:78rem;margin:0 auto;padding:clamp(2rem,4vw,3rem) clamp(1.25rem,4vw,3rem);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem">
+      <div>
+        <a href="/" style="font-family:var(--display);font-weight:600;font-size:1.1rem;letter-spacing:-.02em">
+          <span style="color:var(--accent)">myanmardev</span>.com
+        </a>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem" class="mono">
+        <span style="color:color-mix(in srgb,var(--ink) 62%,transparent);font-size:.6875rem">&copy; {new Date().getFullYear()} {t(lang, 'footer.rights')}</span>
+        <span class="dot" style="width:6px;height:6px"></span>
+      </div>
+    </div>
+  </footer>
+</Layout>

@@ -13,7 +13,8 @@
     "heading": "သင့် Subdomain။ ၃၀ စက္ကန့်အတွင်း Live။",
     "sub": "Coding မလို။ စောင့်ရန်မလို။ ချက်ချင်း deploy။",
     "cta": "အခမဲ့ စတင်ပါ",
-    "see": "ဘယ်လိုလုပ်လဲ"
+    "see": "ဘယ်လိုလုပ်လဲ",
+    "footnote": "Credit card မလိုပါ။ အခမဲ့ စတင်ပါ။"
   },
   "products": {
     "section": "/ ထုတ်ကုန်",
@@ -137,8 +138,78 @@
     "dark": "အမှောင်",
     "light": "အလင်း"
   },
+  "testimonials": {
+    "section": "/ ထင်မြင်ချက်",
+    "heading": "Developer များ ဘာပြောသလဲ",
+    "sub": "မြန်မာ developer များ ယုံကြည်စိတ်ချရ",
+    "t1": {
+      "q": "myanmardev.com က ကျွန်တော့် portfolio site ကို အရမ်းမြန်မြန် deploy လုပ်ပေးတယ်။ Config ခေါင်းကိုက်စရာ မလိုဘူး။",
+      "a": "အောင်ခန့်",
+      "role": "Full-Stack Developer, ရန်ကုန်"
+    },
+    "t2": {
+      "q": "Token system က ရိုးရှင်းပြီး သက်သာတယ်။ တစ်မိနစ်အတွင်း subdomain ရခဲ့တယ်။",
+      "a": "ဇင်မာဦး",
+      "role": "Frontend Developer, မန္တလေး"
+    },
+    "t3": {
+      "q": "နောက်ဆုံးတော့ မြန်မာ developer တွေအတွက် ဆောက်ထားတဲ့ platform ရပြီ။ Support ကောင်းတယ်။",
+      "a": "ဟိန်းထက်",
+      "role": "Freelance Developer, နေပြည်တော်"
+    }
+  },
+  "cta": {
+    "heading": "ယနေ့ စတင်တည်ဆောက်ပါ",
+    "sub": "မြန်မာ့ အမြန်ဆုံး တိုးတက်နေသော developer platform တွင် ပါဝင်ပါ",
+    "start": "အခမဲ့ စတင်ပါ",
+    "pricing": "စျေးနှုန်း ကြည့်ရန်"
+  },
   "footer": {
     "built": "မြန်မာ Dev များအတွက်",
     "rights": "© 2026 myanmardev.com"
+  },
+  "productPages": {
+    "subdomain": {
+      "title": "Subdomain မှတ်ပုံတင်ခြင်း",
+      "desc": "သင့်ကိုယ်ပိုင် .myanmardev.com subdomain ကို စက္ကန့်ပိုင်းအတွင်း ရယူပါ",
+      "features": {
+        "f1": "ချက်ချင်း DNS ပြုလုပ်ပေးခြင်း",
+        "f2": "GitHub Pages, Vercel, Netlify အထောက်အပံ့",
+        "f3": "ကိုယ်ပိုင် CNAME records",
+        "f4": "၉၉.၉% uptime အာမခံချက်",
+        "f5": "အခမဲ့ SSL လက်မှတ်များ",
+        "f6": "နည်းပညာ မလိုအပ်ပါ"
+      }
+    },
+    "breadcrumb": {
+      "home": "ပင်မ",
+      "products": "ထုတ်ကုန်"
+    }
+  },
+  "dashboard": {
+    "profile": {
+      "title": "ပရိုဖိုင်",
+      "memberSince": "အဖွဲ့ဝင် စတင်ချိန်",
+      "tokenBalance": "Token လက်ကျန်"
+    },
+    "products": {
+      "title": "ကျွန်ုပ်၏ ထုတ်ကုန်များ",
+      "empty": "ထုတ်ကုန် မရှိသေးပါ",
+      "browse": "ထုတ်ကုန်များ ကြည့်ရန်"
+    },
+    "subdomains": {
+      "title": "ကျွန်ုပ်၏ Subdomain များ",
+      "empty": "Subdomain မရှိသေးပါ",
+      "create": "Subdomain ဖန်တီးရန်"
+    },
+    "settings": {
+      "title": "ငွေပေးချေမှု ဆက်တင်များ",
+      "defaultMethod": "မူလ နည်းလမ်း",
+      "currency": "ငွေကြေး ဦးစားပေး"
+    },
+    "notify": {
+      "button": "ရရှိနိုင်သောအခါ အကြောင်းကြားပါ",
+      "success": "{product} စတင်သောအခါ အကြောင်းကြားပါမည်!"
+    }
   }
 }
