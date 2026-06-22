@@ -44,23 +44,38 @@ const styles: Record<string, React.CSSProperties> = {
 export default function AuthButton() {
   const { loading, isSignedIn, profile, signInWithGoogle, signInWithGitHub, signOut } = useAuth();
   const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSignInClick = useCallback(() => {
     setShowModal(true);
+    setError(null);
   }, []);
 
   const handleCloseModal = useCallback(() => {
     setShowModal(false);
+    setError(null);
   }, []);
 
   const handleGoogleSignIn = useCallback(async () => {
     setShowModal(false);
-    await signInWithGoogle();
+    setError(null);
+    try {
+      await signInWithGoogle();
+    } catch (err: any) {
+      console.error('Google sign-in error:', err);
+      setError(err?.message || 'Sign-in failed');
+    }
   }, [signInWithGoogle]);
 
   const handleGitHubSignIn = useCallback(async () => {
     setShowModal(false);
-    await signInWithGitHub();
+    setError(null);
+    try {
+      await signInWithGitHub();
+    } catch (err: any) {
+      console.error('GitHub sign-in error:', err);
+      setError(err?.message || 'Sign-in failed');
+    }
   }, [signInWithGitHub]);
 
   if (loading) {

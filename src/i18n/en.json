@@ -6,7 +6,8 @@
     "contact": "Contact",
     "myBusiness": "My Business",
     "menu": "Menu",
-    "toggleTheme": "Toggle theme"
+    "toggleTheme": "Toggle theme",
+    "signIn": "Sign In"
   },
   "hero": {
     "eyebrow": "Instant Deploy",

@@ -4,7 +4,6 @@ import AuthGate from './AuthGate';
 import TokenBalance from './TokenBalance';
 import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggle from './ThemeToggle.astro';
-import CurrencyToggle from './CurrencyToggle';
 import { t, type Language } from '../i18n/utils';
 
 interface Props {
@@ -30,8 +29,8 @@ const { lang } = Astro.props;
     <TokenBalance client:load />
     <AuthGate client:load />
     <ThemeToggle />
-    <CurrencyToggle client:load />
     <LanguageSwitcher client:load />
+    <a href="/auth/signin" class="signin-link mono anon-only">{t(lang, 'nav.signIn')}</a>
     <AuthButton client:load />
     <button class="hamburger" id="hamburger-btn" aria-label={t(lang, 'nav.menu')} aria-expanded="false">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -128,6 +127,21 @@ const { lang } = Astro.props;
 
   .mobile-nav.open {
     display: flex;
+  }
+
+  .signin-link {
+    font-size: 0.6875rem;
+    color: var(--accent);
+    padding: 0.35rem 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-radius: 4px;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+
+  .signin-link:hover {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    border-color: var(--accent);
   }
 
   @media (max-width: 720px) {
