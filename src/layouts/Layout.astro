@@ -17,7 +17,15 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={metaDescription} />
     <meta name="theme-color" content="#73a5f9" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Prevent flash: apply stored theme before paint -->
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -44,8 +52,6 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
   </head>
   <body>
     <slot />
-    <!-- Grain overlay -->
-    <div class="grain"></div>
     <noscript><style>.rise{opacity:1!important;transform:none!important}</style></noscript>
     <script>
       const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
@@ -61,6 +67,28 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     --accent: #73a5f9;
     --muted: #5B6470;
     --wash: #12151A;
+    --display: 'Sora', sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  [data-theme='dark'] {
+    --base: #0B0D10;
+    --ink: #E7EAEE;
+    --accent: #73a5f9;
+    --muted: #5B6470;
+    --wash: #12151A;
+    --display: 'Sora', sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  [data-theme='light'] {
+    --base: #FFFFFF;
+    --ink: #1A1D23;
+    --accent: #73a5f9;
+    --muted: #8B95A5;
+    --wash: #F5F6F8;
     --display: 'Sora', sans-serif;
     --body: 'Inter', system-ui, sans-serif;
     --mono: 'JetBrains Mono', monospace;
@@ -84,10 +112,6 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    background-image:
-      linear-gradient(color-mix(in srgb, var(--muted) 12%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, var(--muted) 12%, transparent) 1px, transparent 1px);
-    background-size: 72px 72px;
   }
 
   img {
@@ -237,7 +261,7 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
   /* ─── Panels ─── */
   .panel {
     background: var(--wash);
-    border: 1px solid #1D232B;
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
     border-radius: 10px;
     transition: border-color 0.2s ease;
   }
@@ -250,7 +274,7 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     justify-content: space-between;
     gap: 1rem;
     padding: 0.7rem 1rem;
-    border-bottom: 1px solid #1D232B;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
   }
 
   /* ─── Terminal block ─── */
@@ -350,15 +374,5 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     font-size: .875rem;
     margin: 0;
     line-height: 1.7;
-  }
-
-  /* ─── Grain texture ─── */
-  .grain {
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    pointer-events: none;
-    opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 </style>
