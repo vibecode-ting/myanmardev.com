@@ -3,7 +3,10 @@
     "home": "ပင်မ",
     "products": "ထုတ်ကုန်",
     "pricing": "စျေးနှုန်း",
-    "contact": "ဆက်သွယ်ရန်"
+    "contact": "ဆက်သွယ်ရန်",
+    "myBusiness": "ကျွန်ုပ်၏ လုပ်ငန်း",
+    "menu": "မီနူး",
+    "toggleTheme": "အပြင်အဆင် ပြောင်းရန်"
   },
   "hero": {
     "eyebrow": "ချက်ချင်းတင်",
@@ -88,7 +91,11 @@
     "cb": "CB Pay",
     "bank": "ဘဏ်လွှဲ",
     "confirm": "အတည်ပြု",
-    "cancel": "ပယ်ဖျက်"
+    "cancel": "ပယ်ဖျက်",
+    "crypto": "Crypto (USDT)",
+    "stripe": "ကတ် (Stripe)",
+    "tokens": "Token",
+    "wallet": "MMK ပိုက်ဆံအိတ်"
   },
   "auth": {
     "signIn": "အကောင့်ဝင်",
@@ -101,6 +108,34 @@
     "balance": "Token",
     "buy": "ဝယ်",
     "redeem": "ရွေး"
+  },
+  "pages": {
+    "products": { "title": "ထုတ်ကုန်များ" },
+    "pricing": { "title": "စျေးနှုန်း" },
+    "myBusiness": { "title": "ကျွန်ုပ်၏ လုပ်ငန်း" },
+    "auth": { "title": "အကောင့်ဝင်ရန်" }
+  },
+  "currency": {
+    "usd": "USD",
+    "mmk": "ကျပ်",
+    "toggle": "ငွေကြေး ပြောင်းရန်"
+  },
+  "product": {
+    "status": {
+      "live": "ရရှိနိုင်",
+      "comingSoon": "မကြာခင်"
+    }
+  },
+  "common": {
+    "actions": {
+      "order": "ယခု မှာယူရန်",
+      "notifyMe": "အကြောင်းကြားရန်",
+      "learnMore": "ပိုမို သိရှိရန်"
+    }
+  },
+  "theme": {
+    "dark": "အမှောင်",
+    "light": "အလင်း"
   },
   "footer": {
     "built": "မြန်မာ Dev များအတွက်",

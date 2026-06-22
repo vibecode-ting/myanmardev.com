@@ -3,6 +3,8 @@ import AuthButton from './AuthButton';
 import AuthGate from './AuthGate';
 import TokenBalance from './TokenBalance';
 import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggle from './ThemeToggle.astro';
+import CurrencyToggle from './CurrencyToggle';
 import { t, type Language } from '../i18n/utils';
 
 interface Props {
@@ -12,27 +14,150 @@ interface Props {
 const { lang } = Astro.props;
 ---
 
-<header style="position:sticky;top:0;z-index:40;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 clamp(1.25rem,4vw,3rem);background:color-mix(in srgb,var(--wash) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid #1D232B">
-  <a href="/" style="font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:-0.01em;display:flex;align-items:center;gap:0.5rem">
+<header class="site-header">
+  <a href="/" class="logo">
     <span style="color:var(--accent)">myanmardev</span>.com
   </a>
-  <nav class="mono" style="display:flex;align-items:center;gap:1.2rem;color:color-mix(in srgb,var(--ink) 70%,transparent)" id="tg-links">
+
+  <nav class="mono desktop-nav" id="tg-links">
     <a href="/">{t(lang, 'nav.home')}</a>
-    <a href="#products">{t(lang, 'nav.product')}</a>
-    <a href="#coming-soon">{t(lang, 'nav.coming')}</a>
-    <a href="#contact">{t(lang, 'nav.contact')}</a>
+    <a href="/products">{t(lang, 'nav.products')}</a>
+    <a href="/pricing">{t(lang, 'nav.pricing')}</a>
+    <a href="/my" class="auth-only">{t(lang, 'nav.myBusiness')}</a>
   </nav>
-  <div style="display:flex;align-items:center;gap:.6rem">
+
+  <div class="controls">
     <TokenBalance client:load />
     <AuthGate client:load />
+    <ThemeToggle />
+    <CurrencyToggle client:load />
     <LanguageSwitcher client:load />
     <AuthButton client:load />
+    <button class="hamburger" id="hamburger-btn" aria-label={t(lang, 'nav.menu')} aria-expanded="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
   </div>
+
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="/">{t(lang, 'nav.home')}</a>
+    <a href="/products">{t(lang, 'nav.products')}</a>
+    <a href="/pricing">{t(lang, 'nav.pricing')}</a>
+    <a href="/my" class="auth-only">{t(lang, 'nav.myBusiness')}</a>
+  </nav>
 </header>
 
 <style>
-  #tg-links a:hover { color: var(--ink); }
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 clamp(1.25rem, 4vw, 3rem);
+    background: color-mix(in srgb, var(--wash) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  }
+
+  .logo {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    color: color-mix(in srgb, var(--ink) 70%, transparent);
+  }
+
+  .desktop-nav a:hover,
+  .mobile-nav a:hover {
+    color: var(--ink);
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+
+  .mobile-nav {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: color-mix(in srgb, var(--wash) 95%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    padding: 0.5rem 0;
+  }
+
+  .mobile-nav a {
+    display: block;
+    padding: 0.75rem clamp(1.25rem, 4vw, 3rem);
+    color: color-mix(in srgb, var(--ink) 70%, transparent);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.875rem;
+  }
+
+  .mobile-nav.open {
+    display: flex;
+  }
+
   @media (max-width: 720px) {
-    #tg-links { display: none; }
+    .desktop-nav {
+      display: none;
+    }
+
+    .hamburger {
+      display: inline-flex;
+      align-items: center;
+    }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('hamburger-btn');
+    var nav = document.getElementById('mobile-nav');
+    if (!btn || !nav) return;
+
+    btn.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    nav.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  })();
+</script>

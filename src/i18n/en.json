@@ -3,7 +3,10 @@
     "home": "Home",
     "products": "Products",
     "pricing": "Pricing",
-    "contact": "Contact"
+    "contact": "Contact",
+    "myBusiness": "My Business",
+    "menu": "Menu",
+    "toggleTheme": "Toggle theme"
   },
   "hero": {
     "eyebrow": "Instant Deploy",
@@ -88,7 +91,11 @@
     "cb": "CB Pay",
     "bank": "Bank Transfer",
     "confirm": "Confirm Payment",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "crypto": "Crypto (USDT)",
+    "stripe": "Card (Stripe)",
+    "tokens": "Tokens",
+    "wallet": "MMK Wallet"
   },
   "auth": {
     "signIn": "Sign In",
@@ -101,6 +108,34 @@
     "balance": "Tokens",
     "buy": "Buy",
     "redeem": "Redeem"
+  },
+  "pages": {
+    "products": { "title": "Products" },
+    "pricing": { "title": "Pricing" },
+    "myBusiness": { "title": "My Business" },
+    "auth": { "title": "Sign In" }
+  },
+  "currency": {
+    "usd": "USD",
+    "mmk": "MMK",
+    "toggle": "Switch currency"
+  },
+  "product": {
+    "status": {
+      "live": "Live",
+      "comingSoon": "Coming Soon"
+    }
+  },
+  "common": {
+    "actions": {
+      "order": "Order Now",
+      "notifyMe": "Notify Me",
+      "learnMore": "Learn More"
+    }
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
   },
   "footer": {
     "built": "Built for Myanmar Devs",
