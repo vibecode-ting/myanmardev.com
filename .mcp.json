@@ -13,6 +13,15 @@
     "github": {
       "command": "npx",
       "args": ["-y", "@anthropic/mcp-server-github"]
+    },
+    "cloudflare": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
     }
   }
 }
