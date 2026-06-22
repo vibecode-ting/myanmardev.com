@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <radialGradient id="avBg" cx="64" cy="64" r="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1D232B"/>
+      <stop offset="100%" stop-color="#12151A"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="64" fill="url(#avBg)"/>
+
+  <!-- Code bracket face -->
+  <!-- Left bracket (eye) -->
+  <text x="30" y="72" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="700" fill="#73a5f9" opacity="0.8">{</text>
+  <!-- Right bracket (eye) -->
+  <text x="78" y="72" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="700" fill="#73a5f9" opacity="0.8">}</text>
+  <!-- Smile (terminal cursor) -->
+  <rect x="50" y="82" width="28" height="4" rx="2" fill="#73a5f9" opacity="0.4"/>
+
+  <!-- Subtle Myanmar star -->
+  <polygon points="64,20 67,28 75,28 69,33 71,41 64,37 57,41 59,33 53,28 61,28" fill="#73a5f9" opacity="0.15"/>
+</svg>

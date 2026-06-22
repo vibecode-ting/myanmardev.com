@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Icon only - for favicon / small use -->
+  <rect width="64" height="64" rx="14" fill="url(#iconGrad)"/>
+  <text x="32" y="46" text-anchor="middle" font-family="'Sora', sans-serif" font-weight="800" font-size="36" fill="#ffffff">M</text>
+  <!-- Terminal cursor -->
+  <rect x="40" y="40" width="3" height="12" rx="1" fill="#73a5f9" opacity="0.9"/>
+  <defs>
+    <linearGradient id="iconGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+</svg>

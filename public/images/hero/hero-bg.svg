@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 600" fill="none">
+  <!-- Grid background -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1D232B" stroke-width="0.5"/>
+    </pattern>
+    <linearGradient id="fadeUp" x1="0" y1="600" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B0D10" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#0B0D10" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="960" cy="400" r="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#73a5f9" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#73a5f9" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur1" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Base -->
+  <rect width="1920" height="600" fill="#0B0D10"/>
+  <rect width="1920" height="600" fill="url(#grid)"/>
+  <rect width="1920" height="600" fill="url(#glow)"/>
+
+  <!-- Myanmar pagoda silhouette (Shwedagon-inspired) -->
+  <g opacity="0.12" fill="#73a5f9">
+    <!-- Main dome -->
+    <ellipse cx="960" cy="420" rx="120" ry="100"/>
+    <!-- Spire base -->
+    <rect x="940" y="300" width="40" height="120" rx="4"/>
+    <!-- Spire -->
+    <polygon points="960,180 948,300 972,300"/>
+    <!-- Umbrella rings -->
+    <ellipse cx="960" cy="280" rx="30" ry="8"/>
+    <ellipse cx="960" cy="260" rx="22" ry="6"/>
+    <ellipse cx="960" cy="244" rx="14" ry="4"/>
+    <!-- Finial -->
+    <circle cx="960" cy="200" r="6"/>
+    <!-- Side stupas (smaller) -->
+    <ellipse cx="780" cy="460" rx="50" ry="45"/>
+    <rect x="770" y="400" width="20" height="60" rx="3"/>
+    <polygon points="780,360 772,400 788,400"/>
+    <ellipse cx="1140" cy="460" rx="50" ry="45"/>
+    <rect x="1130" y="400" width="20" height="60" rx="3"/>
+    <polygon points="1140,360 1132,400 1148,400"/>
+  </g>
+
+  <!-- Floating code snippets -->
+  <g font-family="'JetBrains Mono', monospace" font-size="12" fill="#5B6470" opacity="0.3">
+    <text x="200" y="150">$ yourname.myanmardev.com</text>
+    <text x="1500" y="120">deploy --instant</text>
+    <text x="300" y="350">const domain = "myanmardev.com"</text>
+    <text x="1400" y="300">// built for Myanmar devs</text>
+    <text x="150" y="500">npx deploy yourname</text>
+    <text x="1600" y="480">Status: Live ✓</text>
+  </g>
+
+  <!-- Connection nodes -->
+  <g fill="#73a5f9" opacity="0.15">
+    <circle cx="300" cy="200" r="3"/>
+    <circle cx="500" cy="100" r="2"/>
+    <circle cx="700" cy="180" r="3"/>
+    <circle cx="1200" cy="150" r="2"/>
+    <circle cx="1400" cy="250" r="3"/>
+    <circle cx="1600" cy="180" r="2"/>
+    <circle cx="400" cy="400" r="2"/>
+    <circle cx="1500" cy="400" r="3"/>
+  </g>
+  <g stroke="#73a5f9" stroke-width="0.5" opacity="0.08">
+    <line x1="300" y1="200" x2="500" y2="100"/>
+    <line x1="500" y1="100" x2="700" y2="180"/>
+    <line x1="1200" y1="150" x2="1400" y2="250"/>
+    <line x1="1400" y1="250" x2="1600" y2="180"/>
+  </g>
+
+  <!-- Bottom fade -->
+  <rect width="1920" height="600" fill="url(#fadeUp)"/>
+</svg>

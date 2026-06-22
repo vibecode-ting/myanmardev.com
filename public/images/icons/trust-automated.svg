@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Robot/Automaton icon - 100% Automated -->
+  <rect x="14" y="18" width="36" height="30" rx="6" stroke="#73a5f9" stroke-width="2"/>
+  <circle cx="26" cy="33" r="3" fill="#73a5f9"/>
+  <circle cx="38" cy="33" r="3" fill="#73a5f9"/>
+  <rect x="26" y="40" width="12" height="3" rx="1.5" fill="#73a5f9" opacity="0.6"/>
+  <!-- Antenna -->
+  <line x1="32" y1="18" x2="32" y2="10" stroke="#73a5f9" stroke-width="2"/>
+  <circle cx="32" cy="8" r="3" fill="#73a5f9"/>
+  <!-- Ears -->
+  <rect x="8" y="28" width="6" height="10" rx="2" stroke="#73a5f9" stroke-width="1.5"/>
+  <rect x="50" y="28" width="6" height="10" rx="2" stroke="#73a5f9" stroke-width="1.5"/>
+</svg>

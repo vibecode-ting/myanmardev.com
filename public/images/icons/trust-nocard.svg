@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Credit card with X - No Credit Card -->
+  <rect x="8" y="18" width="48" height="32" rx="4" stroke="#73a5f9" stroke-width="2"/>
+  <line x1="8" y1="28" x2="56" y2="28" stroke="#73a5f9" stroke-width="2"/>
+  <rect x="14" y="34" width="16" height="4" rx="1" fill="#73a5f9" opacity="0.4"/>
+  <!-- X overlay -->
+  <line x1="36" y1="36" x2="50" y2="46" stroke="#73a5f9" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="50" y1="36" x2="36" y2="46" stroke="#73a5f9" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

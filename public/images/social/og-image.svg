@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <pattern id="ogGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#1D232B" stroke-width="0.5"/>
+    </pattern>
+    <linearGradient id="ogGrad" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B0D10"/>
+      <stop offset="100%" stop-color="#12151A"/>
+    </linearGradient>
+    <radialGradient id="ogGlow" cx="600" cy="315" r="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#73a5f9" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#73a5f9" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#ogGrad)"/>
+  <rect width="1200" height="630" fill="url(#ogGrid)"/>
+  <rect width="1200" height="630" fill="url(#ogGlow)"/>
+
+  <!-- Logo mark -->
+  <rect x="80" y="80" width="70" height="70" rx="14" fill="url(#ogMGrad)"/>
+  <text x="115" y="130" text-anchor="middle" font-family="'Sora', sans-serif" font-weight="800" font-size="42" fill="#ffffff">M</text>
+  <rect x="128" y="116" width="3" height="14" rx="1" fill="#73a5f9" opacity="0.8"/>
+
+  <!-- Domain name -->
+  <text x="170" y="122" font-family="'Sora', sans-serif" font-weight="700" font-size="36" fill="#73a5f9">myanmardev.com</text>
+
+  <!-- Terminal window -->
+  <rect x="80" y="200" width="600" height="280" rx="12" fill="#12151A" stroke="#1D232B" stroke-width="1"/>
+  <!-- Terminal title bar -->
+  <rect x="80" y="200" width="600" height="40" rx="12" fill="#1D232B"/>
+  <rect x="80" y="228" width="600" height="12" fill="#1D232B"/>
+  <circle cx="108" cy="220" r="5" fill="#ff5f57"/>
+  <circle cx="126" cy="220" r="5" fill="#febc2e"/>
+  <circle cx="144" cy="220" r="5" fill="#28c840"/>
+  <!-- Terminal content -->
+  <text x="100" y="270" font-family="'JetBrains Mono', monospace" font-size="14" fill="#5B6470">$ npx create-subdomain yourname</text>
+  <text x="100" y="295" font-family="'JetBrains Mono', monospace" font-size="14" fill="#73a5f9">✓ Subdomain created!</text>
+  <text x="100" y="320" font-family="'JetBrains Mono', monospace" font-size="14" fill="#5B6470">$ yourname.myanmardev.com</text>
+  <text x="100" y="345" font-family="'JetBrains Mono', monospace" font-size="14" fill="#28c840">Status: Live ● Deployed in 0.8s</text>
+  <text x="100" y="380" font-family="'JetBrains Mono', monospace" font-size="14" fill="#5B6470">// 100% Automated • No Credit Card</text>
+  <text x="100" y="405" font-family="'JetBrains Mono', monospace" font-size="14" fill="#5B6470">// Built for Myanmar Devs 🇲🇲</text>
+  <text x="100" y="440" font-family="'JetBrains Mono', monospace" font-size="14" fill="#73a5f9" opacity="0.7">█</text>
+
+  <!-- Right side: Stats -->
+  <g transform="translate(780, 200)">
+    <text x="0" y="20" font-family="'Sora', sans-serif" font-weight="600" font-size="18" fill="#E7EAEE">Trusted by Myanmar Developers</text>
+    <g transform="translate(0, 60)">
+      <text x="0" y="20" font-family="'Sora', sans-serif" font-weight="700" font-size="36" fill="#73a5f9">500+</text>
+      <text x="0" y="45" font-family="'Sora', sans-serif" font-size="14" fill="#5B6470">Subdomains Created</text>
+    </g>
+    <g transform="translate(0, 130)">
+      <text x="0" y="20" font-family="'Sora', sans-serif" font-weight="700" font-size="36" fill="#73a5f9">200+</text>
+      <text x="0" y="45" font-family="'Sora', sans-serif" font-size="14" fill="#5B6470">Developers</text>
+    </g>
+    <g transform="translate(0, 200)">
+      <text x="0" y="20" font-family="'Sora', sans-serif" font-weight="700" font-size="36" fill="#73a5f9">99.9%</text>
+      <text x="0" y="45" font-family="'Sora', sans-serif" font-size="14" fill="#5B6470">Uptime</text>
+    </g>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="590" width="1200" height="40" fill="#12151A"/>
+  <text x="80" y="616" font-family="'JetBrains Mono', monospace" font-size="13" fill="#5B6470">app.myanmardev.com</text>
+  <text x="1120" y="616" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="13" fill="#5B6470">Free Subdomains • Instant Deploy</text>
+
+  <defs>
+    <linearGradient id="ogMGrad" x1="0" y1="0" x2="70" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+</svg>
