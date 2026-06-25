@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { checkSubdomain, createSubdomain } from '../lib/api';
+import React, { useState, useCallback, useEffect } from 'react';
+import { checkSubdomain, createSubdomain, getDomains } from '../lib/api';
 import { useAuth } from './AuthProvider';
 import { deductTokens } from '../lib/auth';
 import { createProductOrder } from '../lib/orders';
@@ -162,6 +162,8 @@ export default function SubdomainBuilder() {
   const { isSignedIn, profile, signInWithGoogle, signInWithGitHub, refreshProfile } = useAuth();
   const [step, setStep] = useState<Step>(1);
   const [subdomain, setSubdomain] = useState('');
+  const [domain, setDomain] = useState('myanmardev.com');
+  const [domains, setDomains] = useState<string[]>(['myanmardev.com']);
   const [platform, setPlatform] = useState<Platform>('github');
   const [sourceUrl, setSourceUrl] = useState('');
   const [status, setStatus] = useState<Status>('idle');
@@ -170,6 +172,14 @@ export default function SubdomainBuilder() {
   const [showBuyTokensModal, setShowBuyTokensModal] = useState(false);
 
   const selectedPlatform = PLATFORMS.find((p) => p.value === platform)!;
+
+  // Fetch available domains on mount
+  useEffect(() => {
+    getDomains().then((d) => {
+      setDomains(d);
+      if (d.length > 0 && !d.includes(domain)) setDomain(d[0]);
+    });
+  }, []);
 
   const handleCheck = useCallback(async () => {
     const trimmed = subdomain.trim().toLowerCase();
@@ -193,22 +203,22 @@ export default function SubdomainBuilder() {
     }
 
     setStatus('checking');
-    setMessage(`Checking ${trimmed}.myanmardev.com...`);
+    setMessage(`Checking ${trimmed}.${domain}...`);
     try {
-      const result = await checkSubdomain(trimmed);
+      const result = await checkSubdomain(trimmed, domain);
       if (result.available) {
         setStatus('available');
-        setMessage(`${trimmed}.myanmardev.com is available`);
+        setMessage(`${trimmed}.${domain} is available`);
         setStep(2);
       } else {
         setStatus('unavailable');
-        setMessage(`${trimmed}.myanmardev.com is already taken.`);
+        setMessage(`${trimmed}.${domain} is already taken.`);
       }
     } catch (err: any) {
       setStatus('error');
       setMessage(err.message || 'Check failed. Try again.');
     }
-  }, [subdomain, isSignedIn, profile]);
+  }, [subdomain, domain, isSignedIn, profile]);
 
   const handleCreate = useCallback(async () => {
     // Double-check auth and tokens
@@ -228,6 +238,7 @@ export default function SubdomainBuilder() {
       // 1. Create the subdomain
       const result = await createSubdomain({
         subdomain: subdomain.trim().toLowerCase(),
+        domain,
         platform,
         sourceUrl: sourceUrl.trim(),
       });
@@ -245,7 +256,8 @@ export default function SubdomainBuilder() {
         'subdomain',
         TOKEN_COST,
         {
-          subdomain: `${subdomain.trim().toLowerCase()}.myanmardev.com`,
+          subdomain: `${subdomain.trim().toLowerCase()}.${domain}`,
+          domain,
           platform,
           sourceUrl: sourceUrl.trim(),
         }
@@ -281,6 +293,18 @@ export default function SubdomainBuilder() {
       {/* Step 1 */}
       {step === 1 && (
         <div>
+          <label className="tg-label">Choose your domain</label>
+          <select
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
+            className="tg-input"
+            style={{ marginBottom: '0.75rem', cursor: 'pointer' }}
+          >
+            {domains.map((d) => (
+              <option key={d} value={d}>{d}</option>
+            ))}
+          </select>
+
           <label className="tg-label">Enter your subdomain</label>
           <div className="tg-input-group">
             <input
@@ -291,7 +315,7 @@ export default function SubdomainBuilder() {
               placeholder="myapp"
               className="tg-input"
             />
-            <span className="tg-input-suffix">.myanmardev.com</span>
+            <span className="tg-input-suffix">.{domain}</span>
           </div>
 
           {/* Token Cost Info */}
@@ -423,7 +447,7 @@ export default function SubdomainBuilder() {
             <div className="tg-mono-label">DNS Preview</div>
             <div className="tg-preview-row" style={{ gap: '1.2rem' }}>
               <span>TYPE</span><span>CNAME</span>
-              <span>NAME</span><span>{subdomain}.myanmardev.com</span>
+              <span>NAME</span><span>{subdomain}.{domain}</span>
               <span>TARGET</span><span>{cnamePreview}</span>
             </div>
           </div>

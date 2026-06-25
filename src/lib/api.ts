@@ -8,12 +8,14 @@
 interface CheckResponse {
   available: boolean;
   subdomain: string;
+  domain: string;
   message: string;
 }
 
 interface CreateResponse {
   success: boolean;
   subdomain: string;
+  domain: string;
   record: {
     type: string;
     name: string;
@@ -29,17 +31,25 @@ interface ErrorResponse {
 
 const API_URL = import.meta.env.PUBLIC_WORKER_API_URL || 'http://localhost:8787';
 
+/** Get list of available domains */
+export async function getDomains(): Promise<string[]> {
+  const res = await fetch(`${API_URL}/domains`);
+  if (!res.ok) return ['myanmardev.com']; // fallback
+  const data = await res.json();
+  return data.domains || ['myanmardev.com'];
+}
+
 /** Check if a subdomain is available */
-export async function checkSubdomain(subdomain: string): Promise<CheckResponse> {
+export async function checkSubdomain(subdomain: string, domain: string): Promise<CheckResponse> {
   const res = await fetch(`${API_URL}/check`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ subdomain }),
+    body: JSON.stringify({ subdomain, domain }),
   });
 
   if (!res.ok) {
     const err: ErrorResponse = await res.json();
-    return { available: false, subdomain, message: err.error || 'DNS check failed' };
+    return { available: false, subdomain, domain, message: err.error || 'DNS check failed' };
   }
 
   return res.json();
@@ -48,6 +58,7 @@ export async function checkSubdomain(subdomain: string): Promise<CheckResponse> 
 /** Create a CNAME record for the subdomain */
 export async function createSubdomain(params: {
   subdomain: string;
+  domain: string;
   platform: string;
   sourceUrl: string;
 }): Promise<CreateResponse> {

@@ -10,6 +10,8 @@ compatibility_date = "2025-01-01"
 [vars]
 ALLOWED_ORIGIN = "https://myanmardev.com"
 
-# Set these secrets before deploying:
+# Set this secret before deploying:
 # npx wrangler secret put CLOUDFLARE_API_TOKEN
-# npx wrangler secret put CLOUDFLARE_ZONE_ID
+
+# Zone IDs for all managed domains are hardcoded in subdomain-api.js
+# Domains: myanmardev.com, myanmar.dpdns.org, tinghah.online
