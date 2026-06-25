@@ -6,7 +6,7 @@
  *
  * Secrets:
  *   CLOUDFLARE_API_TOKEN — Cloudflare API token (Zone → DNS → Edit)
- *   ALLOWED_ORIGIN       — CORS allow origin (https://myanmardev.com)
+ *   ALLOWED_ORIGIN       — CORS allow origin (https://app.myanmardev.com)
  *
  * Endpoints:
  *   GET  /domains — List available domains
@@ -90,7 +90,7 @@ function handleDomains(request, env) {
 async function handleCheck(request, env) {
   const origin = request.headers.get('Origin');
   const apiToken = env.CLOUDFLARE_API_TOKEN;
-  const allowedOrigin = env.ALLOWED_ORIGIN || 'https://myanmardev.com';
+  const allowedOrigin = env.ALLOWED_ORIGIN || 'https://app.myanmardev.com';
 
   let body;
   try {
@@ -173,7 +173,7 @@ async function handleCheck(request, env) {
 async function handleCreate(request, env) {
   const origin = request.headers.get('Origin');
   const apiToken = env.CLOUDFLARE_API_TOKEN;
-  const allowedOrigin = env.ALLOWED_ORIGIN || 'https://myanmardev.com';
+  const allowedOrigin = env.ALLOWED_ORIGIN || 'https://app.myanmardev.com';
 
   let body;
   try {
@@ -283,7 +283,7 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const origin = request.headers.get('Origin');
-    const allowedOrigin = env.ALLOWED_ORIGIN || 'https://myanmardev.com';
+    const allowedOrigin = env.ALLOWED_ORIGIN || 'https://app.myanmardev.com';
 
     // Handle CORS preflight
     if (request.method === 'OPTIONS') {

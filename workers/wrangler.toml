@@ -6,9 +6,9 @@ main = "subdomain-api.js"
 
 compatibility_date = "2025-01-01"
 
-# Allow requests from the frontend
+# The frontend app runs on this URL
 [vars]
-ALLOWED_ORIGIN = "https://myanmardev.com"
+ALLOWED_ORIGIN = "https://app.myanmardev.com"
 
 # Set this secret before deploying:
 # npx wrangler secret put CLOUDFLARE_API_TOKEN
