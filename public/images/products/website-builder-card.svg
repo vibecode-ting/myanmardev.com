@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none">
+  <defs>
+    <linearGradient id="cardBg2" x1="0" y1="0" x2="320" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#12151A"/>
+      <stop offset="100%" stop-color="#0B0D10"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="320" height="200" rx="12" fill="url(#cardBg2)" stroke="#1D232B" stroke-width="1"/>
+
+  <!-- Browser window icon -->
+  <rect x="110" y="40" width="100" height="70" rx="6" stroke="#73a5f9" stroke-width="1.5" fill="none"/>
+  <line x1="110" y1="55" x2="210" y2="55" stroke="#73a5f9" stroke-width="1"/>
+  <circle cx="122" cy="48" r="2.5" fill="#ff5f57"/>
+  <circle cx="132" cy="48" r="2.5" fill="#febc2e"/>
+  <circle cx="142" cy="48" r="2.5" fill="#28c840"/>
+
+  <!-- Floating code blocks -->
+  <rect x="120" y="62" width="40" height="8" rx="2" fill="#73a5f9" opacity="0.2"/>
+  <rect x="120" y="74" width="60" height="8" rx="2" fill="#73a5f9" opacity="0.15"/>
+  <rect x="120" y="86" width="30" height="8" rx="2" fill="#73a5f9" opacity="0.1"/>
+  <rect x="165" y="74" width="35" height="8" rx="2" fill="#8b5cf6" opacity="0.15"/>
+
+  <!-- Component blocks floating -->
+  <rect x="80" y="60" width="20" height="15" rx="3" stroke="#73a5f9" stroke-width="0.8" fill="none" opacity="0.4" transform="rotate(-10 80 60)"/>
+  <rect x="220" y="55" width="20" height="15" rx="3" stroke="#73a5f9" stroke-width="0.8" fill="none" opacity="0.4" transform="rotate(8 220 55)"/>
+
+  <!-- Text -->
+  <text x="160" y="140" text-anchor="middle" font-family="'Sora', sans-serif" font-size="14" fill="#E7EAEE">Static Website Builder</text>
+
+  <!-- Coming soon badge -->
+  <rect x="120" y="155" width="80" height="20" rx="10" fill="#73a5f9" opacity="0.15"/>
+  <text x="160" y="168" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#73a5f9">Coming Soon</text>
+
+  <text x="160" y="190" text-anchor="middle" font-family="'Sora', sans-serif" font-size="12" fill="#5B6470">3 Tokens</text>
+</svg>

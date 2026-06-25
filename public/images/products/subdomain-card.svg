@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none">
+  <defs>
+    <linearGradient id="cardBg" x1="0" y1="0" x2="320" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#12151A"/>
+      <stop offset="100%" stop-color="#0B0D10"/>
+    </linearGradient>
+    <filter id="glow1">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="320" height="200" rx="12" fill="url(#cardBg)" stroke="#1D232B" stroke-width="1"/>
+
+  <!-- Globe icon -->
+  <circle cx="160" cy="70" r="28" stroke="#73a5f9" stroke-width="1.5" fill="none"/>
+  <ellipse cx="160" cy="70" rx="12" ry="28" stroke="#73a5f9" stroke-width="1" fill="none" opacity="0.5"/>
+  <line x1="132" y1="70" x2="188" y2="70" stroke="#73a5f9" stroke-width="1" opacity="0.5"/>
+  <line x1="138" y1="55" x2="182" y2="55" stroke="#73a5f9" stroke-width="0.8" opacity="0.3"/>
+  <line x1="138" y1="85" x2="182" y2="85" stroke="#73a5f9" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- Domain text -->
+  <text x="160" y="130" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="14" fill="#73a5f9" filter="url(#glow1)">yourname.myanmardev.com</text>
+
+  <!-- Status indicator -->
+  <circle cx="140" cy="155" r="4" fill="#28c840"/>
+  <text x="150" y="159" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5B6470">Available Now</text>
+
+  <!-- Token cost -->
+  <text x="160" y="185" text-anchor="middle" font-family="'Sora', sans-serif" font-size="13" fill="#5B6470">1 Token</text>
+</svg>

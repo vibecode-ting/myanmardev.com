@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Shield with checkmark - Secure & Reliable -->
+  <path d="M32 8 L50 18 V34 C50 48 32 56 32 56 C32 56 14 48 14 34 V18 Z" stroke="#73a5f9" stroke-width="2" fill="none"/>
+  <polyline points="22,33 30,41 42,25" stroke="#73a5f9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

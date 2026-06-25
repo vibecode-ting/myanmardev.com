@@ -9,6 +9,9 @@
 #   bash doctor.sh ch-1             # ch-1 homework (profile repo + PR)
 #   bash doctor.sh ch-2             # ch-2 homework (proposal in team repo)
 #   bash doctor.sh ch-3             # ch-3 homework (team-repo report + personal repo: mcp+skill+agent, 6×20 slides, ⭐>=3)
+#   bash doctor.sh ch-4             # ch-4 homework (team-repo report + personal repo: live/download URL, LICENSE, >=3 screenshots, product-intro slides)
+#   bash doctor.sh ch-5             # ch-5 homework (team-repo report + personal repo: Skill + Subagent, tech-stack slides, one feedback file, live URL)
+#   bash doctor.sh ch-6             # ch-6 homework (team-repo report + personal repo: closed-issue links, LICENSE, README, analytics, >=3 screenshots, public live URL, gallery slides)
 #
 # Stages (all chapters):
 #   1. detect platform (mac | wsl | linux)
@@ -35,7 +38,7 @@
 set -u
 
 # version stamp — bump on every doctor.sh change (helps users + mentors debug which build is running)
-DOCTOR_VERSION="2026-06-20a"
+DOCTOR_VERSION="2026-06-23a"
 
 # ---------- 0. self-update ----------
 # doctor.sh updates itself from main so chapter checks can change mid-cohort.
@@ -129,6 +132,9 @@ print_debug_bundle() {
     ch-1) echo "ch1: profile:${CH1_PROFILE:-?} pr:${CH1_PR_STATE:-?}" ;;
     ch-2) echo "ch2: proposal:${CH2_PROPOSAL:-?}" ;;
     ch-3) echo "ch3: report:${CH3_REPORT:-?} author:${CH3_AUTHOR:-?} repo:${CH3_OWNER:-?} mcp:${CH3_MCP:-?} skill:${CH3_SKILL:-?} agent:${CH3_AGENT:-?} slides:${CH3_SLIDES:-?} stars:${CH3_STARS:-?}" ;;
+    ch-4) echo "ch4: report:${CH4_REPORT:-?} author:${CH4_AUTHOR:-?} repo:${CH4_OWNER:-?} license:${CH4_LICENSE:-?} live:${CH4_LIVE:-?} shots:${CH4_SHOTS:-?} slides:${CH4_SLIDES:-?}" ;;
+    ch-5) echo "ch5: report:${CH5_REPORT:-?} author:${CH5_AUTHOR:-?} repo:${CH5_OWNER:-?} skill:${CH5_SKILL:-?} agent:${CH5_AGENT:-?} slides:${CH5_SLIDES:-?} feedback:${CH5_FEEDBACK:-?} live:${CH5_LIVE:-?}" ;;
+    ch-6) echo "ch6: report:${CH6_REPORT:-?} author:${CH6_AUTHOR:-?} repo:${CH6_OWNER:-?} license:${CH6_LICENSE:-?} readme:${CH6_README:-?} shots:${CH6_SHOTS:-?} slides:${CH6_SLIDES:-?} issues:${CH6_ISSUES:-?} live:${CH6_LIVE:-?}" ;;
   esac
   echo "score: ${checks_pass:-0}/${checks_total:-0}  json: ${JSON:-none}"
   echo '```'
@@ -519,6 +525,393 @@ EOF2
   fi
 fi
 
+# ---------- 6d. chapter 4 — make the winner real (personal project, shipped) ----------
+# Submission: TEAM repo ch-4/<you>/report.md. Evidence: PERSONAL repo (LICENSE,
+# screenshots, product-intro slides) + a live/download URL. Fetched via gh API —
+# run from anywhere, no clone needed. Mirrors instructor scripts/check-ch4.mjs.
+CH4_MIN_SHOTS="${CH4_MIN_SHOTS:-3}"               # screenshots referenced in report that exist in repo
+CH4_REPORT=fail; CH4_AUTHOR=fail; CH4_OWNER=fail; CH4_LICENSE=fail
+CH4_LIVE=fail; CH4_SHOTS=fail; CH4_SLIDES=fail
+CH4_REPO=""; CH4_REPO_URL=""; CH4_LIVE_URL=""; CH4_LICENSE_NAME=""
+CH4_SLIDES_PATH=""; CH4_SUMMARY=""; CH4_TEAM_REPO=""; CH4_DIR=""; CH4_SHOT_COUNT=0
+CH4_REPORT_TMP="$OUTDIR/ch-4-report-fetched-$TS.md"
+if [ "$CHAPTER" = "ch-4" ]; then
+  say "Chapter 4 — personal project (shipped + licensed)"; hr
+  if [ -z "$GH_USER" ]; then
+    fail "skipping ch-4 checks — gh not authed (run: gh auth login)"
+  else
+    # 1. locate your team repo + ch-4/<you>/ dir (login match is case-insensitive)
+    TEAM_REPOS=$(gh api --paginate "orgs/$GH_ORG/repos?per_page=100" --jq '.[].name' 2>/dev/null | grep -E '^team-[0-9]+$' || true)
+    for t in $TEAM_REPOS; do
+      d=$(gh api "repos/$GH_ORG/$t/contents/ch-4" --jq '.[].name' 2>/dev/null | grep -ixF "$GH_USER" | head -1 || true)
+      if [ -n "$d" ] && gh api "repos/$GH_ORG/$t/contents/ch-4/$d/report.md" >/dev/null 2>&1; then
+        CH4_TEAM_REPO="$t"; CH4_DIR="$d"; break
+      fi
+    done
+    if [ -z "$CH4_TEAM_REPO" ]; then
+      fail "no ch-4/$GH_USER/report.md in any team repo — copy ch-4/_TEMPLATE.md to ch-4/$GH_USER_LC/report.md, fill it, push (run /repo-access if you have no team repo)"
+    elif gh api "repos/$GH_ORG/$CH4_TEAM_REPO/contents/ch-4/$CH4_DIR/report.md" \
+           -H "Accept: application/vnd.github.raw" > "$CH4_REPORT_TMP" 2>/dev/null \
+         && [ -s "$CH4_REPORT_TMP" ]; then
+      CH4_REPORT=ok; ok "report: $CH4_TEAM_REPO/ch-4/$CH4_DIR/report.md"
+    else
+      fail "could not fetch ch-4/$CH4_DIR/report.md from $CH4_TEAM_REPO"
+    fi
+
+    if [ "$CH4_REPORT" = ok ]; then
+      tr -d '\r' < "$CH4_REPORT_TMP" > "$CH4_REPORT_TMP.n" && mv "$CH4_REPORT_TMP.n" "$CH4_REPORT_TMP"
+      # tolerant markdown field read (case-insensitive): strips leading "- ", "**",
+      # spaces around the key; $1 is a lowercase ERE key. awk/tolower keeps it portable.
+      get4() {
+        awk -v k="$1" '
+        {
+          line=$0
+          sub(/^[[:space:]]*[-*[:space:]]*/, "", line)   # strip "- ** " prefix
+          low=tolower(line)
+          if (match(low, "^" k "[[:space:]]*:")) {
+            v=substr(line, RLENGTH+1)                     # value after the colon
+            sub(/^[[:space:]*]*/, "", v)                  # strip leading ** / spaces
+            sub(/[[:space:]*]+$/, "", v)                  # strip trailing
+            print v; exit
+          }
+        }' "$CH4_REPORT_TMP"
+      }
+      is_ph() { case "$1" in ""|*"<"*|*">"*) return 0;; *) return 1;; esac; }   # empty or <placeholder>
+      CH4_REPO_URL=$(get4 'repo url')
+      CH4_LIVE_URL=$(get4 'live[^:]*url')
+      CH4_LICENSE_NAME=$(get4 'license')
+      CH4_SLIDES_PATH=$(get4 'slides[[:space:]]*path')
+      CH4_SUMMARY=$(get4 'one-line summary')
+
+      # report.md must be committed BY YOU (anti-forgery: teammates can write the team repo)
+      rep_author=$(gh api "repos/$GH_ORG/$CH4_TEAM_REPO/commits?path=ch-4/$CH4_DIR/report.md&per_page=1" --jq '.[0].author.login // ""' 2>/dev/null | tr '[:upper:]' '[:lower:]')
+      if [ -z "$rep_author" ]; then
+        CH4_AUTHOR=ok; warn "could not verify report.md commit author (commit email not linked to a GitHub account) — instructor will check"
+      elif [ "$rep_author" = "$GH_USER_LC" ]; then
+        CH4_AUTHOR=ok; ok "report committed by you (@$rep_author)"
+      else
+        fail "report.md last committed by @$rep_author, not you (@$GH_USER) — push your own report"
+      fi
+
+      # personal repo: owner == you
+      CH4_REPO=$(printf '%s' "$CH4_REPO_URL" | sed -E 's#(git@|https?://)github.com[:/]##; s/#.*$//; s/\.git$//; s#/+$##')
+      if is_ph "$CH4_REPO_URL"; then
+        fail "Repo URL line empty/placeholder — paste your own repo link"
+      else
+        repo_owner=$(gh api "repos/$CH4_REPO" --jq '.owner.login' 2>/dev/null || true)
+        if [ -z "$repo_owner" ]; then
+          fail "personal repo not found: ${CH4_REPO:-none} (check the Repo URL line)"
+        else
+          repo_owner_lc=$(printf '%s' "$repo_owner" | tr '[:upper:]' '[:lower:]')
+          if [ "$repo_owner_lc" = "$GH_USER_LC" ]; then
+            CH4_OWNER=ok; ok "repo: github.com/$CH4_REPO (owner @$repo_owner)"
+          else
+            fail "Repo URL owner @$repo_owner != you @$GH_USER — submit your own repo"
+          fi
+
+          # repo tree (LICENSE, screenshots, slides path)
+          if [ "$(gh api "repos/$CH4_REPO/git/trees/HEAD?recursive=1" --jq '.truncated' 2>/dev/null)" = "true" ]; then
+            warn "repo tree too large — GitHub truncated it; checks may be incomplete, instructor will verify"
+          fi
+          TREE_PATHS=$(gh api "repos/$CH4_REPO/git/trees/HEAD?recursive=1" --jq '.tree[]|select(.type=="blob")|.path' 2>/dev/null || true)
+
+          # license: LICENSE file in repo root + a non-placeholder license name in report
+          lic_file=$(printf '%s\n' "$TREE_PATHS" | grep -iE '^license(\.md|\.txt)?$' | head -1 || true)
+          if [ -z "$lic_file" ]; then
+            fail "no LICENSE file in repo root (add one — MIT is a fine default)"
+          elif is_ph "$CH4_LICENSE_NAME"; then
+            fail "License line in report empty/placeholder — write the license name (e.g. MIT)"
+          else
+            CH4_LICENSE=ok; ok "license: $CH4_LICENSE_NAME ($lic_file)"
+          fi
+
+          # screenshots: >= N markdown image links whose paths exist in the repo
+          shots=$(grep -oE '!\[[^]]*\]\([^)]+\)' "$CH4_REPORT_TMP" | sed -E 's/^!\[[^]]*\]\(([^)]+)\)$/\1/' || true)
+          CH4_SHOT_COUNT=0
+          if [ -n "$shots" ]; then
+            while IFS= read -r sp; do
+              [ -z "$sp" ] && continue
+              is_ph "$sp" && continue
+              case "$sp" in http*://*) continue;; esac   # must live in the repo, not hotlinked
+              if printf '%s\n' "$TREE_PATHS" | grep -qxF "$sp"; then
+                CH4_SHOT_COUNT=$((CH4_SHOT_COUNT+1))
+              else
+                warn "screenshot path not in repo: $sp"
+              fi
+            done <<EOF4
+$shots
+EOF4
+          fi
+          if [ "$CH4_SHOT_COUNT" -ge "$CH4_MIN_SHOTS" ]; then
+            CH4_SHOTS=ok; ok "screenshots: $CH4_SHOT_COUNT in repo (>= $CH4_MIN_SHOTS)"
+          else
+            fail "screenshots: $CH4_SHOT_COUNT in repo (need >= $CH4_MIN_SHOTS — add image files + ![](path) links)"
+          fi
+
+          # slides: product-intro slide file exists in repo (path may be a blob/raw URL)
+          sp4="$CH4_SLIDES_PATH"
+          case "$sp4" in
+            http*://github.com/*/blob/*)         sp4="${sp4#*://github.com/*/blob/}"; sp4="${sp4#*/}" ;;
+            http*://raw.githubusercontent.com/*) sp4="${sp4#*://raw.githubusercontent.com/}"; sp4="${sp4#*/}"; sp4="${sp4#*/}"; sp4="${sp4#*/}" ;;
+          esac
+          if is_ph "$sp4"; then
+            fail "Slides path empty/placeholder — add product-intro slides (e.g. slides/intro.md)"
+          elif printf '%s\n' "$TREE_PATHS" | grep -qxF "$sp4"; then
+            CH4_SLIDES=ok; ok "slides: $sp4"
+          else
+            fail "slides not found in repo at: $sp4 (Slides path must be a repo-relative path)"
+          fi
+        fi
+      fi
+
+      # live / download URL present + non-placeholder (reachability is a soft check)
+      if is_ph "$CH4_LIVE_URL"; then
+        fail "Live / download URL empty/placeholder — ship it and paste the link"
+      else
+        CH4_LIVE=ok; ok "live/download url: $CH4_LIVE_URL"
+        if have curl; then
+          code=$(curl -A 'vibe-doctor' -m 12 -s -o /dev/null -w '%{http_code}' -L "$CH4_LIVE_URL" 2>/dev/null || true)
+          case "$code" in
+            2??|3??) ok "live url reachable (HTTP $code)" ;;
+            000|"")  warn "live url not reachable from here (network/blocked) — instructor will open it" ;;
+            *)       warn "live url returned HTTP $code — make sure it opens" ;;
+          esac
+        fi
+      fi
+    fi
+  fi
+fi
+
+# ---------- 6e. chapter 5 — workflow + capability (personal project) ----------
+# Submission: TEAM repo ch-5/<you>/report.md. Evidence: PERSONAL repo (a Skill +
+# a Subagent), a tech-stack slide deck, and ONE feedback file (interview / feedback /
+# issues). Mirrors instructor scripts/check-ch5.mjs.
+CH5_MIN_SKILL_BYTES="${CH5_MIN_SKILL_BYTES:-200}"
+CH5_MIN_AGENT_BYTES="${CH5_MIN_AGENT_BYTES:-100}"
+CH5_REPORT=fail; CH5_AUTHOR=fail; CH5_OWNER=fail; CH5_SKILL=fail; CH5_AGENT=fail
+CH5_SLIDES=fail; CH5_FEEDBACK=fail; CH5_LIVE=fail
+CH5_REPO=""; CH5_REPO_URL=""; CH5_LIVE_URL=""; CH5_SLIDES_PATH=""; CH5_FEEDBACK_PATH=""
+CH5_TEAM_REPO=""; CH5_DIR=""
+CH5_REPORT_TMP="$OUTDIR/ch-5-report-fetched-$TS.md"
+if [ "$CHAPTER" = "ch-5" ]; then
+  say "Chapter 5 — workflow + capability"; hr
+  if [ -z "$GH_USER" ]; then
+    fail "skipping ch-5 checks — gh not authed (run: gh auth login)"
+  else
+    TEAM_REPOS=$(gh api --paginate "orgs/$GH_ORG/repos?per_page=100" --jq '.[].name' 2>/dev/null | grep -E '^team-[0-9]+$' || true)
+    for t in $TEAM_REPOS; do
+      d=$(gh api "repos/$GH_ORG/$t/contents/ch-5" --jq '.[].name' 2>/dev/null | grep -ixF "$GH_USER" | head -1 || true)
+      if [ -n "$d" ] && gh api "repos/$GH_ORG/$t/contents/ch-5/$d/report.md" >/dev/null 2>&1; then
+        CH5_TEAM_REPO="$t"; CH5_DIR="$d"; break
+      fi
+    done
+    if [ -z "$CH5_TEAM_REPO" ]; then
+      fail "no ch-5/$GH_USER/report.md in any team repo — copy ch-5/_TEMPLATE.md to ch-5/$GH_USER_LC/report.md, fill it, push"
+    elif gh api "repos/$GH_ORG/$CH5_TEAM_REPO/contents/ch-5/$CH5_DIR/report.md" \
+           -H "Accept: application/vnd.github.raw" > "$CH5_REPORT_TMP" 2>/dev/null \
+         && [ -s "$CH5_REPORT_TMP" ]; then
+      CH5_REPORT=ok; ok "report: $CH5_TEAM_REPO/ch-5/$CH5_DIR/report.md"
+    else
+      fail "could not fetch ch-5/$CH5_DIR/report.md from $CH5_TEAM_REPO"
+    fi
+
+    if [ "$CH5_REPORT" = ok ]; then
+      tr -d '\r' < "$CH5_REPORT_TMP" > "$CH5_REPORT_TMP.n" && mv "$CH5_REPORT_TMP.n" "$CH5_REPORT_TMP"
+      get5() {
+        awk -v k="$1" '{ line=$0; sub(/^[[:space:]]*[-*[:space:]]*/,"",line); low=tolower(line)
+          if (match(low,"^" k "[[:space:]]*:")) { v=substr(line,RLENGTH+1); sub(/^[[:space:]*]*/,"",v); sub(/[[:space:]*]+$/,"",v); print v; exit } }' "$CH5_REPORT_TMP"
+      }
+      is_ph() { case "$1" in ""|*"<"*|*">"*) return 0;; *) return 1;; esac; }
+      CH5_REPO_URL=$(get5 'repo url')
+      CH5_LIVE_URL=$(get5 'live[^:]*')
+      CH5_SLIDES_PATH=$(get5 'slides[ \t]*path')
+      CH5_FEEDBACK_PATH=$(get5 'feedback[^:]*path')
+
+      rep_author=$(gh api "repos/$GH_ORG/$CH5_TEAM_REPO/commits?path=ch-5/$CH5_DIR/report.md&per_page=1" --jq '.[0].author.login // ""' 2>/dev/null | tr '[:upper:]' '[:lower:]')
+      if [ -z "$rep_author" ]; then CH5_AUTHOR=ok; warn "could not verify report.md commit author — instructor will check"
+      elif [ "$rep_author" = "$GH_USER_LC" ]; then CH5_AUTHOR=ok; ok "report committed by you (@$rep_author)"
+      else fail "report.md last committed by @$rep_author, not you (@$GH_USER) — push your own report"; fi
+
+      # live URL carried from ch-4 — must still be present
+      if is_ph "$CH5_LIVE_URL"; then fail "Live / download URL empty/placeholder in report"
+      else CH5_LIVE=ok; ok "live/download url: $CH5_LIVE_URL"; fi
+
+      CH5_REPO=$(printf '%s' "$CH5_REPO_URL" | sed -E 's#(git@|https?://)github.com[:/]##; s/#.*$//; s/\.git$//; s#/+$##')
+      if is_ph "$CH5_REPO_URL"; then
+        fail "Repo URL line empty/placeholder"
+      else
+        repo_owner=$(gh api "repos/$CH5_REPO" --jq '.owner.login' 2>/dev/null || true)
+        if [ -z "$repo_owner" ]; then fail "personal repo not found: ${CH5_REPO:-none}"
+        else
+          repo_owner_lc=$(printf '%s' "$repo_owner" | tr '[:upper:]' '[:lower:]')
+          if [ "$repo_owner_lc" = "$GH_USER_LC" ]; then CH5_OWNER=ok; ok "repo: github.com/$CH5_REPO (owner @$repo_owner)"
+          else fail "Repo URL owner @$repo_owner != you @$GH_USER"; fi
+
+          TREE=$(gh api "repos/$CH5_REPO/git/trees/HEAD?recursive=1" --jq '.tree[]|select(.type=="blob")|"\(.size)\t\(.path)"' 2>/dev/null || true)
+          TREE_PATHS=$(printf '%s\n' "$TREE" | cut -f2-)
+
+          # Skill — present + not a stub
+          skill_sz=$(printf '%s\n' "$TREE" | awk -F'\t' 'tolower($2) ~ "^\\.claude/skills/[^/]+/skill\\.md$" {print $1; exit}')
+          if [ -z "$skill_sz" ]; then fail "no .claude/skills/<name>/SKILL.md on your default branch (is .claude/ gitignored?)"
+          elif [ "$skill_sz" -ge "$CH5_MIN_SKILL_BYTES" ]; then CH5_SKILL=ok; ok ".claude/skills SKILL.md present (${skill_sz}b)"
+          else fail "SKILL.md too small (${skill_sz}b < ${CH5_MIN_SKILL_BYTES}b — stub)"; fi
+          # Subagent — present + not a stub
+          agent_sz=$(printf '%s\n' "$TREE" | awk -F'\t' 'tolower($2) ~ "^\\.claude/agents/[^/]+\\.md$" {print $1; exit}')
+          if [ -z "$agent_sz" ]; then fail "no .claude/agents/<name>.md on your default branch (is .claude/ gitignored?)"
+          elif [ "$agent_sz" -ge "$CH5_MIN_AGENT_BYTES" ]; then CH5_AGENT=ok; ok ".claude/agents agent present (${agent_sz}b)"
+          else fail "agent .md too small (${agent_sz}b < ${CH5_MIN_AGENT_BYTES}b — stub)"; fi
+
+          # tech-stack slides
+          sp5="$CH5_SLIDES_PATH"
+          case "$sp5" in
+            http*://github.com/*/blob/*)         sp5="${sp5#*://github.com/*/blob/}"; sp5="${sp5#*/}" ;;
+            http*://raw.githubusercontent.com/*) sp5="${sp5#*://raw.githubusercontent.com/}"; sp5="${sp5#*/}"; sp5="${sp5#*/}"; sp5="${sp5#*/}" ;;
+          esac
+          if is_ph "$sp5"; then fail "Slides path empty/placeholder — add a tech-stack deck (e.g. slides/tech-stack.md)"
+          elif printf '%s\n' "$TREE_PATHS" | grep -qxF "$sp5"; then CH5_SLIDES=ok; ok "tech-stack slides: $sp5"
+          else fail "slides not found in repo at: $sp5"; fi
+
+          # feedback file (one of interview / feedback / issues) — path must exist in repo
+          fp5="$CH5_FEEDBACK_PATH"
+          if is_ph "$fp5"; then fail "Feedback file path empty/placeholder — pick ONE of interview/feedback/issues, fill it, link it"
+          elif printf '%s\n' "$TREE_PATHS" | grep -qxF "$fp5"; then CH5_FEEDBACK=ok; ok "feedback file: $fp5"
+          else fail "feedback file not found in repo at: $fp5"; fi
+        fi
+      fi
+    fi
+  fi
+fi
+
+# ---------- 6f. chapter 6 — polish + deployment (personal project) ----------
+# Submission: TEAM repo ch-6/<you>/report.md. Evidence: PERSONAL repo, now polished —
+# closed issues (links), LICENSE, README, analytics, >=3 updated screenshots, a public
+# live URL, gallery-card slides. Mirrors instructor scripts/check-ch6.mjs.
+CH6_MIN_SHOTS="${CH6_MIN_SHOTS:-3}"
+CH6_REPORT=fail; CH6_AUTHOR=fail; CH6_OWNER=fail; CH6_LIVE=fail; CH6_LICENSE=fail
+CH6_README=fail; CH6_SHOTS=fail; CH6_SLIDES=fail; CH6_ISSUES=fail
+CH6_REPO=""; CH6_REPO_URL=""; CH6_LIVE_URL=""; CH6_LICENSE_NAME=""; CH6_SLIDES_PATH=""
+CH6_ANALYTICS=""; CH6_TEAM_REPO=""; CH6_DIR=""; CH6_SHOT_COUNT=0; CH6_ISSUE_COUNT=0
+CH6_REPORT_TMP="$OUTDIR/ch-6-report-fetched-$TS.md"
+if [ "$CHAPTER" = "ch-6" ]; then
+  say "Chapter 6 — polish + deployment"; hr
+  if [ -z "$GH_USER" ]; then
+    fail "skipping ch-6 checks — gh not authed (run: gh auth login)"
+  else
+    TEAM_REPOS=$(gh api --paginate "orgs/$GH_ORG/repos?per_page=100" --jq '.[].name' 2>/dev/null | grep -E '^team-[0-9]+$' || true)
+    for t in $TEAM_REPOS; do
+      d=$(gh api "repos/$GH_ORG/$t/contents/ch-6" --jq '.[].name' 2>/dev/null | grep -ixF "$GH_USER" | head -1 || true)
+      if [ -n "$d" ] && gh api "repos/$GH_ORG/$t/contents/ch-6/$d/report.md" >/dev/null 2>&1; then
+        CH6_TEAM_REPO="$t"; CH6_DIR="$d"; break
+      fi
+    done
+    if [ -z "$CH6_TEAM_REPO" ]; then
+      fail "no ch-6/$GH_USER/report.md in any team repo — copy ch-6/_TEMPLATE.md to ch-6/$GH_USER_LC/report.md, fill it, push"
+    elif gh api "repos/$GH_ORG/$CH6_TEAM_REPO/contents/ch-6/$CH6_DIR/report.md" \
+           -H "Accept: application/vnd.github.raw" > "$CH6_REPORT_TMP" 2>/dev/null \
+         && [ -s "$CH6_REPORT_TMP" ]; then
+      CH6_REPORT=ok; ok "report: $CH6_TEAM_REPO/ch-6/$CH6_DIR/report.md"
+    else
+      fail "could not fetch ch-6/$CH6_DIR/report.md from $CH6_TEAM_REPO"
+    fi
+
+    if [ "$CH6_REPORT" = ok ]; then
+      tr -d '\r' < "$CH6_REPORT_TMP" > "$CH6_REPORT_TMP.n" && mv "$CH6_REPORT_TMP.n" "$CH6_REPORT_TMP"
+      get6() {
+        awk -v k="$1" '{ line=$0; sub(/^[[:space:]]*[-*[:space:]]*/,"",line); low=tolower(line)
+          if (match(low,"^" k "[[:space:]]*:")) { v=substr(line,RLENGTH+1); sub(/^[[:space:]*]*/,"",v); sub(/[[:space:]*]+$/,"",v); print v; exit } }' "$CH6_REPORT_TMP"
+      }
+      is_ph() { case "$1" in ""|*"<"*|*">"*) return 0;; *) return 1;; esac; }
+      CH6_REPO_URL=$(get6 'repo url')
+      CH6_LIVE_URL=$(get6 'live[^:]*')
+      CH6_LICENSE_NAME=$(get6 'license')
+      CH6_SLIDES_PATH=$(get6 'slides[ \t]*path')
+      CH6_ANALYTICS=$(get6 'analytics[^:]*')
+
+      rep_author=$(gh api "repos/$GH_ORG/$CH6_TEAM_REPO/commits?path=ch-6/$CH6_DIR/report.md&per_page=1" --jq '.[0].author.login // ""' 2>/dev/null | tr '[:upper:]' '[:lower:]')
+      if [ -z "$rep_author" ]; then CH6_AUTHOR=ok; warn "could not verify report.md commit author — instructor will check"
+      elif [ "$rep_author" = "$GH_USER_LC" ]; then CH6_AUTHOR=ok; ok "report committed by you (@$rep_author)"
+      else fail "report.md last committed by @$rep_author, not you (@$GH_USER) — push your own report"; fi
+
+      # public live URL
+      if is_ph "$CH6_LIVE_URL"; then fail "Live URL empty/placeholder — deploy public and paste the link"
+      else
+        CH6_LIVE=ok; ok "live url: $CH6_LIVE_URL"
+        if have curl; then
+          code=$(curl -A 'vibe-doctor' -m 12 -s -o /dev/null -w '%{http_code}' -L "$CH6_LIVE_URL" 2>/dev/null || true)
+          case "$code" in 2??|3??) ok "live url reachable (HTTP $code)";; 000|"") warn "live url not reachable from here — instructor will open it";; *) warn "live url returned HTTP $code";; esac
+        fi
+      fi
+
+      # issues closed — at least one GitHub issue link in the report (Ch-5 feedback → fixed)
+      CH6_ISSUE_COUNT=$(grep -oiE 'https://github\.com/[^/]+/[^/]+/issues/[0-9]+' "$CH6_REPORT_TMP" | sort -u | grep -c . || true)
+      if [ "${CH6_ISSUE_COUNT:-0}" -ge 1 ]; then CH6_ISSUES=ok; ok "issues closed: $CH6_ISSUE_COUNT issue link(s) in report"
+      else fail "no GitHub issue links in report — close your Ch-5 issues and link them"; fi
+
+      # analytics — soft (report field present); warn only
+      if is_ph "$CH6_ANALYTICS"; then warn "Analytics line empty — add a simple analytics tool (Plausible/GoatCounter/GA) and name it"
+      else ok "analytics: $CH6_ANALYTICS"; fi
+
+      CH6_REPO=$(printf '%s' "$CH6_REPO_URL" | sed -E 's#(git@|https?://)github.com[:/]##; s/#.*$//; s/\.git$//; s#/+$##')
+      if is_ph "$CH6_REPO_URL"; then
+        fail "Repo URL line empty/placeholder"
+      else
+        repo_owner=$(gh api "repos/$CH6_REPO" --jq '.owner.login' 2>/dev/null || true)
+        if [ -z "$repo_owner" ]; then fail "personal repo not found: ${CH6_REPO:-none}"
+        else
+          repo_owner_lc=$(printf '%s' "$repo_owner" | tr '[:upper:]' '[:lower:]')
+          if [ "$repo_owner_lc" = "$GH_USER_LC" ]; then CH6_OWNER=ok; ok "repo: github.com/$CH6_REPO (owner @$repo_owner)"
+          else fail "Repo URL owner @$repo_owner != you @$GH_USER"; fi
+
+          if [ "$(gh api "repos/$CH6_REPO/git/trees/HEAD?recursive=1" --jq '.truncated' 2>/dev/null)" = "true" ]; then
+            warn "repo tree too large — GitHub truncated it; checks may be incomplete"
+          fi
+          TREE_PATHS=$(gh api "repos/$CH6_REPO/git/trees/HEAD?recursive=1" --jq '.tree[]|select(.type=="blob")|.path' 2>/dev/null || true)
+
+          # LICENSE
+          lic_file=$(printf '%s\n' "$TREE_PATHS" | grep -iE '^license(\.md|\.txt)?$' | head -1 || true)
+          if [ -z "$lic_file" ]; then fail "no LICENSE file in repo root"
+          elif is_ph "$CH6_LICENSE_NAME"; then fail "License line in report empty/placeholder"
+          else CH6_LICENSE=ok; ok "license: $CH6_LICENSE_NAME ($lic_file)"; fi
+
+          # README (polished — presence + non-trivial size)
+          readme_path=$(printf '%s\n' "$TREE_PATHS" | grep -iE '^readme(\.md|\.markdown|\.txt)?$' | head -1 || true)
+          if [ -z "$readme_path" ]; then fail "no README in repo root"
+          else
+            rm_sz=$(gh api "repos/$CH6_REPO/contents/$readme_path" --jq '.size' 2>/dev/null || echo 0)
+            if [ "${rm_sz:-0}" -ge 300 ]; then CH6_README=ok; ok "README present ($readme_path, ${rm_sz}b)"
+            else fail "README too small (${rm_sz}b) — make it a real front door"; fi
+          fi
+
+          # updated screenshots: >= N image links existing in repo
+          shots=$(grep -oE '!\[[^]]*\]\([^)]+\)' "$CH6_REPORT_TMP" | sed -E 's/^!\[[^]]*\]\(([^)]+)\)$/\1/' || true)
+          CH6_SHOT_COUNT=0
+          if [ -n "$shots" ]; then
+            while IFS= read -r sp; do
+              [ -z "$sp" ] && continue; is_ph "$sp" && continue
+              case "$sp" in http*://*) continue;; esac
+              printf '%s\n' "$TREE_PATHS" | grep -qxF "$sp" && CH6_SHOT_COUNT=$((CH6_SHOT_COUNT+1))
+            done <<EOF6
+$shots
+EOF6
+          fi
+          if [ "$CH6_SHOT_COUNT" -ge "$CH6_MIN_SHOTS" ]; then CH6_SHOTS=ok; ok "screenshots: $CH6_SHOT_COUNT in repo (>= $CH6_MIN_SHOTS)"
+          else fail "screenshots: $CH6_SHOT_COUNT in repo (need >= $CH6_MIN_SHOTS)"; fi
+
+          # gallery-card slides
+          sp6="$CH6_SLIDES_PATH"
+          case "$sp6" in
+            http*://github.com/*/blob/*)         sp6="${sp6#*://github.com/*/blob/}"; sp6="${sp6#*/}" ;;
+            http*://raw.githubusercontent.com/*) sp6="${sp6#*://raw.githubusercontent.com/}"; sp6="${sp6#*/}"; sp6="${sp6#*/}"; sp6="${sp6#*/}" ;;
+          esac
+          if is_ph "$sp6"; then fail "Slides path empty/placeholder"
+          elif printf '%s\n' "$TREE_PATHS" | grep -qxF "$sp6"; then CH6_SLIDES=ok; ok "slides: $sp6"
+          else fail "slides not found in repo at: $sp6"; fi
+        fi
+      fi
+    fi
+  fi
+fi
+
 # ---------- 7. results JSON ----------
 # ch1 block only when actually run (ch-1); keeps it off the ch-0 card
 CH1_JSON=""
@@ -536,6 +929,21 @@ if [ "$CHAPTER" = "ch-3" ]; then
   CH3_JSON="  \"ch3\": { \"team_repo\": \"$CH3_TEAM_REPO\", \"repo\": \"$CH3_REPO\", \"owner\": \"$CH3_OWNER\", \"stars\": \"$CH3_STAR_COUNT\", \"min_stars\": \"$CH3_MIN_STARS\", \"mcp\": \"$CH3_MCP\", \"skill\": \"$CH3_SKILL\", \"agent\": \"$CH3_AGENT\", \"slides\": \"$CH3_SLIDES\", \"evidence\": \"$CH3_EVIDENCE\", \"methodology\": \"$CH3_METHOD\" },
 "
 fi
+CH4_JSON=""
+if [ "$CHAPTER" = "ch-4" ]; then
+  CH4_JSON="  \"ch4\": { \"team_repo\": \"$CH4_TEAM_REPO\", \"repo\": \"$CH4_REPO\", \"owner\": \"$CH4_OWNER\", \"author\": \"$CH4_AUTHOR\", \"license\": \"$CH4_LICENSE\", \"live\": \"$CH4_LIVE\", \"screenshots\": \"$CH4_SHOT_COUNT\", \"min_screenshots\": \"$CH4_MIN_SHOTS\", \"shots\": \"$CH4_SHOTS\", \"slides\": \"$CH4_SLIDES\" },
+"
+fi
+CH5_JSON=""
+if [ "$CHAPTER" = "ch-5" ]; then
+  CH5_JSON="  \"ch5\": { \"team_repo\": \"$CH5_TEAM_REPO\", \"repo\": \"$CH5_REPO\", \"owner\": \"$CH5_OWNER\", \"author\": \"$CH5_AUTHOR\", \"skill\": \"$CH5_SKILL\", \"agent\": \"$CH5_AGENT\", \"slides\": \"$CH5_SLIDES\", \"feedback\": \"$CH5_FEEDBACK\", \"live\": \"$CH5_LIVE\" },
+"
+fi
+CH6_JSON=""
+if [ "$CHAPTER" = "ch-6" ]; then
+  CH6_JSON="  \"ch6\": { \"team_repo\": \"$CH6_TEAM_REPO\", \"repo\": \"$CH6_REPO\", \"owner\": \"$CH6_OWNER\", \"author\": \"$CH6_AUTHOR\", \"license\": \"$CH6_LICENSE\", \"readme\": \"$CH6_README\", \"screenshots\": \"$CH6_SHOT_COUNT\", \"min_screenshots\": \"$CH6_MIN_SHOTS\", \"shots\": \"$CH6_SHOTS\", \"slides\": \"$CH6_SLIDES\", \"issues\": \"$CH6_ISSUES\", \"issue_links\": \"$CH6_ISSUE_COUNT\", \"live\": \"$CH6_LIVE\" },
+"
+fi
 cat > "$JSON" <<EOF
 {
   "version": "$DOCTOR_VERSION",
@@ -551,7 +959,7 @@ cat > "$JSON" <<EOF
   },
   "gh": { "auth": "$GH_AUTH", "pr_probe": "$GH_PR" },
   "proxy_api": "$CL_API",
-${CH1_JSON}${CH2_JSON}${CH3_JSON}  "score": "$checks_pass/$checks_total"
+${CH1_JSON}${CH2_JSON}${CH3_JSON}${CH4_JSON}${CH5_JSON}${CH6_JSON}  "score": "$checks_pass/$checks_total"
 }
 EOF
 ok "results json: $JSON"
@@ -731,6 +1139,21 @@ else
       [ "$v" != "ok" ] && ch_fail=1
     done
   fi
+  if [ "$CHAPTER" = "ch-4" ]; then
+    for v in "$CH4_REPORT" "$CH4_OWNER" "$CH4_AUTHOR" "$CH4_LICENSE" "$CH4_LIVE" "$CH4_SHOTS" "$CH4_SLIDES"; do
+      [ "$v" != "ok" ] && ch_fail=1
+    done
+  fi
+  if [ "$CHAPTER" = "ch-5" ]; then
+    for v in "$CH5_REPORT" "$CH5_OWNER" "$CH5_AUTHOR" "$CH5_SKILL" "$CH5_AGENT" "$CH5_SLIDES" "$CH5_FEEDBACK" "$CH5_LIVE"; do
+      [ "$v" != "ok" ] && ch_fail=1
+    done
+  fi
+  if [ "$CHAPTER" = "ch-6" ]; then
+    for v in "$CH6_REPORT" "$CH6_OWNER" "$CH6_AUTHOR" "$CH6_LICENSE" "$CH6_README" "$CH6_SHOTS" "$CH6_SLIDES" "$CH6_ISSUES" "$CH6_LIVE"; do
+      [ "$v" != "ok" ] && ch_fail=1
+    done
+  fi
   {
     echo "# ${CHAPTER} check — $(date -u '+%Y-%m-%d %H:%M UTC')"
     echo
@@ -751,6 +1174,36 @@ else
       echo "- mcp/skill/agent: $CH3_MCP/$CH3_SKILL/$CH3_AGENT"
       echo "- slides: $CH3_SLIDES ($CH3_SLIDES_URL)"
     fi
+    if [ "$CHAPTER" = "ch-4" ]; then
+      echo "- team repo: ${CH4_TEAM_REPO:-none} (ch-4/$CH4_DIR/report.md)"
+      echo "- report author: $CH4_AUTHOR"
+      echo "- repo: $CH4_REPO (owner: $CH4_OWNER)"
+      echo "- license: $CH4_LICENSE ($CH4_LICENSE_NAME)"
+      echo "- live/download url: $CH4_LIVE ($CH4_LIVE_URL)"
+      echo "- screenshots: $CH4_SHOT_COUNT in repo (need >= $CH4_MIN_SHOTS: $CH4_SHOTS)"
+      echo "- slides: $CH4_SLIDES ($CH4_SLIDES_PATH)"
+    fi
+    if [ "$CHAPTER" = "ch-5" ]; then
+      echo "- team repo: ${CH5_TEAM_REPO:-none} (ch-5/$CH5_DIR/report.md)"
+      echo "- report author: $CH5_AUTHOR"
+      echo "- repo: $CH5_REPO (owner: $CH5_OWNER)"
+      echo "- skill/agent: $CH5_SKILL/$CH5_AGENT"
+      echo "- tech-stack slides: $CH5_SLIDES ($CH5_SLIDES_PATH)"
+      echo "- feedback file: $CH5_FEEDBACK ($CH5_FEEDBACK_PATH)"
+      echo "- live/download url: $CH5_LIVE ($CH5_LIVE_URL)"
+    fi
+    if [ "$CHAPTER" = "ch-6" ]; then
+      echo "- team repo: ${CH6_TEAM_REPO:-none} (ch-6/$CH6_DIR/report.md)"
+      echo "- report author: $CH6_AUTHOR"
+      echo "- repo: $CH6_REPO (owner: $CH6_OWNER)"
+      echo "- license: $CH6_LICENSE ($CH6_LICENSE_NAME)"
+      echo "- readme: $CH6_README"
+      echo "- analytics: ${CH6_ANALYTICS:-none}"
+      echo "- issues closed: $CH6_ISSUES ($CH6_ISSUE_COUNT link(s))"
+      echo "- screenshots: $CH6_SHOT_COUNT in repo (need >= $CH6_MIN_SHOTS: $CH6_SHOTS)"
+      echo "- slides: $CH6_SLIDES ($CH6_SLIDES_PATH)"
+      echo "- live url: $CH6_LIVE ($CH6_LIVE_URL)"
+    fi
     echo
     echo "---"
     echo "chapter: $CHAPTER"
@@ -767,6 +1220,29 @@ else
       echo
       echo "## Evidence"
       grep -E '^- *path:' "$CH3_REPORT_TMP"
+    fi
+    if [ "$CHAPTER" = "ch-4" ]; then
+      echo "repo_url: $CH4_REPO_URL"
+      echo "live_url: $CH4_LIVE_URL"
+      echo "license: $CH4_LICENSE_NAME"
+      echo "slides_path: $CH4_SLIDES_PATH"
+      echo "screenshots: $CH4_SHOT_COUNT"
+      echo "project_summary: $CH4_SUMMARY"
+    fi
+    if [ "$CHAPTER" = "ch-5" ]; then
+      echo "repo_url: $CH5_REPO_URL"
+      echo "live_url: $CH5_LIVE_URL"
+      echo "slides_path: $CH5_SLIDES_PATH"
+      echo "feedback_path: $CH5_FEEDBACK_PATH"
+    fi
+    if [ "$CHAPTER" = "ch-6" ]; then
+      echo "repo_url: $CH6_REPO_URL"
+      echo "live_url: $CH6_LIVE_URL"
+      echo "license: $CH6_LICENSE_NAME"
+      echo "slides_path: $CH6_SLIDES_PATH"
+      echo "analytics: $CH6_ANALYTICS"
+      echo "issue_links: $CH6_ISSUE_COUNT"
+      echo "screenshots: $CH6_SHOT_COUNT"
     fi
     echo "result: $([ "$ch_fail" -eq 0 ] && echo PASS || echo INCOMPLETE)"
   } > "$MD"

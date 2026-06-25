@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80" fill="none">
+  <!-- Logo mark: Stylized M with terminal bracket -->
+  <rect x="8" y="10" width="60" height="60" rx="12" fill="url(#mGrad)"/>
+  <text x="38" y="55" text-anchor="middle" font-family="'Sora', sans-serif" font-weight="800" font-size="38" fill="#ffffff">M</text>
+  <!-- Terminal cursor accent -->
+  <rect x="52" y="48" width="3" height="14" rx="1" fill="#73a5f9" opacity="0.8"/>
+
+  <!-- Wordmark -->
+  <text x="82" y="52" font-family="'Sora', sans-serif" font-weight="700" font-size="32" fill="#73a5f9">myanmardev</text>
+  <text x="305" y="52" font-family="'Sora', sans-serif" font-weight="400" font-size="32" fill="#5B6470">.com</text>
+
+  <!-- Tagline -->
+  <text x="82" y="68" font-family="'JetBrains Mono', monospace" font-size="11" fill="#5B6470">built for Myanmar devs</text>
+
+  <defs>
+    <linearGradient id="mGrad" x1="0" y1="0" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+</svg>

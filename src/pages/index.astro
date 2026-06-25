@@ -5,10 +5,12 @@ import Hero from '../components/Hero.astro';
 import HowItWorks from '../components/HowItWorks.astro';
 import Products from '../components/Products.astro';
 import Pricing from '../components/Pricing.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CTA from '../components/CTA.astro';
 import { t, type Language } from '../i18n/utils';
 const lang: Language = 'en';
 const title = 'myanmardev.com — Your Subdomain. Live in 30 Seconds.';
-const description = 'No coding. No waiting. Just deploy. Automated web services for Myanmar developers.';
+const description = 'Zero Config. True Serverless. Instant Production. Automated web services for Myanmar developers.';
 ---
 
 <Layout title={title} description={description} lang={lang}>
@@ -17,53 +19,49 @@ const description = 'No coding. No waiting. Just deploy. Automated web services 
   <HowItWorks lang={lang} />
   <Products lang={lang} />
   <Pricing lang={lang} />
-
-  <!-- Contact -->
-  <section id="contact" style={{
-    padding: 'clamp(3rem,8vw,5rem) clamp(1.25rem,4vw,3rem)',
-    borderTop: '1px solid #1D232B',
-    textAlign: 'center',
-  }}>
-    <h2 style={{
-      fontFamily: 'var(--display)',
-      fontSize: 'clamp(1.5rem,3vw,2rem)',
-      fontWeight: 600,
-      color: 'var(--ink)',
-      marginBottom: '1rem',
-    }}>
-      Get in Touch
-    </h2>
-    <a
-      href="mailto:hello@myanmardev.com"
-      className="btn"
-      style={{ padding: '1rem 2rem' }}
-    >
-      hello@myanmardev.com
-    </a>
-  </section>
+  <Testimonials lang={lang} />
+  <CTA lang={lang} />
 
   <!-- Footer -->
   <footer style={{
-    borderTop: '1px solid #1D232B',
-    background: 'color-mix(in srgb, var(--wash) 50%, transparent)',
-    padding: '2rem clamp(1.25rem,4vw,3rem)',
-    textAlign: 'center',
+    borderTop: '1px solid var(--border)',
+    background: 'var(--surface)',
+    padding: 'clamp(2rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3rem)',
   }}>
-    <a href="/" style={{
-      fontFamily: 'var(--display)',
-      fontWeight: 600,
-      fontSize: '1.1rem',
-      letterSpacing: '-0.02em',
+    <div style={{
+      maxWidth: '78rem',
+      margin: '0 auto',
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: '1rem',
     }}>
-      <span style={{ color: 'var(--accent)' }}>myanmardev</span>.com
-    </a>
-    <p style={{
-      fontFamily: 'var(--mono)',
-      fontSize: '0.75rem',
-      color: 'var(--muted)',
-      marginTop: '0.5rem',
-    }}>
-      {t(lang, 'footer.rights')} · {t(lang, 'footer.built')}
-    </p>
+      <div>
+        <a href="/" style={{
+          fontFamily: 'var(--display)',
+          fontWeight: 700,
+          fontSize: '1rem',
+          letterSpacing: '-0.02em',
+        }}>
+          <span style={{ color: 'var(--accent)' }}>myanmardev</span>.com
+        </a>
+      </div>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+      }}>
+        <span style={{
+          fontFamily: 'var(--mono)',
+          fontSize: '0.625rem',
+          color: 'var(--muted)',
+          letterSpacing: '0.02em',
+        }}>
+          {t(lang, 'footer.rights')} · {t(lang, 'footer.built')}
+        </span>
+        <span class="dot" style={{ width: '5px', height: '5px' }}></span>
+      </div>
+    </div>
   </footer>
 </Layout>
