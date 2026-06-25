@@ -98,19 +98,24 @@ Browser → Astro (static) → React (interactive)
 | Pro | 25 | $8.00 | 32,000 |
 | Business | 50 | $12.00 | 48,000 |
 
-## Builder & Quotes
+# **BUILDER & QUOTES**
 
-**Htet Aung Hlaing** — [@vibecode-ting](https://github.com/vibecode-ting)   [vibecode.tours](https://vibecode.tours/cohort/1)
+---
 
-"I don't debug errors. I negotiate with the LLM."
+## **Htet Aung Hlaing**
+**GitHub:** [@vibecode-ting](https://github.com/vibecode-ting) &nbsp; | &nbsp; **Web:** [vibecode.tours](https://vibecode.tours/cohort/1)
 
-"Vibe coding is 10% typing and 90% manifestation."
+---
 
-"If it works, it works. Don't look under the hood."
+> ### **"I don't debug errors. I negotiate with the LLM."**
 
-"If the vibe is right, the app just materializes."
+> ### **"Vibe coding is 10% typing and 90% manifestation."**
 
-"Coding used to be chess. Now it is jazz."
+> ### **"If it works, it works. Don't look under the hood."**
+
+> ### **"If the vibe is right, the app just materializes."**
+
+> ### **"Coding used to be chess. Now it is jazz."**
 
 ## License
 
