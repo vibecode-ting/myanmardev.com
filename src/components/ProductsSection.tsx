@@ -13,7 +13,7 @@ export default function ProductsSection() {
   return (
     <section id="products" style={{
       padding: 'clamp(3rem,8vw,5rem) clamp(1.25rem,4vw,3rem)',
-      borderTop: '1px solid #1D232B',
+      borderTop: '1px solid var(--border)',
     }}>
       <div style={{ maxWidth: '78rem', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -55,9 +55,9 @@ export default function ProductsSection() {
               key={product.key}
               style={{
                 padding: '2rem',
-                background: 'var(--wash)',
-                border: '1px solid #1D232B',
-                borderRadius: '12px',
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
+                borderRadius: '10px',
                 textAlign: 'center',
                 opacity: product.available ? 1 : 0.6,
                 transition: 'all 0.3s',
@@ -102,7 +102,7 @@ export default function ProductsSection() {
                   color: product.available ? 'var(--accent)' : 'var(--muted)',
                   background: product.available
                     ? 'color-mix(in srgb, var(--accent) 15%, transparent)'
-                    : '#1D232B',
+                    : 'var(--border)',
                   padding: '4px 8px',
                   borderRadius: '4px',
                 }}>

@@ -25,9 +25,9 @@ export default function ProfileCard() {
   return (
     <>
       <div style={{
-        background: 'var(--wash)',
-        border: '1px solid #1D232B',
-        borderRadius: '12px',
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '10px',
         padding: '2rem',
       }}>
         {/* Top row: avatar + name + provider */}
@@ -47,7 +47,7 @@ export default function ProfileCard() {
                 height: '64px',
                 borderRadius: '50%',
                 objectFit: 'cover',
-                border: '2px solid #1D232B',
+                border: '2px solid var(--border)',
               }}
             />
           ) : (
@@ -99,7 +99,7 @@ export default function ProfileCard() {
             alignItems: 'center',
             gap: '0.4rem',
             padding: '0.35rem 0.75rem',
-            background: '#1D232B',
+            background: 'var(--border)',
             borderRadius: '6px',
             flexShrink: 0,
           }}>
@@ -216,7 +216,7 @@ export default function ProfileCard() {
               padding: '0.75rem',
               background: 'transparent',
               color: 'var(--ink)',
-              border: '1px solid #1D232B',
+              border: '1px solid var(--border)',
               borderRadius: '6px',
               fontFamily: 'var(--mono)',
               fontSize: '0.8125rem',
@@ -229,7 +229,7 @@ export default function ProfileCard() {
               e.currentTarget.style.color = 'var(--accent)';
             }}
             onMouseOut={(e) => {
-              e.currentTarget.style.borderColor = '#1D232B';
+              e.currentTarget.style.borderColor = 'var(--border)';
               e.currentTarget.style.color = 'var(--ink)';
             }}
           >

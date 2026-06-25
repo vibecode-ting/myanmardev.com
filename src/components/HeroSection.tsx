@@ -17,8 +17,8 @@ export default function HeroSection() {
         alignItems: 'center',
         gap: '0.5rem',
         padding: '0.4rem 1rem',
-        background: 'color-mix(in srgb, var(--accent) 12%, transparent)',
-        border: '1px solid color-mix(in srgb, var(--accent) 25%, transparent)',
+        background: 'var(--glow)',
+        border: '1px solid var(--border-accent)',
         borderRadius: '24px',
         marginBottom: '1.5rem',
       }}>
@@ -101,7 +101,8 @@ export default function HeroSection() {
             <span style={{ fontSize: '1.25rem' }}>{badge.icon}</span>
             <span style={{
               fontFamily: 'var(--mono)',
-              fontSize: '0.75rem',
+              fontSize: '0.6875rem',
+              fontWeight: 600,
               color: 'var(--muted)',
               textTransform: 'uppercase',
               letterSpacing: '0.05em',

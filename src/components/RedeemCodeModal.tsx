@@ -56,13 +56,13 @@ export default function RedeemCodeModal({ isOpen, onClose, onSuccess }: Props) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'rgba(0, 0, 0, 0.7)',
+      background: 'rgba(8, 9, 10, 0.85)',
       backdropFilter: 'blur(4px)',
     }} onClick={onClose}>
       <div style={{
-        background: 'var(--base)',
-        border: '1px solid #1D232B',
-        borderRadius: '12px',
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '10px',
         padding: '2rem',
         maxWidth: '400px',
         width: '90%',
@@ -150,7 +150,7 @@ export default function RedeemCodeModal({ isOpen, onClose, onSuccess }: Props) {
                     width: '100%',
                     padding: '0.75rem 1rem',
                     background: 'color-mix(in srgb, var(--base) 80%, #0D1117)',
-                    border: `1px solid ${error ? '#E8A33D' : '#1D232B'}`,
+                    border: `1px solid ${error ? '#E8A33D' : 'var(--border)'}`,
                     borderRadius: '6px',
                     fontFamily: 'var(--mono)',
                     fontSize: '1rem',
@@ -165,7 +165,7 @@ export default function RedeemCodeModal({ isOpen, onClose, onSuccess }: Props) {
                     if (!error) e.target.style.borderColor = 'var(--accent)';
                   }}
                   onBlur={(e) => {
-                    if (!error) e.target.style.borderColor = '#1D232B';
+                    if (!error) e.target.style.borderColor = 'var(--border)';
                   }}
                   autoFocus
                   disabled={loading}
@@ -191,8 +191,8 @@ export default function RedeemCodeModal({ isOpen, onClose, onSuccess }: Props) {
               {/* Info */}
               <div style={{
                 padding: '0.75rem 1rem',
-                background: 'var(--wash)',
-                border: '1px solid #1D232B',
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
                 borderRadius: '6px',
                 fontFamily: 'var(--mono)',
                 fontSize: '0.75rem',
@@ -213,7 +213,7 @@ export default function RedeemCodeModal({ isOpen, onClose, onSuccess }: Props) {
                     padding: '0.75rem',
                     background: 'transparent',
                     color: 'var(--ink)',
-                    border: '1px solid #1D232B',
+                    border: '1px solid var(--border)',
                     borderRadius: '6px',
                     fontFamily: 'var(--mono)',
                     fontSize: '0.875rem',
@@ -229,7 +229,7 @@ export default function RedeemCodeModal({ isOpen, onClose, onSuccess }: Props) {
                   style={{
                     flex: 2,
                     padding: '0.75rem',
-                    background: !code.trim() || loading ? '#1D232B' : 'var(--accent)',
+                    background: !code.trim() || loading ? 'var(--border)' : 'var(--accent)',
                     color: !code.trim() || loading ? 'var(--muted)' : 'var(--base)',
                     border: 'none',
                     borderRadius: '6px',

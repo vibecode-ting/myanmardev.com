@@ -166,8 +166,8 @@ export default function PaymentModal({
         style={{
           position: 'relative',
           background: 'var(--base)',
-          border: '1px solid #1D232B',
-          borderRadius: '12px',
+          border: '1px solid var(--border)',
+          borderRadius: '10px',
           padding: '2rem',
           maxWidth: '480px',
           width: '90%',
@@ -260,8 +260,8 @@ export default function PaymentModal({
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '1rem',
-                background: 'var(--wash)',
-                border: '1px solid #1D232B',
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
                 borderRadius: '8px',
                 marginBottom: '1.25rem',
               }}
@@ -360,8 +360,8 @@ export default function PaymentModal({
                       padding: '0.75rem',
                       background: selected
                         ? 'color-mix(in srgb, var(--accent) 15%, transparent)'
-                        : 'var(--wash)',
-                      border: `1px solid ${selected ? 'var(--accent)' : '#1D232B'}`,
+                        : 'var(--surface)',
+                      border: `1px solid ${selected ? 'var(--accent)' : 'var(--border)'}`,
                       borderRadius: '8px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
@@ -416,8 +416,8 @@ export default function PaymentModal({
               <div
                 style={{
                   padding: '0.75rem 1rem',
-                  background: 'var(--wash)',
-                  border: '1px solid #1D232B',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.75rem',
@@ -448,8 +448,8 @@ export default function PaymentModal({
               <div
                 style={{
                   padding: '0.75rem 1rem',
-                  background: 'var(--wash)',
-                  border: '1px solid #1D232B',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.75rem',
@@ -467,8 +467,8 @@ export default function PaymentModal({
               <div
                 style={{
                   padding: '0.75rem 1rem',
-                  background: 'var(--wash)',
-                  border: '1px solid #1D232B',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.75rem',
@@ -490,8 +490,8 @@ export default function PaymentModal({
               <div
                 style={{
                   padding: '0.75rem 1rem',
-                  background: 'var(--wash)',
-                  border: '1px solid #1D232B',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.75rem',
@@ -554,7 +554,7 @@ export default function PaymentModal({
                   padding: '0.75rem',
                   background: 'transparent',
                   color: 'var(--ink)',
-                  border: '1px solid #1D232B',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.875rem',
@@ -574,7 +574,7 @@ export default function PaymentModal({
                   padding: '0.75rem',
                   background:
                     loading || (selectedMethod === 'tokens' && !hasEnoughTokens)
-                      ? '#1D232B'
+                      ? 'var(--border)'
                       : 'var(--accent)',
                   color:
                     loading || (selectedMethod === 'tokens' && !hasEnoughTokens)

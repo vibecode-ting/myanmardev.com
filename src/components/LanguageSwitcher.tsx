@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { languages, type Language } from '../i18n/utils';
 
 const styles = {
-  btn: { display: 'inline-flex', alignItems: 'center', gap: '.35rem', padding: '.35rem .6rem', fontSize: '.6875rem', background: 'transparent', border: '1px solid #1D232B', borderRadius: '4px', color: 'var(--muted)', cursor: 'pointer', fontFamily: 'var(--mono)' },
-  dropdown: { position: 'absolute', top: 'calc(100% + 4px)', right: 0, minWidth: '120px', background: 'var(--wash)', border: '1px solid #1D232B', borderRadius: '6px', zIndex: 50, overflow: 'hidden' },
+  btn: { display: 'inline-flex', alignItems: 'center', gap: '.35rem', padding: '.35rem .6rem', fontSize: '.6875rem', background: 'transparent', border: '1px solid var(--border)', borderRadius: '4px', color: 'var(--muted)', cursor: 'pointer', fontFamily: 'var(--mono)' },
+  dropdown: { position: 'absolute', top: 'calc(100% + 4px)', right: 0, minWidth: '120px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '6px', zIndex: 50, overflow: 'hidden' },
   wrapper: { position: 'relative' },
 };
 
