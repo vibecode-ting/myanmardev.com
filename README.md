@@ -98,34 +98,6 @@ Browser → Astro (static) → React (interactive)
 | Pro | 25 | $8.00 | 32,000 |
 | Business | 50 | $12.00 | 48,000 |
 
-## Quick Start
-
-```bash
-pnpm install
-pnpm dev          # http://localhost:4321
-pnpm build        # production build
-pnpm preview      # preview production
-```
-
-## Deployment
-
-```bash
-# Frontend (GitHub Pages via GitHub Actions)
-pnpm build
-
-# Cloudflare Worker
-cd workers
-npx wrangler deploy
-```
-
-## Admin Commands
-
-```bash
-node scripts/list-users.mjs                           # List all users
-node scripts/add-tokens.mjs --email user@mail.com --tokens 10  # Add tokens
-node scripts/create-redeem-code.mjs --code WELCOME --tokens 5 --max-uses 100  # Create promo code
-```
-
 ## Builder
 
 **Htet Aung Hlaing** — [@vibecode-ting](https://github.com/vibecode-ting)
