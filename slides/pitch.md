@@ -37,11 +37,13 @@ To get a professional URL today, a Myanmar dev must:
 
 **myanmardev.com** — a full product platform for Myanmar developers.
 
-**Public storefront:** Product showcase, token pricing, 3-step subdomain builder — all visible without sign-in.
+**Guest-first storefront:** Product showcase, token pricing, 3-step subdomain builder — all visible without sign-in.
 
 **Token economy:** Buy tokens (Starter to Business), redeem promo codes, spend across products.
 
 **Dual auth:** Sign in with Google or GitHub — your dashboard tracks balance and order history.
+
+**Terminal-grade UI:** Premium dark-mode developer aesthetic with Space Grotesk + JetBrains Mono.
 
 Built in **Burmese + English**, full bilingual UI.
 
@@ -51,7 +53,7 @@ Built in **Burmese + English**, full bilingual UI.
 # How I built it
 <!-- 20s -->
 
-**Stack:** Astro + React + Tailwind CSS 4 + Cloudflare Workers + Firebase Auth/Firestore
+**Stack:** Astro 6 + React 19 + Tailwind CSS 4 + Cloudflare Workers + Firebase Auth/Firestore
 
 - **MCP:** `context7` for API docs, `memory` for session context, `github` for repo workflow
 - **Skill:** `deploy-cloudflare` — automates build → Worker deploy → Pages deploy → verify flow
@@ -68,7 +70,7 @@ Claude Code drove implementation, debugging, and review across the full stack.
 
 For a Myanmar dev shipping their first project:
 
-- Goes from `username.github.io` → **`myapp.myanmardev.com`** in under 2 minutes
+- Goes from `username.github.io` → **`myapp.myanmardev.com`** in under 30 seconds
 - Zero DNS knowledge needed
 - No credit card barrier — buy tokens or redeem a promo code
 - Personal dashboard tracks balance, orders, and deployments
@@ -89,3 +91,4 @@ For a Myanmar dev shipping their first project:
 - [x] 3 GitHub stars ⭐⭐⭐
 - [x] `doctor.sh ch-3` all green
 - [x] Submitted in Discord `#ch-3`
+- [x] License: [PolyForm Shield 1.0.0](https://polyformproject.org/licenses/shield/1.0.0/)
