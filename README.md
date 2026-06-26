@@ -98,24 +98,14 @@ Browser → Astro (static) → React (interactive)
 | Pro | 25 | $8.00 | 32,000 |
 | Business | 50 | $12.00 | 48,000 |
 
-# **BUILDER & QUOTES**
+--
+
+# **BUILDER Profile & QUOTES**
 ---
-name: (霆) Htet Aung Hlaing _ Ting 
-github: vibecode-ting
-cohort: 1
-role: builder
-skills: ["AI Agents", "DevOps", "PostgreSQL", "Automation", "TypeScript", "Python", "Linux", "GCP", "Cloud", "Fortinet", "n8n"]
-linkedin: www.linkedin.com/in/tinghah
-website: https://htetaunghlaing.myanmardev
-certs:
-  claude_101: https://verify.skilljar.com/c/b8n2bf78rpsv
-  claude_code_101: https://verify.skilljar.com/c/oja8u8vh2dpk
-  claude_vertex: https://verify.skilljar.com/c/4276xvu3on5r
-  agent_skills_intro: https://verify.skilljar.com/c/dq8p6ha4k8ug
-  subagents_intro: https://verify.skilljar.com/c/z7njv6i5oqec
-  claude_code_in_action: https://verify.skilljar.com/c/7k4nubdc57jz
-  mcp_intro: https://verify.skilljar.com/c/4d5o5wfjnjiy
-  building_claude_api: https://verify.skilljar.com/c/4d5o5wfjnjiy
+# **(霆)Htet Aung Hlaing_Ting**
+
+![Builder Card](screenshoots/image.png)
+
 ---
 IT 工程師｜ERP 與 MES 系統支援｜自動化流程與跨國資料視覺化｜RPA 與 AI 工具愛好者｜n8n 開發者
 
