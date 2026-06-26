@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import type { UserProfile } from '../lib/auth';
+import type { Auth, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 
 interface AuthState {
   /** Is auth system still loading? */
@@ -55,6 +56,13 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const [isApproved, setIsApproved] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
+  // Cache Firebase modules so signIn can call signInWithPopup synchronously
+  // (async import() breaks the browser's "user gesture" detection and blocks popups)
+  const authRef = useRef<Auth | null>(null);
+  const authModRef = useRef<typeof import('firebase/auth') | null>(null);
+  const googleProviderRef = useRef<GoogleAuthProvider | null>(null);
+  const githubProviderRef = useRef<GithubAuthProvider | null>(null);
+
   const refreshProfile = async () => {
     if (!user) {
       setProfile(null);
@@ -84,6 +92,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
           setLoading(false);
           return;
         }
+
+        // Cache modules for signIn functions (must be sync for popup to work)
+        authRef.current = auth;
+        authModRef.current = authMod;
+        googleProviderRef.current = fb.getGoogleProvider();
+        githubProviderRef.current = fb.getGithubProvider();
 
         unsub = authMod.onAuthStateChanged(auth, async (u: any) => {
           setUser(u);
@@ -136,21 +150,35 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   }, []);
 
   const signInWithGoogle = async () => {
-    const fb = await import('../lib/firebase');
-    const authMod = await import('firebase/auth');
-    const auth = fb.getAuthInstance();
-    if (!auth) return;
-    const provider = fb.getGoogleProvider();
-    await authMod.signInWithPopup(auth, provider);
+    const auth = authRef.current;
+    const authMod = authModRef.current;
+    const provider = googleProviderRef.current;
+    if (!auth || !authMod || !provider) {
+      console.error('[Auth] Firebase not initialized yet — try again in a moment');
+      return;
+    }
+    try {
+      await authMod.signInWithPopup(auth, provider);
+    } catch (err: any) {
+      console.error('[Auth] Google sign-in failed:', err?.code, err?.message);
+      alert(`Sign-in failed: ${err?.message || err}`);
+    }
   };
 
   const signInWithGitHub = async () => {
-    const fb = await import('../lib/firebase');
-    const authMod = await import('firebase/auth');
-    const auth = fb.getAuthInstance();
-    if (!auth) return;
-    const provider = fb.getGithubProvider();
-    await authMod.signInWithPopup(auth, provider);
+    const auth = authRef.current;
+    const authMod = authModRef.current;
+    const provider = githubProviderRef.current;
+    if (!auth || !authMod || !provider) {
+      console.error('[Auth] Firebase not initialized yet — try again in a moment');
+      return;
+    }
+    try {
+      await authMod.signInWithPopup(auth, provider);
+    } catch (err: any) {
+      console.error('[Auth] GitHub sign-in failed:', err?.code, err?.message);
+      alert(`Sign-in failed: ${err?.message || err}`);
+    }
   };
 
   const signOut = async () => {

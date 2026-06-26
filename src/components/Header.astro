@@ -4,7 +4,6 @@ import AuthGate from './AuthGate';
 import TokenBalance from './TokenBalance';
 import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggle from './ThemeToggle.astro';
-import CurrencyToggle from './CurrencyToggle';
 import { t, type Language } from '../i18n/utils';
 
 interface Props {
@@ -31,7 +30,6 @@ const { lang } = Astro.props;
     <AuthGate client:load />
     <div class="desktop-controls">
       <ThemeToggle />
-      <CurrencyToggle client:load />
       <LanguageSwitcher client:load />
     </div>
     <AuthButton client:load />
@@ -51,7 +49,6 @@ const { lang } = Astro.props;
     <a href="/my" class="auth-only">{t(lang, 'nav.myBusiness')}</a>
     <div class="mobile-nav-controls">
       <ThemeToggle />
-      <CurrencyToggle client:load />
       <LanguageSwitcher client:load />
     </div>
   </nav>

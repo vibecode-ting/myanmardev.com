@@ -14,16 +14,25 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     gap: '0.6rem',
   },
+  avatarBtn: {
+    background: 'none',
+    border: 'none',
+    padding: 0,
+    cursor: 'pointer',
+    lineHeight: 0,
+    borderRadius: '50%',
+    transition: 'box-shadow 0.2s ease',
+  },
   avatar: {
-    width: '26px',
-    height: '26px',
+    width: '28px',
+    height: '28px',
     borderRadius: '50%',
     border: '1.5px solid var(--border-accent)',
     objectFit: 'cover' as const,
   },
   avatarFallback: {
-    width: '26px',
-    height: '26px',
+    width: '28px',
+    height: '28px',
     borderRadius: '50%',
     background: 'color-mix(in srgb, var(--accent) 20%, transparent)',
     display: 'flex',
@@ -33,31 +42,6 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 700,
     color: 'var(--accent)',
     fontFamily: 'var(--mono)',
-  },
-  userName: {
-    fontSize: '0.6875rem',
-    color: 'var(--ink)',
-    whiteSpace: 'nowrap' as const,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    maxWidth: '90px',
-    fontFamily: 'var(--mono)',
-    fontWeight: 600,
-    letterSpacing: '0.01em',
-  },
-  tokenBadge: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '4px',
-    padding: '3px 8px',
-    borderRadius: '4px',
-    fontFamily: 'var(--mono)',
-    fontSize: '0.6875rem',
-    fontWeight: 600,
-    background: 'var(--glow)',
-    color: 'var(--accent)',
-    border: '1px solid var(--border-accent)',
-    letterSpacing: '0.02em',
   },
   signOutBtn: {
     padding: '3px 8px',
@@ -89,6 +73,11 @@ const styles: Record<string, React.CSSProperties> = {
   },
 };
 
+function getDashboardPath(): string {
+  if (typeof window === 'undefined') return '/en/dashboard';
+  return window.location.pathname.startsWith('/my') ? '/my' : '/en/dashboard';
+}
+
 export default function AuthButton() {
   const { loading, isSignedIn, profile, signInWithGoogle, signInWithGitHub, signOut } = useAuth();
   const [showModal, setShowModal] = useState(false);
@@ -111,6 +100,10 @@ export default function AuthButton() {
     await signInWithGitHub();
   }, [signInWithGitHub]);
 
+  const goToProfile = useCallback(() => {
+    window.location.href = getDashboardPath();
+  }, []);
+
   if (loading) {
     return <span style={styles.loading}>···</span>;
   }
@@ -119,29 +112,31 @@ export default function AuthButton() {
     return (
       <>
         <div style={styles.container}>
-          {/* User Avatar */}
-          {profile.photoURL ? (
-            <img
-              src={profile.photoURL}
-              alt={profile.displayName}
-              style={styles.avatar}
-              referrerPolicy="no-referrer"
-            />
-          ) : (
-            <div style={styles.avatarFallback}>
-              {(profile.displayName || profile.email || '?')[0].toUpperCase()}
-            </div>
-          )}
-
-          {/* Username */}
-          <span style={styles.userName} className="auth-username">
-            {profile.displayName || profile.email?.split('@')[0]}
-          </span>
-
-          {/* Token Balance */}
-          <span style={styles.tokenBadge}>
-            🪙 {profile.tokenBalance}
-          </span>
+          {/* Profile Avatar — clickable → dashboard */}
+          <button
+            onClick={goToProfile}
+            style={styles.avatarBtn}
+            title="Profile settings"
+            onMouseOver={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 0 2px var(--accent)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            {profile.photoURL ? (
+              <img
+                src={profile.photoURL}
+                alt={profile.displayName}
+                style={styles.avatar}
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div style={styles.avatarFallback}>
+                {(profile.displayName || profile.email || '?')[0].toUpperCase()}
+              </div>
+            )}
+          </button>
 
           {/* Sign Out Button */}
           <button
@@ -160,19 +155,12 @@ export default function AuthButton() {
           </button>
         </div>
 
-        {/* Sign In Modal (for re-auth scenarios) */}
         <SignInModal
           isOpen={showModal}
           onClose={handleCloseModal}
           onSignInGoogle={handleGoogleSignIn}
           onSignInGitHub={handleGitHubSignIn}
         />
-
-        <style>{`
-          @media (max-width: 720px) {
-            .auth-username { display: none !important; }
-          }
-        `}</style>
       </>
     );
   }
