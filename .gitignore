@@ -22,6 +22,10 @@ pnpm-debug.log*
 # macOS
 .DS_Store
 
+# Windows Zone.Identifier files
+*:Zone.Identifier
+*.lnk
+
 # IDE
 .idea/
 .vscode/*

@@ -6,7 +6,8 @@
     "contact": "Contact",
     "myBusiness": "Dashboard",
     "menu": "Menu",
-    "toggleTheme": "Toggle theme"
+    "toggleTheme": "Toggle theme",
+    "signIn": "Sign In"
   },
   "hero": {
     "eyebrow": "Infrastructure for Myanmar Devs",
