@@ -2,31 +2,33 @@
  * Cloudflare Worker — Subdomain API
  *
  * Proxies requests from the frontend to Cloudflare DNS API.
- * Deploy with: npx wrangler deploy workers/subdomain-api.js
+ * Supports multiple domains under the same Cloudflare account.
  *
- * You need two secrets set on the Worker:
+ * Secrets:
  *   CLOUDFLARE_API_TOKEN — Cloudflare API token (Zone → DNS → Edit)
- *   CLOUDFLARE_ZONE_ID   — Zone ID for myanmardev.com
- *   ALLOWED_ORIGIN       — CORS allow origin (https://myanmardev.com)
+ *   ALLOWED_ORIGIN       — CORS allow origin (https://app.myanmardev.com)
  *
  * Endpoints:
- *   POST /check  — Check if a subdomain DNS record exists
- *   POST /create — Create a CNAME record for the subdomain
+ *   GET  /domains — List available domains
+ *   POST /check   — Check if a subdomain DNS record exists
+ *   POST /create  — Create a CNAME record for the subdomain
  */
 
 // ─── Configuration ──────────────────────────────────────
 
-const ZONE_ID = globalThis.CLOUDFLARE_ZONE_ID;
-const API_TOKEN = globalThis.CLOUDFLARE_API_TOKEN;
-const ALLOWED_ORIGIN = globalThis.ALLOWED_ORIGIN || 'https://myanmardev.com';
-const ROOT_DOMAIN = 'myanmardev.com';
+// All domains this worker can manage
+const DOMAINS = [
+  { name: 'myanmardev.com', zoneId: '3647ed4e91b44f19f4c1dbcacfd8e028' },
+  { name: 'myanmar.dpdns.org', zoneId: '968bf1c3672e6308546fe6ab555a5eed' },
+  { name: 'tinghah.online', zoneId: 'cbada11d7a1dae8e19d583882a21f106' },
+];
 
 // ─── CORS Headers ───────────────────────────────────────
 
-function corsHeaders(origin) {
+function corsHeaders(origin, allowedOrigin) {
   return {
-    'Access-Control-Allow-Origin': origin || ALLOWED_ORIGIN,
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Origin': origin || allowedOrigin || '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
   };
@@ -34,29 +36,32 @@ function corsHeaders(origin) {
 
 // ─── Cloudflare API Helpers ─────────────────────────────
 
-/** List all DNS records matching a given name */
-async function getDNSRecord(name) {
-  const url = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records?type=CNAME&name=${encodeURIComponent(name)}`;
+/** Resolve domain to its zone config */
+function resolveDomain(domain) {
+  if (!domain) return DOMAINS[0]; // default to myanmardev.com
+  const found = DOMAINS.find(d => d.name === domain.toLowerCase().trim());
+  return found || null;
+}
 
+/** List all DNS records matching a given name */
+async function getDNSRecord(zoneId, name, apiToken) {
+  const url = `https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records?type=CNAME&name=${encodeURIComponent(name)}`;
   const res = await fetch(url, {
     headers: {
-      'Authorization': `Bearer ${API_TOKEN}`,
+      'Authorization': `Bearer ${apiToken}`,
       'Content-Type': 'application/json',
     },
   });
-
-  const data = await res.json();
-  return data;
+  return res.json();
 }
 
 /** Create a CNAME DNS record */
-async function createDNSRecord(name, content) {
-  const url = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records`;
-
+async function createDNSRecord(zoneId, name, content, apiToken) {
+  const url = `https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records`;
   const res = await fetch(url, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${API_TOKEN}`,
+      'Authorization': `Bearer ${apiToken}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -67,33 +72,50 @@ async function createDNSRecord(name, content) {
       proxied: false, // Don't proxy DNS-only records
     }),
   });
-
-  const data = await res.json();
-  return data;
+  return res.json();
 }
 
 // ─── Request Handlers ───────────────────────────────────
 
-/** POST /check — Check if a subdomain is available */
-async function handleCheck(request) {
+/** GET /domains — List available domains */
+function handleDomains(request, env) {
   const origin = request.headers.get('Origin');
-  let body;
+  return Response.json(
+    { domains: DOMAINS.map(d => d.name) },
+    { headers: corsHeaders(origin, env.ALLOWED_ORIGIN) }
+  );
+}
 
+/** POST /check — Check if a subdomain is available */
+async function handleCheck(request, env) {
+  const origin = request.headers.get('Origin');
+  const apiToken = env.CLOUDFLARE_API_TOKEN;
+  const allowedOrigin = env.ALLOWED_ORIGIN || 'https://app.myanmardev.com';
+
+  let body;
   try {
     body = await request.json();
   } catch {
     return Response.json(
       { available: false, error: 'Invalid JSON body' },
-      { status: 400, headers: corsHeaders(origin) }
+      { status: 400, headers: corsHeaders(origin, allowedOrigin) }
     );
   }
 
-  const { subdomain } = body;
+  const { subdomain, domain } = body;
 
   if (!subdomain || typeof subdomain !== 'string') {
     return Response.json(
       { available: false, error: 'subdomain is required' },
-      { status: 400, headers: corsHeaders(origin) }
+      { status: 400, headers: corsHeaders(origin, allowedOrigin) }
+    );
+  }
+
+  const zone = resolveDomain(domain);
+  if (!zone) {
+    return Response.json(
+      { available: false, error: `Unknown domain: ${domain}. Available: ${DOMAINS.map(d => d.name).join(', ')}` },
+      { status: 400, headers: corsHeaders(origin, allowedOrigin) }
     );
   }
 
@@ -102,7 +124,7 @@ async function handleCheck(request) {
   if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(trimmed)) {
     return Response.json(
       { available: false, error: 'Invalid subdomain format. Use letters, numbers, and hyphens only.' },
-      { status: 400, headers: corsHeaders(origin) }
+      { status: 400, headers: corsHeaders(origin, allowedOrigin) }
     );
   }
 
@@ -110,19 +132,19 @@ async function handleCheck(request) {
   const reserved = ['www', 'mail', 'api', 'admin', 'cdn', 'dev'];
   if (reserved.includes(trimmed)) {
     return Response.json(
-      { available: false, subdomain: trimmed, message: `${trimmed}.${ROOT_DOMAIN} is a reserved subdomain.` },
-      { status: 200, headers: corsHeaders(origin) }
+      { available: false, subdomain: trimmed, message: `${trimmed}.${zone.name} is a reserved subdomain.` },
+      { status: 200, headers: corsHeaders(origin, allowedOrigin) }
     );
   }
 
   try {
-    const recordName = `${trimmed}.${ROOT_DOMAIN}`;
-    const result = await getDNSRecord(recordName);
+    const recordName = `${trimmed}.${zone.name}`;
+    const result = await getDNSRecord(zone.zoneId, recordName, apiToken);
 
     if (!result.success) {
       return Response.json(
         { available: false, error: 'Failed to query DNS records' },
-        { status: 500, headers: corsHeaders(origin) }
+        { status: 500, headers: corsHeaders(origin, allowedOrigin) }
       );
     }
 
@@ -131,42 +153,52 @@ async function handleCheck(request) {
     if (exists) {
       return Response.json(
         { available: false, subdomain: trimmed, message: `${recordName} is already in use.` },
-        { headers: corsHeaders(origin) }
+        { headers: corsHeaders(origin, allowedOrigin) }
       );
     }
 
     return Response.json(
-      { available: true, subdomain: trimmed, message: `${recordName} is available!` },
-      { headers: corsHeaders(origin) }
+      { available: true, subdomain: trimmed, domain: zone.name, message: `${recordName} is available!` },
+      { headers: corsHeaders(origin, allowedOrigin) }
     );
   } catch (err) {
     return Response.json(
       { available: false, error: 'DNS check failed. Please try again.' },
-      { status: 500, headers: corsHeaders(origin) }
+      { status: 500, headers: corsHeaders(origin, allowedOrigin) }
     );
   }
 }
 
 /** POST /create — Create a CNAME record */
-async function handleCreate(request) {
+async function handleCreate(request, env) {
   const origin = request.headers.get('Origin');
-  let body;
+  const apiToken = env.CLOUDFLARE_API_TOKEN;
+  const allowedOrigin = env.ALLOWED_ORIGIN || 'https://app.myanmardev.com';
 
+  let body;
   try {
     body = await request.json();
   } catch {
     return Response.json(
       { success: false, error: 'Invalid JSON body' },
-      { status: 400, headers: corsHeaders(origin) }
+      { status: 400, headers: corsHeaders(origin, allowedOrigin) }
     );
   }
 
-  const { subdomain, platform, sourceUrl } = body;
+  const { subdomain, domain, platform, sourceUrl } = body;
 
   if (!subdomain || !platform || !sourceUrl) {
     return Response.json(
       { success: false, error: 'subdomain, platform, and sourceUrl are required' },
-      { status: 400, headers: corsHeaders(origin) }
+      { status: 400, headers: corsHeaders(origin, allowedOrigin) }
+    );
+  }
+
+  const zone = resolveDomain(domain);
+  if (!zone) {
+    return Response.json(
+      { success: false, error: `Unknown domain: ${domain}` },
+      { status: 400, headers: corsHeaders(origin, allowedOrigin) }
     );
   }
 
@@ -174,7 +206,7 @@ async function handleCreate(request) {
   if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(trimmed)) {
     return Response.json(
       { success: false, error: 'Invalid subdomain format.' },
-      { status: 400, headers: corsHeaders(origin) }
+      { status: 400, headers: corsHeaders(origin, allowedOrigin) }
     );
   }
 
@@ -196,30 +228,30 @@ async function handleCreate(request) {
     default:
       return Response.json(
         { success: false, error: 'Unsupported platform. Use: github, vercel, netlify, or custom.' },
-        { status: 400, headers: corsHeaders(origin) }
+        { status: 400, headers: corsHeaders(origin, allowedOrigin) }
       );
   }
 
   try {
-    const recordName = `${trimmed}.${ROOT_DOMAIN}`;
+    const recordName = `${trimmed}.${zone.name}`;
 
     // Check if already exists
-    const existing = await getDNSRecord(recordName);
+    const existing = await getDNSRecord(zone.zoneId, recordName, apiToken);
     if (existing.success && existing.result && existing.result.length > 0) {
       return Response.json(
         { success: false, error: `${recordName} already exists. Choose another subdomain.` },
-        { status: 409, headers: corsHeaders(origin) }
+        { status: 409, headers: corsHeaders(origin, allowedOrigin) }
       );
     }
 
     // Create the record
-    const result = await createDNSRecord(recordName, cnameTarget);
+    const result = await createDNSRecord(zone.zoneId, recordName, cnameTarget, apiToken);
 
     if (!result.success) {
       const errors = result.errors?.map(e => e.message).join(', ') || 'Unknown error';
       return Response.json(
         { success: false, error: `Failed to create DNS record: ${errors}` },
-        { status: 500, headers: corsHeaders(origin) }
+        { status: 500, headers: corsHeaders(origin, allowedOrigin) }
       );
     }
 
@@ -227,6 +259,7 @@ async function handleCreate(request) {
       {
         success: true,
         subdomain: recordName,
+        domain: zone.name,
         record: {
           type: 'CNAME',
           name: recordName,
@@ -234,12 +267,12 @@ async function handleCreate(request) {
         },
         message: `${recordName} has been created and points to ${cnameTarget}`,
       },
-      { headers: corsHeaders(origin) }
+      { headers: corsHeaders(origin, allowedOrigin) }
     );
   } catch (err) {
     return Response.json(
       { success: false, error: 'DNS creation failed. Please try again.' },
-      { status: 500, headers: corsHeaders(origin) }
+      { status: 500, headers: corsHeaders(origin, allowedOrigin) }
     );
   }
 }
@@ -248,43 +281,43 @@ async function handleCreate(request) {
 
 export default {
   async fetch(request, env, ctx) {
-    // Override global vars with Worker secrets
-    globalThis.CLOUDFLARE_API_TOKEN = env.CLOUDFLARE_API_TOKEN;
-    globalThis.CLOUDFLARE_ZONE_ID = env.CLOUDFLARE_ZONE_ID;
-    globalThis.ALLOWED_ORIGIN = env.ALLOWED_ORIGIN || 'https://myanmardev.com';
-
     const url = new URL(request.url);
     const origin = request.headers.get('Origin');
+    const allowedOrigin = env.ALLOWED_ORIGIN || 'https://app.myanmardev.com';
 
     // Handle CORS preflight
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         status: 204,
-        headers: corsHeaders(origin),
+        headers: corsHeaders(origin, allowedOrigin),
       });
     }
 
     // Route requests
+    if (request.method === 'GET' && url.pathname === '/domains') {
+      return handleDomains(request, env);
+    }
+
     if (request.method === 'POST' && url.pathname === '/check') {
-      return handleCheck(request);
+      return handleCheck(request, env);
     }
 
     if (request.method === 'POST' && url.pathname === '/create') {
-      return handleCreate(request);
+      return handleCreate(request, env);
     }
 
     // Health check
     if (url.pathname === '/health') {
       return Response.json(
-        { status: 'ok', domain: ROOT_DOMAIN },
-        { headers: corsHeaders(origin) }
+        { status: 'ok', domains: DOMAINS.map(d => d.name) },
+        { headers: corsHeaders(origin, allowedOrigin) }
       );
     }
 
     // 404
     return Response.json(
-      { error: 'Not found. Use POST /check or POST /create' },
-      { status: 404, headers: corsHeaders(origin) }
+      { error: 'Not found. Use GET /domains, POST /check, or POST /create' },
+      { status: 404, headers: corsHeaders(origin, allowedOrigin) }
     );
   },
 };

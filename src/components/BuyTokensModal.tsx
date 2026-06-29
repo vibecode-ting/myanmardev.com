@@ -56,19 +56,20 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'rgba(0, 0, 0, 0.7)',
-      backdropFilter: 'blur(4px)',
+      background: 'rgba(8, 9, 10, 0.85)',
+      backdropFilter: 'blur(8px)',
     }} onClick={onClose}>
       <div style={{
-        background: 'var(--base)',
-        border: '1px solid #1D232B',
-        borderRadius: '12px',
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '10px',
         padding: '2rem',
         maxWidth: '500px',
         width: '90%',
         maxHeight: '90vh',
         overflow: 'auto',
-        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
+        boxShadow: '0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border)',
+        position: 'relative',
       }} onClick={(e) => e.stopPropagation()}>
 
         {success ? (
@@ -89,6 +90,7 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
               fontSize: '0.875rem',
               color: 'var(--muted)',
               margin: 0,
+              lineHeight: 1.6,
             }}>
               Your token purchase request has been submitted. An admin will review and add tokens to your account shortly.
             </p>
@@ -104,14 +106,16 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
                 fontWeight: 700,
                 color: 'var(--ink)',
                 margin: 0,
+                letterSpacing: '-0.02em',
               }}>
                 Buy Tokens
               </h2>
               <p style={{
                 fontFamily: 'var(--body)',
-                fontSize: '0.875rem',
+                fontSize: '0.8125rem',
                 color: 'var(--muted)',
-                margin: '0.5rem 0 0',
+                margin: '0.4rem 0 0',
+                lineHeight: 1.5,
               }}>
                 Select a token package to purchase
               </p>
@@ -119,25 +123,26 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
 
             {/* Current Balance */}
             <div style={{
-              padding: '1rem',
-              background: 'color-mix(in srgb, var(--accent) 8%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--accent) 20%, transparent)',
+              padding: '0.875rem 1rem',
+              background: 'var(--glow)',
+              border: '1px solid var(--border-accent)',
               borderRadius: '8px',
-              marginBottom: '1.5rem',
+              marginBottom: '1.25rem',
               textAlign: 'center',
             }}>
               <span style={{
                 fontFamily: 'var(--mono)',
-                fontSize: '0.75rem',
+                fontSize: '0.625rem',
                 color: 'var(--muted)',
                 textTransform: 'uppercase',
-                letterSpacing: '0.05em',
+                letterSpacing: '0.08em',
+                fontWeight: 600,
               }}>
                 Current Balance
               </span>
               <div style={{
                 fontFamily: 'var(--mono)',
-                fontSize: '1.5rem',
+                fontSize: '1.375rem',
                 fontWeight: 700,
                 color: 'var(--accent)',
                 marginTop: '0.25rem',
@@ -150,48 +155,48 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '0.75rem',
-              marginBottom: '1.5rem',
+              gap: '0.625rem',
+              marginBottom: '1.25rem',
             }}>
               {TOKEN_PACKAGES.map((pkg, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedPackage(index)}
                   style={{
-                    padding: '1rem',
+                    padding: '0.875rem',
                     background: selectedPackage === index
-                      ? 'color-mix(in srgb, var(--accent) 15%, transparent)'
-                      : 'var(--wash)',
-                    border: `1px solid ${selectedPackage === index ? 'var(--accent)' : '#1D232B'}`,
+                      ? 'var(--glow)'
+                      : 'var(--base)',
+                    border: `1px solid ${selectedPackage === index ? 'var(--accent)' : 'var(--border)'}`,
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    transition: 'all 0.2s',
+                    transition: 'all 0.15s ease',
                     textAlign: 'left',
                   }}
                 >
                   <div style={{
                     fontFamily: 'var(--mono)',
-                    fontSize: '0.6875rem',
+                    fontSize: '0.625rem',
                     fontWeight: 600,
                     color: selectedPackage === index ? 'var(--accent)' : 'var(--muted)',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    marginBottom: '0.5rem',
+                    letterSpacing: '0.08em',
+                    marginBottom: '0.4rem',
                   }}>
                     {pkg.label}
                   </div>
                   <div style={{
                     fontFamily: 'var(--mono)',
-                    fontSize: '1.25rem',
+                    fontSize: '1.125rem',
                     fontWeight: 700,
                     color: 'var(--ink)',
-                    marginBottom: '0.25rem',
+                    marginBottom: '0.15rem',
                   }}>
                     {pkg.tokens} Tokens
                   </div>
                   <div style={{
                     fontFamily: 'var(--body)',
-                    fontSize: '0.875rem',
+                    fontSize: '0.8125rem',
                     color: 'var(--muted)',
                   }}>
                     ${pkg.priceUSD.toFixed(2)} USD
@@ -208,7 +213,7 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
                 border: '1px solid color-mix(in srgb, #E8A33D 30%, transparent)',
                 borderRadius: '6px',
                 fontFamily: 'var(--mono)',
-                fontSize: '0.8125rem',
+                fontSize: '0.75rem',
                 color: '#E8A33D',
                 marginBottom: '1rem',
               }}>
@@ -219,34 +224,35 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
             {/* Info Message */}
             <div style={{
               padding: '0.75rem 1rem',
-              background: 'var(--wash)',
-              border: '1px solid #1D232B',
+              background: 'var(--base)',
+              border: '1px solid var(--border)',
               borderRadius: '6px',
               fontFamily: 'var(--mono)',
-              fontSize: '0.75rem',
+              fontSize: '0.6875rem',
               color: 'var(--muted)',
-              marginBottom: '1.5rem',
-              lineHeight: 1.5,
+              marginBottom: '1.25rem',
+              lineHeight: 1.6,
             }}>
-              ℹ️ <strong>How it works:</strong> After submitting your request, an admin will review and approve it.
-              Tokens will be added to your account once approved. This usually takes less than 24 hours.
+              ℹ️ After submitting, an admin will review and approve your request. Tokens will be added to your account once approved. Usually less than 24 hours.
             </div>
 
             {/* Action Buttons */}
-            <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', gap: '0.625rem' }}>
               <button
                 onClick={onClose}
                 style={{
                   flex: 1,
-                  padding: '0.75rem',
+                  padding: '0.7rem',
                   background: 'transparent',
                   color: 'var(--ink)',
-                  border: '1px solid #1D232B',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
-                  fontSize: '0.875rem',
+                  fontSize: '0.75rem',
                   fontWeight: 600,
                   cursor: 'pointer',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
                 }}
               >
                 Cancel
@@ -256,9 +262,9 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
                 disabled={selectedPackage === null || loading}
                 style={{
                   flex: 2,
-                  padding: '0.75rem',
+                  padding: '0.7rem',
                   background: selectedPackage === null || loading
-                    ? '#1D232B'
+                    ? 'var(--surface)'
                     : 'var(--accent)',
                   color: selectedPackage === null || loading
                     ? 'var(--muted)'
@@ -266,10 +272,12 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
                   border: 'none',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
-                  fontSize: '0.875rem',
+                  fontSize: '0.75rem',
                   fontWeight: 600,
                   cursor: selectedPackage === null || loading ? 'not-allowed' : 'pointer',
                   opacity: loading ? 0.7 : 1,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
                 }}
               >
                 {loading ? 'Submitting...' : 'Submit Purchase Request'}
@@ -283,15 +291,16 @@ export default function BuyTokensModal({ isOpen, onClose, onSuccess }: Props) {
           onClick={onClose}
           style={{
             position: 'absolute',
-            top: '1rem',
-            right: '1rem',
+            top: '0.75rem',
+            right: '0.75rem',
             background: 'none',
             border: 'none',
             color: 'var(--muted)',
-            fontSize: '1.25rem',
+            fontSize: '1rem',
             cursor: 'pointer',
             padding: '0.25rem',
             lineHeight: 1,
+            fontFamily: 'var(--mono)',
           }}
         >
           ✕

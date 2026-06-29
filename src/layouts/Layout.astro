@@ -16,7 +16,7 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={metaDescription} />
-    <meta name="theme-color" content="#73a5f9" />
+    <meta name="theme-color" content="#00D4AA" />
     <meta name="color-scheme" content="dark light" />
 
     <!-- Prevent flash: apply stored theme before paint -->
@@ -45,10 +45,10 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
-    <!-- Fonts: Sora (display), Inter (body), JetBrains Mono for labels -->
+    <!-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (terminal) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <slot />
@@ -62,34 +62,46 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
 
 <style is:global>
   :root {
-    --base: #0B0D10;
-    --ink: #E7EAEE;
-    --accent: #73a5f9;
-    --muted: #5B6470;
-    --wash: #12151A;
-    --display: 'Sora', sans-serif;
+    --base: #08090A;
+    --surface: #0F1117;
+    --ink: #E2E8F0;
+    --accent: #00D4AA;
+    --accent-dim: #00B894;
+    --muted: #5A6578;
+    --wash: #0F1117;
+    --border: #1A1F2E;
+    --border-accent: color-mix(in srgb, var(--accent) 30%, transparent);
+    --glow: rgba(0, 212, 170, 0.08);
+    --display: 'Space Grotesk', sans-serif;
     --body: 'Inter', system-ui, sans-serif;
     --mono: 'JetBrains Mono', monospace;
   }
 
   [data-theme='dark'] {
-    --base: #0B0D10;
-    --ink: #E7EAEE;
-    --accent: #73a5f9;
-    --muted: #5B6470;
-    --wash: #12151A;
-    --display: 'Sora', sans-serif;
-    --body: 'Inter', system-ui, sans-serif;
-    --mono: 'JetBrains Mono', monospace;
+    --base: #08090A;
+    --surface: #0F1117;
+    --ink: #E2E8F0;
+    --accent: #00D4AA;
+    --accent-dim: #00B894;
+    --muted: #5A6578;
+    --wash: #0F1117;
+    --border: #1A1F2E;
+    --border-accent: color-mix(in srgb, var(--accent) 30%, transparent);
+    --glow: rgba(0, 212, 170, 0.08);
   }
 
   [data-theme='light'] {
-    --base: #FFFFFF;
-    --ink: #1A1D23;
-    --accent: #73a5f9;
-    --muted: #8B95A5;
-    --wash: #F5F6F8;
-    --display: 'Sora', sans-serif;
+    --base: #FAFBFC;
+    --surface: #FFFFFF;
+    --ink: #0F1117;
+    --accent: #00A88A;
+    --accent-dim: #008F75;
+    --muted: #6B7280;
+    --wash: #F3F4F6;
+    --border: #E5E7EB;
+    --border-accent: color-mix(in srgb, var(--accent) 25%, transparent);
+    --glow: rgba(0, 168, 138, 0.06);
+    --display: 'Space Grotesk', sans-serif;
     --body: 'Inter', system-ui, sans-serif;
     --mono: 'JetBrains Mono', monospace;
   }
@@ -137,18 +149,18 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
   /* ─── Type scale ─── */
   .h-display {
     font-family: var(--display);
-    font-weight: 600;
-    font-size: clamp(2.6rem, 6.2vw, 4.5rem);
-    line-height: 1.03;
-    letter-spacing: -0.03em;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 5.8vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
   }
 
   .h-section {
     font-family: var(--display);
-    font-weight: 500;
-    font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3vw, 2.125rem);
     line-height: 1.15;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
 
   .mono {
@@ -158,16 +170,21 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
 
   .eyebrow {
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
     color: var(--accent);
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   .lede {
-    color: color-mix(in srgb, var(--ink) 62%, transparent);
+    color: var(--muted);
     max-width: 32rem;
+    font-size: 1rem;
+    line-height: 1.65;
   }
 
   /* ─── Section index ─── */
@@ -177,8 +194,10 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     align-items: baseline;
     gap: 0.7rem;
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
   .sx b { font-weight: 700; }
   .sx b::before {
@@ -186,30 +205,31 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     content: counter(tg-sx, decimal-leading-zero);
   }
   .sx span {
-    color: color-mix(in srgb, var(--ink) 60%, transparent);
-    font-weight: 400;
+    color: var(--muted);
+    font-weight: 500;
   }
   .sx::after {
     content: "";
     flex: 0 0 auto;
     width: clamp(2rem, 8vw, 5rem);
     height: 1px;
-    background: color-mix(in srgb, var(--accent) 40%, transparent);
+    background: var(--border-accent);
     align-self: center;
   }
 
   /* ─── Live status dot ─── */
   .dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: var(--accent);
     display: inline-block;
     animation: pulse 2.4s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--accent);
   }
   @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); }
-    50% { box-shadow: 0 0 0 6px transparent; }
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+    50% { opacity: 0.6; box-shadow: 0 0 2px var(--accent); }
   }
 
   /* ─── Buttons ─── */
@@ -221,52 +241,61 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     background: var(--accent);
     color: var(--base);
     font-family: var(--mono);
-    font-weight: 700;
-    font-size: 0.8125rem;
+    font-weight: 600;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    padding: 0.8rem 1.5rem;
-    border-radius: 2px;
+    letter-spacing: 0.06em;
+    padding: 0.75rem 1.4rem;
+    border-radius: 6px;
     border: 0;
     cursor: pointer;
-    transition: filter 0.15s ease, transform 0.15s ease;
+    transition: all 0.2s ease;
   }
   .btn::before {
     content: "";
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-left: 1.5px solid currentColor;
     border-bottom: 1.5px solid currentColor;
-    opacity: 0.8;
+    opacity: 0.7;
   }
   .btn::after {
     content: "";
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-right: 1.5px solid currentColor;
     border-top: 1.5px solid currentColor;
-    opacity: 0.8;
+    opacity: 0.7;
   }
-  .btn:hover { filter: brightness(1.08); }
-  .btn:active { transform: scale(0.98); }
+  .btn:hover {
+    background: var(--accent-dim);
+    box-shadow: 0 0 20px var(--glow), 0 4px 12px rgba(0,0,0,0.3);
+    transform: translateY(-1px);
+  }
+  .btn:active { transform: scale(0.98) translateY(0); }
 
   .btn--ghost {
     background: transparent;
     color: var(--ink);
-    border: 1px solid color-mix(in srgb, var(--muted) 60%, transparent);
+    border: 1px solid var(--border);
   }
   .btn--ghost::before, .btn--ghost::after { border-color: var(--accent); }
-  .btn--ghost:hover { filter: none; border-color: var(--accent); }
+  .btn--ghost:hover {
+    border-color: var(--accent);
+    background: var(--glow);
+    box-shadow: 0 0 16px var(--glow);
+  }
 
   /* ─── Panels ─── */
   .panel {
-    background: var(--wash);
-    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 10px;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .panel:hover {
-    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    border-color: var(--border-accent);
+    box-shadow: 0 0 24px var(--glow);
   }
   .panel .ph {
     display: flex;
@@ -274,13 +303,13 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     justify-content: space-between;
     gap: 1rem;
     padding: 0.7rem 1rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    border-bottom: 1px solid var(--border);
   }
 
   /* ─── Terminal block ─── */
   .term {
-    background: #0D1117;
-    border: 1px solid #1D232B;
+    background: #08090A;
+    border: 1px solid var(--border);
     border-radius: 10px;
     overflow: hidden;
     font-family: var(--mono);
@@ -291,13 +320,13 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     display: flex;
     gap: 6px;
     padding: 10px 12px;
-    border-bottom: 1px solid #1D232B;
+    border-bottom: 1px solid var(--border);
   }
   .term .bar i {
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: #252B33;
+    background: #1A1F2E;
   }
   .term pre {
     padding: 1rem 1.1rem;
@@ -314,8 +343,9 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     content: "+";
     position: absolute;
     font-family: var(--mono);
-    color: color-mix(in srgb, var(--muted) 55%, transparent);
+    color: var(--muted);
     font-size: 0.875rem;
+    opacity: 0.4;
   }
   .ticks::before { top: -10px; left: -10px; }
   .ticks::after { bottom: -10px; right: -10px; }
@@ -351,9 +381,9 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
   .gate-fallback-card {
     padding: 2.5rem 1.5rem;
     text-align: center;
-    border: 1px solid #1D232B;
+    border: 1px solid var(--border);
     border-radius: 10px;
-    background: var(--wash);
+    background: var(--surface);
     max-width: 520px;
     margin: 0 auto;
   }
@@ -363,14 +393,15 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
   }
   .gate-fallback-card .gate-fallback-heading {
     font-family: var(--mono);
-    font-size: .75rem;
+    font-size: .6875rem;
     color: var(--accent);
     margin-bottom: .8rem;
     text-transform: uppercase;
-    letter-spacing: .06em;
+    letter-spacing: .08em;
+    font-weight: 600;
   }
   .gate-fallback-card .gate-fallback-text {
-    color: color-mix(in srgb, var(--ink) 60%, transparent);
+    color: var(--muted);
     font-size: .875rem;
     margin: 0;
     line-height: 1.7;

@@ -45,7 +45,7 @@ export function useCurrency(): { currency: Currency; toggle: () => void } {
 const btnStyle: React.CSSProperties = {
   fontFamily: 'var(--mono)',
   fontSize: '0.6875rem',
-  border: '1px solid #1D232B',
+  border: '1px solid var(--border)',
   borderRadius: '4px',
   padding: '0.35rem 0.6rem',
   background: 'transparent',

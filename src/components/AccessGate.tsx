@@ -38,9 +38,9 @@ export default function AccessGate({ children, signInFallback, pendingFallback }
           <div style={{
             padding: '2.5rem 1.5rem',
             textAlign: 'center',
-            border: '1px solid #1D232B',
+            border: '1px solid var(--border)',
             borderRadius: '10px',
-            background: 'var(--wash)',
+            background: 'var(--surface)',
             maxWidth: '480px',
             margin: '0 auto',
           }}>

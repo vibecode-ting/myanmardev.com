@@ -25,19 +25,16 @@ const description = 'Manage your tokens, view order history, and track your depl
     </main>
   </AuthProvider>
 
-  <footer style="border-top:1px solid #1D232B;background:color-mix(in srgb,var(--wash) 50%,transparent);margin-top:4rem">
+  <footer style="border-top:1px solid var(--border);background:var(--surface);margin-top:4rem">
     <div style="max-width:78rem;margin:0 auto;padding:clamp(2rem,4vw,3rem) clamp(1.25rem,4vw,3rem);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem">
       <div>
-        <a href="/" style="font-family:var(--display);font-weight:600;font-size:1.1rem;letter-spacing:-.02em">
+        <a href="/" style="font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.02em">
           <span style="color:var(--accent)">myanmardev</span>.com
         </a>
-        <p class="mono" style="color:color-mix(in srgb,var(--ink) 55%,transparent);font-size:.6875rem;margin-top:.4rem;max-width:22rem">
-          {t(lang, 'footer.desc')}
-        </p>
       </div>
-      <div style="display:flex;align-items:center;gap:.5rem" class="mono">
-        <span style="color:color-mix(in srgb,var(--ink) 62%,transparent);font-size:.6875rem">&copy; {new Date().getFullYear()} {t(lang, 'footer.built')}</span>
-        <span class="dot" style="width:6px;height:6px"></span>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <span style="font-family:var(--mono);color:var(--muted);font-size:.625rem;letter-spacing:0.02em">&copy; {new Date().getFullYear()} {t(lang, 'footer.built')}</span>
+        <span class="dot" style="width:5px;height:5px"></span>
       </div>
     </div>
   </footer>

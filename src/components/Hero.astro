@@ -8,51 +8,138 @@ interface Props {
 const { lang } = Astro.props;
 ---
 
-<section style="padding:clamp(3.5rem,10vh,6rem) clamp(1.25rem,4vw,3rem);max-width:78rem;margin:0 auto" id="hero">
-  <p class="eyebrow rise"><span class="dot"></span> {t(lang, 'hero.eyebrow')}</p>
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <p class="eyebrow rise"><span class="dot"></span> {t(lang, 'hero.eyebrow')}</p>
 
-  <h1 class="h-display rise" style="margin-top:1.4rem;max-width:42rem">
-    {t(lang, 'hero.heading')}
-  </h1>
+    <h1 class="h-display rise" style="margin-top:1.2rem;max-width:44rem">
+      {t(lang, 'hero.heading')}
+    </h1>
 
-  <div class="rise" style="width:clamp(4rem,10vw,7rem);height:2px;background:var(--accent);margin-top:1.25rem"></div>
+    <div class="rise" style="width:clamp(3rem,8vw,5rem);height:2px;background:var(--accent);margin-top:1rem;box-shadow:0 0 12px var(--accent)"></div>
 
-  <p class="lede rise" style="margin-top:1.5rem;max-width:36rem">
-    {t(lang, 'hero.sub')}
-  </p>
+    <p class="lede rise" style="margin-top:1.2rem;max-width:34rem">
+      {t(lang, 'hero.sub')}
+    </p>
 
-  <div class="rise" style="display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.9rem">
-    <a class="btn" href="#products" style="padding:1rem 2rem">{t(lang, 'hero.cta')}</a>
-    <a class="btn btn--ghost" href="#how" style="padding:1rem 2rem">{t(lang, 'hero.see')}</a>
+    <!-- Terminal Demo -->
+    <div class="hero-terminal rise">
+      <div class="term">
+        <div class="bar">
+          <i></i><i></i><i></i>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:0.625rem;color:var(--muted);letter-spacing:0.04em">myanmardev.com — terminal</span>
+        </div>
+        <pre><span class="c">$</span> <span class="g">myanmardev</span> deploy <span class="y">--subdomain</span> yourname<span class="c">.myanmardev.com</span>
+<span class="c">→</span> Checking DNS... <span class="g">available ✓</span>
+<span class="c">→</span> Provisioning SSL... <span class="g">done ✓</span>
+<span class="c">→</span> Propagating records... <span class="g">live ✓</span>
+<span class="c">
+→</span> <span class="g">https://yourname.myanmardev.com</span> is live <span class="c">(30s)</span></pre>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="rise" style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem">
+      <a class="btn" href="#products" style="padding:0.85rem 1.8rem">{t(lang, 'hero.cta')}</a>
+      <a class="btn btn--ghost" href="#how" style="padding:0.85rem 1.8rem">{t(lang, 'hero.see')}</a>
+    </div>
+
+    <!-- Trust Badges -->
+    <div class="hero-badges rise">
+      <div class="hero-badge">
+        <span class="hero-badge-icon">⚡</span>
+        <span class="hero-badge-text">Zero Config</span>
+      </div>
+      <div class="hero-badge">
+        <span class="hero-badge-icon">🚀</span>
+        <span class="hero-badge-text">Instant Deploy</span>
+      </div>
+      <div class="hero-badge">
+        <span class="hero-badge-icon">🔒</span>
+        <span class="hero-badge-text">Free SSL</span>
+      </div>
+      <div class="hero-badge">
+        <span class="hero-badge-icon">💳</span>
+        <span class="hero-badge-text">No Card</span>
+      </div>
+    </div>
+
+    <p class="mono rise" style="color:var(--muted);margin-top:1.2rem;font-size:0.6875rem">{t(lang, 'hero.footnote')}</p>
   </div>
-
-  <!-- Trust Badges -->
-  <div class="rise" style="display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:2.5rem">
-    <div style="display:flex;align-items:center;gap:0.5rem">
-      <span style="font-size:1.25rem">&#9889;</span>
-      <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
-        100% Automated
-      </span>
-    </div>
-    <div style="display:flex;align-items:center;gap:0.5rem">
-      <span style="font-size:1.25rem">&#128640;</span>
-      <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
-        Instant Deploy
-      </span>
-    </div>
-    <div style="display:flex;align-items:center;gap:0.5rem">
-      <span style="font-size:1.25rem">&#128179;</span>
-      <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
-        No Credit Card
-      </span>
-    </div>
-    <div style="display:flex;align-items:center;gap:0.5rem">
-      <span style="font-size:1.25rem">&#128274;</span>
-      <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">
-        Secure &amp; Reliable
-      </span>
-    </div>
-  </div>
-
-  <p class="mono rise" style="color:var(--muted);margin-top:1.4rem">{t(lang, 'hero.footnote')}</p>
 </section>
+
+<style>
+  .hero {
+    padding: clamp(4rem, 12vh, 7rem) clamp(1.25rem, 4vw, 3rem);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, var(--glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 78rem;
+    margin: 0 auto;
+  }
+
+  .hero-terminal {
+    margin-top: 2rem;
+    max-width: 520px;
+  }
+
+  .hero-terminal .term {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border);
+  }
+
+  .hero-terminal .term pre {
+    font-size: 0.75rem;
+    line-height: 1.9;
+    padding: 1.2rem 1.4rem;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .hero-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .hero-badge-icon {
+    font-size: 1rem;
+  }
+
+  .hero-badge-text {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 480px) {
+    .hero-terminal .term pre {
+      font-size: 0.625rem;
+      padding: 1rem;
+    }
+  }
+</style>

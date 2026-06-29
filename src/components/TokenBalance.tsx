@@ -15,92 +15,65 @@ export default function TokenBalance() {
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '0.75rem',
+        gap: '0.4rem',
       }}>
-        {/* Token Display */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.5rem 1rem',
-          background: 'color-mix(in srgb, var(--accent) 10%, transparent)',
-          border: '1px solid color-mix(in srgb, var(--accent) 25%, transparent)',
-          borderRadius: '24px',
-        }}>
-          <span style={{ fontSize: '1.1rem' }}>🪙</span>
-          <span style={{
+        {/* Buy Tokens Button */}
+        <button
+          onClick={() => setShowBuyModal(true)}
+          style={{
+            padding: '4px 10px',
+            background: 'var(--accent)',
+            color: 'var(--base)',
+            border: 'none',
+            borderRadius: '4px',
             fontFamily: 'var(--mono)',
-            fontSize: '0.875rem',
+            fontSize: '0.625rem',
             fontWeight: 700,
-            color: 'var(--accent)',
-          }}>
-            {profile.tokenBalance}
-          </span>
-          <span style={{
-            fontFamily: 'var(--mono)',
-            fontSize: '0.6875rem',
-            color: 'var(--muted)',
+            cursor: 'pointer',
             textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}>
-            Tokens
-          </span>
-        </div>
+            letterSpacing: '0.06em',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.background = 'var(--accent-dim)';
+            e.currentTarget.style.boxShadow = '0 0 12px var(--glow)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.background = 'var(--accent)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
+        >
+          + Buy
+        </button>
 
-        {/* Action Buttons */}
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <button
-            onClick={() => setShowBuyModal(true)}
-            style={{
-              padding: '0.5rem 1rem',
-              background: 'var(--accent)',
-              color: 'var(--base)',
-              border: 'none',
-              borderRadius: '6px',
-              fontFamily: 'var(--mono)',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.opacity = '0.9';
-              e.currentTarget.style.transform = 'translateY(-1px)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.opacity = '1';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
-          >
-            Buy Tokens
-          </button>
-
-          <button
-            onClick={() => setShowRedeemModal(true)}
-            style={{
-              padding: '0.5rem 1rem',
-              background: 'transparent',
-              color: 'var(--ink)',
-              border: '1px solid #1D232B',
-              borderRadius: '6px',
-              fontFamily: 'var(--mono)',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent)';
-              e.currentTarget.style.color = 'var(--accent)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.borderColor = '#1D232B';
-              e.currentTarget.style.color = 'var(--ink)';
-            }}
-          >
-            Redeem Code
-          </button>
-        </div>
+        {/* Redeem Code Button */}
+        <button
+          onClick={() => setShowRedeemModal(true)}
+          style={{
+            padding: '4px 10px',
+            background: 'transparent',
+            color: 'var(--muted)',
+            border: '1px solid var(--border)',
+            borderRadius: '4px',
+            fontFamily: 'var(--mono)',
+            fontSize: '0.625rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            transition: 'all 0.15s ease',
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.borderColor = 'var(--accent)';
+            e.currentTarget.style.color = 'var(--accent)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.color = 'var(--muted)';
+          }}
+        >
+          Redeem
+        </button>
       </div>
 
       {/* Modals */}

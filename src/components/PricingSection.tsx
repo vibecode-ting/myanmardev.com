@@ -31,7 +31,7 @@ export default function PricingSection() {
   return (
     <section id="pricing" style={{
       padding: 'clamp(3rem,8vw,5rem) clamp(1.25rem,4vw,3rem)',
-      borderTop: '1px solid #1D232B',
+      borderTop: '1px solid var(--border)',
     }}>
       <div style={{ maxWidth: '78rem', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -74,9 +74,9 @@ export default function PricingSection() {
             onClick={() => setCurrency('usd')}
             style={{
               padding: '0.5rem 1.5rem',
-              background: currency === 'usd' ? 'var(--accent)' : 'var(--wash)',
+              background: currency === 'usd' ? 'var(--accent)' : 'var(--surface)',
               color: currency === 'usd' ? 'var(--base)' : 'var(--ink)',
-              border: '1px solid #1D232B',
+              border: '1px solid var(--border)',
               borderRadius: '6px',
               fontFamily: 'var(--mono)',
               fontSize: '0.875rem',
@@ -90,9 +90,9 @@ export default function PricingSection() {
             onClick={() => setCurrency('mmk')}
             style={{
               padding: '0.5rem 1.5rem',
-              background: currency === 'mmk' ? 'var(--accent)' : 'var(--wash)',
+              background: currency === 'mmk' ? 'var(--accent)' : 'var(--surface)',
               color: currency === 'mmk' ? 'var(--base)' : 'var(--ink)',
-              border: '1px solid #1D232B',
+              border: '1px solid var(--border)',
               borderRadius: '6px',
               fontFamily: 'var(--mono)',
               fontSize: '0.875rem',
@@ -115,9 +115,9 @@ export default function PricingSection() {
               key={pkg.key}
               style={{
                 padding: '2rem',
-                background: 'var(--wash)',
-                border: pkg.popular ? '2px solid var(--accent)' : '1px solid #1D232B',
-                borderRadius: '12px',
+                background: 'var(--surface)',
+                border: pkg.popular ? '2px solid var(--accent)' : '1px solid var(--border)',
+                borderRadius: '10px',
                 textAlign: 'center',
                 position: 'relative',
               }}
@@ -134,7 +134,7 @@ export default function PricingSection() {
                   fontSize: '0.6875rem',
                   fontWeight: 700,
                   padding: '4px 12px',
-                  borderRadius: '12px',
+                  borderRadius: '10px',
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
                 }}>
@@ -189,7 +189,7 @@ export default function PricingSection() {
                   marginTop: '1.5rem',
                   background: pkg.popular ? 'var(--accent)' : 'transparent',
                   color: pkg.popular ? 'var(--base)' : 'var(--ink)',
-                  border: pkg.popular ? 'none' : '1px solid #1D232B',
+                  border: pkg.popular ? 'none' : '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.875rem',
@@ -213,13 +213,13 @@ export default function PricingSection() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'rgba(0, 0, 0, 0.7)',
+          background: 'rgba(8, 9, 10, 0.85)',
           backdropFilter: 'blur(4px)',
         }} onClick={() => setShowPayment(false)}>
           <div style={{
             background: 'var(--base)',
-            border: '1px solid #1D232B',
-            borderRadius: '12px',
+            border: '1px solid var(--border)',
+            borderRadius: '10px',
             padding: '2rem',
             maxWidth: '450px',
             width: '90%',
@@ -246,9 +246,9 @@ export default function PricingSection() {
                 style={{
                   flex: 1,
                   padding: '0.75rem',
-                  background: currency === 'usd' ? 'var(--accent)' : 'var(--wash)',
+                  background: currency === 'usd' ? 'var(--accent)' : 'var(--surface)',
                   color: currency === 'usd' ? 'var(--base)' : 'var(--ink)',
-                  border: '1px solid #1D232B',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.875rem',
@@ -263,9 +263,9 @@ export default function PricingSection() {
                 style={{
                   flex: 1,
                   padding: '0.75rem',
-                  background: currency === 'mmk' ? 'var(--accent)' : 'var(--wash)',
+                  background: currency === 'mmk' ? 'var(--accent)' : 'var(--surface)',
                   color: currency === 'mmk' ? 'var(--base)' : 'var(--ink)',
-                  border: '1px solid #1D232B',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.875rem',
@@ -303,8 +303,8 @@ export default function PricingSection() {
                         padding: '0.75rem',
                         background: paymentMethod === method
                           ? 'color-mix(in srgb, var(--accent) 15%, transparent)'
-                          : 'var(--wash)',
-                        border: `1px solid ${paymentMethod === method ? 'var(--accent)' : '#1D232B'}`,
+                          : 'var(--surface)',
+                        border: `1px solid ${paymentMethod === method ? 'var(--accent)' : 'var(--border)'}`,
                         borderRadius: '6px',
                         fontFamily: 'var(--mono)',
                         fontSize: '0.8125rem',
@@ -322,8 +322,8 @@ export default function PricingSection() {
             {/* Summary */}
             <div style={{
               padding: '1rem',
-              background: 'var(--wash)',
-              border: '1px solid #1D232B',
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
               borderRadius: '6px',
               marginBottom: '1.5rem',
             }}>
@@ -370,7 +370,7 @@ export default function PricingSection() {
                   padding: '0.75rem',
                   background: 'transparent',
                   color: 'var(--ink)',
-                  border: '1px solid #1D232B',
+                  border: '1px solid var(--border)',
                   borderRadius: '6px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.875rem',
@@ -385,7 +385,7 @@ export default function PricingSection() {
                 style={{
                   flex: 2,
                   padding: '0.75rem',
-                  background: (currency === 'usd' || paymentMethod) ? 'var(--accent)' : '#1D232B',
+                  background: (currency === 'usd' || paymentMethod) ? 'var(--accent)' : 'var(--border)',
                   color: (currency === 'usd' || paymentMethod) ? 'var(--base)' : 'var(--muted)',
                   border: 'none',
                   borderRadius: '6px',

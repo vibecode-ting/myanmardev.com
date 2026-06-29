@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { checkSubdomain, createSubdomain } from '../lib/api';
+import React, { useState, useCallback, useEffect } from 'react';
+import { checkSubdomain, createSubdomain, getDomains } from '../lib/api';
 import { useAuth } from './AuthProvider';
 import { deductTokens } from '../lib/auth';
 import { createProductOrder } from '../lib/orders';
@@ -68,13 +68,13 @@ function StatusAlert({ status, message }: { status: Status; message: string }) {
     ? 'color-mix(in srgb, var(--accent) 50%, transparent)'
     : isError
       ? 'color-mix(in srgb, #E8A33D 50%, transparent)'
-      : '#1D232B';
+      : 'var(--border)';
 
   const bg = isSuccess
     ? 'color-mix(in srgb, var(--accent) 8%, transparent)'
     : isError
       ? 'color-mix(in srgb, #E8A33D 8%, transparent)'
-      : 'var(--wash)';
+      : 'var(--surface)';
 
   const color = isSuccess ? 'var(--accent)' : isError ? '#E8A33D' : 'var(--muted)';
 
@@ -103,20 +103,20 @@ if (typeof document !== 'undefined' && !document.getElementById(INJECTED)) {
     .tg-step-num {
       width:28px; height:28px; border-radius:4px; display:flex; align-items:center; justify-content:center;
       font-family:'JetBrains Mono',monospace; font-size:.75rem; font-weight:700;
-      background:var(--wash); color:var(--muted); border:1px solid #1D232B; transition:all .2s
+      background:var(--surface); color:var(--muted); border:1px solid var(--border); transition:all .2s
     }
     .tg-step.active .tg-step-num { background:var(--accent); color:var(--base); border-color:var(--accent) }
-    .tg-step.done .tg-step-num { background:color-mix(in srgb, var(--accent) 30%, transparent); color:var(--accent); border-color:color-mix(in srgb, var(--accent) 40%, transparent) }
+    .tg-step.done .tg-step-num { background:var(--glow); color:var(--accent); border-color:var(--border-accent) }
     .tg-step-label { font-family:'JetBrains Mono',monospace; font-size:.6875rem; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; display:none }
     @media(min-width:480px){ .tg-step-label { display:inline } }
     .tg-step.active .tg-step-label { color:var(--accent) }
-    .tg-step-line { width:clamp(1.5rem,4vw,3rem); height:1px; background:#1D232B; transition:background .2s }
-    .tg-step-line.done { background:color-mix(in srgb, var(--accent) 50%, transparent) }
+    .tg-step-line { width:clamp(1.5rem,4vw,3rem); height:1px; background:var(--border); transition:background .2s }
+    .tg-step-line.done { background:var(--border-accent) }
     @keyframes tgFadeIn { from { opacity:0; transform:translateY(4px) } to { opacity:1; transform:none } }
     @keyframes tgSpin { to { transform:rotate(360deg) } }
     .tg-input {
-      width:100%; padding:.75rem 1rem; border:1px solid #1D232B; border-radius:6px;
-      background:color-mix(in srgb, var(--base) 80%, #0D1117); color:var(--ink);
+      width:100%; padding:.75rem 1rem; border:1px solid var(--border); border-radius:6px;
+      background:var(--surface); color:var(--ink);
       font-family:'JetBrains Mono',monospace; font-size:.875rem; outline:none;
       transition:border-color .2s
     }
@@ -124,30 +124,30 @@ if (typeof document !== 'undefined' && !document.getElementById(INJECTED)) {
     .tg-input::placeholder { color:var(--muted) }
     .tg-input-suffix {
       display:inline-flex; align-items:center; padding:0 .75rem;
-      background:#0D1117; color:var(--muted);
+      background:var(--surface); color:var(--muted);
       font-family:'JetBrains Mono',monospace; font-size:.8125rem;
-      border:1px solid #1D232B; border-left:0; border-radius:0 6px 6px 0; white-space:nowrap
+      border:1px solid var(--border); border-left:0; border-radius:0 6px 6px 0; white-space:nowrap
     }
     .tg-input-group { display:flex; align-items:stretch }
     .tg-input-group .tg-input { border-radius:6px 0 0 6px; border-right:0 }
     .tg-label {
       display:block; font-family:'JetBrains Mono',monospace; font-size:.6875rem;
       font-weight:600; color:var(--ink); margin-bottom:.6rem;
-      text-transform:uppercase; letter-spacing:.06em
+      text-transform:uppercase; letter-spacing:.08em
     }
     .tg-platform-grid { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-bottom:1rem }
     @media(min-width:480px){ .tg-platform-grid { grid-template-columns:repeat(4,1fr) } }
     .tg-platform-btn {
-      padding:.7rem .6rem; border-radius:6px; border:1px solid #1D232B;
-      background:var(--wash); color:var(--ink); text-align:left;
+      padding:.7rem .6rem; border-radius:6px; border:1px solid var(--border);
+      background:var(--surface); color:var(--ink); text-align:left;
       font-family:'Inter',system-ui,sans-serif; font-size:.8125rem;
       cursor:pointer; transition:border-color .15s, background .15s
     }
-    .tg-platform-btn:hover { border-color:color-mix(in srgb, var(--accent) 40%, transparent) }
-    .tg-platform-btn.active { border-color:var(--accent); background:color-mix(in srgb, var(--accent) 10%, transparent) }
+    .tg-platform-btn:hover { border-color:var(--border-accent) }
+    .tg-platform-btn.active { border-color:var(--accent); background:var(--glow) }
     .tg-platform-btn .pl { font-weight:600; font-size:.8rem }
     .tg-platform-btn .pd { font-size:.6875rem; color:var(--muted); margin-top:2px }
-    .tg-mono-label { font-family:'JetBrains Mono',monospace; font-size:.6875rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:.4rem }
+    .tg-mono-label { font-family:'JetBrains Mono',monospace; font-size:.6875rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem }
     .tg-preview-row { display:flex; gap:.5rem; font-family:'JetBrains Mono',monospace; font-size:.75rem; color:color-mix(in srgb, var(--ink) 80%, transparent); overflow-x:auto }
     .tg-preview-row span:nth-child(odd) { color:var(--muted); white-space:nowrap }
     .tg-preview-row span:nth-child(even) { color:var(--accent); white-space:nowrap }
@@ -162,6 +162,8 @@ export default function SubdomainBuilder() {
   const { isSignedIn, profile, signInWithGoogle, signInWithGitHub, refreshProfile } = useAuth();
   const [step, setStep] = useState<Step>(1);
   const [subdomain, setSubdomain] = useState('');
+  const [domain, setDomain] = useState('myanmardev.com');
+  const [domains, setDomains] = useState<string[]>(['myanmardev.com']);
   const [platform, setPlatform] = useState<Platform>('github');
   const [sourceUrl, setSourceUrl] = useState('');
   const [status, setStatus] = useState<Status>('idle');
@@ -170,6 +172,14 @@ export default function SubdomainBuilder() {
   const [showBuyTokensModal, setShowBuyTokensModal] = useState(false);
 
   const selectedPlatform = PLATFORMS.find((p) => p.value === platform)!;
+
+  // Fetch available domains on mount
+  useEffect(() => {
+    getDomains().then((d) => {
+      setDomains(d);
+      if (d.length > 0 && !d.includes(domain)) setDomain(d[0]);
+    });
+  }, []);
 
   const handleCheck = useCallback(async () => {
     const trimmed = subdomain.trim().toLowerCase();
@@ -193,22 +203,22 @@ export default function SubdomainBuilder() {
     }
 
     setStatus('checking');
-    setMessage(`Checking ${trimmed}.myanmardev.com...`);
+    setMessage(`Checking ${trimmed}.${domain}...`);
     try {
-      const result = await checkSubdomain(trimmed);
+      const result = await checkSubdomain(trimmed, domain);
       if (result.available) {
         setStatus('available');
-        setMessage(`${trimmed}.myanmardev.com is available`);
+        setMessage(`${trimmed}.${domain} is available`);
         setStep(2);
       } else {
         setStatus('unavailable');
-        setMessage(`${trimmed}.myanmardev.com is already taken.`);
+        setMessage(`${trimmed}.${domain} is already taken.`);
       }
     } catch (err: any) {
       setStatus('error');
       setMessage(err.message || 'Check failed. Try again.');
     }
-  }, [subdomain, isSignedIn, profile]);
+  }, [subdomain, domain, isSignedIn, profile]);
 
   const handleCreate = useCallback(async () => {
     // Double-check auth and tokens
@@ -228,6 +238,7 @@ export default function SubdomainBuilder() {
       // 1. Create the subdomain
       const result = await createSubdomain({
         subdomain: subdomain.trim().toLowerCase(),
+        domain,
         platform,
         sourceUrl: sourceUrl.trim(),
       });
@@ -245,7 +256,8 @@ export default function SubdomainBuilder() {
         'subdomain',
         TOKEN_COST,
         {
-          subdomain: `${subdomain.trim().toLowerCase()}.myanmardev.com`,
+          subdomain: `${subdomain.trim().toLowerCase()}.${domain}`,
+          domain,
           platform,
           sourceUrl: sourceUrl.trim(),
         }
@@ -281,6 +293,18 @@ export default function SubdomainBuilder() {
       {/* Step 1 */}
       {step === 1 && (
         <div>
+          <label className="tg-label">Choose your domain</label>
+          <select
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
+            className="tg-input"
+            style={{ marginBottom: '0.75rem', cursor: 'pointer' }}
+          >
+            {domains.map((d) => (
+              <option key={d} value={d}>{d}</option>
+            ))}
+          </select>
+
           <label className="tg-label">Enter your subdomain</label>
           <div className="tg-input-group">
             <input
@@ -291,7 +315,7 @@ export default function SubdomainBuilder() {
               placeholder="myapp"
               className="tg-input"
             />
-            <span className="tg-input-suffix">.myanmardev.com</span>
+            <span className="tg-input-suffix">.{domain}</span>
           </div>
 
           {/* Token Cost Info */}
@@ -316,8 +340,8 @@ export default function SubdomainBuilder() {
             <div style={{
               marginTop: '0.5rem',
               padding: '0.5rem 1rem',
-              background: 'var(--wash)',
-              border: '1px solid #1D232B',
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
               borderRadius: '6px',
               display: 'flex',
               alignItems: 'center',
@@ -419,11 +443,11 @@ export default function SubdomainBuilder() {
           />
 
           {/* DNS Preview */}
-          <div style={{ marginTop: '1rem', padding: '0.9rem 1rem', borderRadius: '6px', border: '1px solid #1D232B', background: '#0D1117' }}>
+          <div style={{ marginTop: '1rem', padding: '0.9rem 1rem', borderRadius: '6px', border: '1px solid var(--border)', background: 'var(--surface)' }}>
             <div className="tg-mono-label">DNS Preview</div>
             <div className="tg-preview-row" style={{ gap: '1.2rem' }}>
               <span>TYPE</span><span>CNAME</span>
-              <span>NAME</span><span>{subdomain}.myanmardev.com</span>
+              <span>NAME</span><span>{subdomain}.{domain}</span>
               <span>TARGET</span><span>{cnamePreview}</span>
             </div>
           </div>

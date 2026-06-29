@@ -29,15 +29,15 @@ export default function PaymentSettings() {
 
   return (
     <div style={{
-      background: 'var(--wash)',
-      border: '1px solid #1D232B',
-      borderRadius: '12px',
+      background: 'var(--surface)',
+      border: '1px solid var(--border)',
+      borderRadius: '10px',
       overflow: 'hidden',
     }}>
       {/* Header */}
       <div style={{
         padding: '1rem 1.5rem',
-        borderBottom: '1px solid #1D232B',
+        borderBottom: '1px solid var(--border)',
       }}>
         <h3 style={{
           fontFamily: 'var(--display)',
@@ -79,7 +79,7 @@ export default function PaymentSettings() {
                   background: defaultMethod === method.value
                     ? 'color-mix(in srgb, var(--accent) 15%, transparent)'
                     : 'var(--base)',
-                  border: `1px solid ${defaultMethod === method.value ? 'var(--accent)' : '#1D232B'}`,
+                  border: `1px solid ${defaultMethod === method.value ? 'var(--accent)' : 'var(--border)'}`,
                   borderRadius: '8px',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
@@ -121,7 +121,7 @@ export default function PaymentSettings() {
             <div style={{
               padding: '1.25rem',
               background: 'var(--base)',
-              border: '1px solid #1D232B',
+              border: '1px solid var(--border)',
               borderRadius: '8px',
               textAlign: 'center',
             }}>
@@ -153,7 +153,7 @@ export default function PaymentSettings() {
                     style={{
                       padding: '0.75rem 1rem',
                       background: 'var(--base)',
-                      border: '1px solid #1D232B',
+                      border: '1px solid var(--border)',
                       borderRadius: '8px',
                       display: 'flex',
                       alignItems: 'center',
@@ -215,7 +215,7 @@ export default function PaymentSettings() {
                   background: preferredCurrency === cur.value
                     ? 'color-mix(in srgb, var(--accent) 15%, transparent)'
                     : 'var(--base)',
-                  border: `1px solid ${preferredCurrency === cur.value ? 'var(--accent)' : '#1D232B'}`,
+                  border: `1px solid ${preferredCurrency === cur.value ? 'var(--accent)' : 'var(--border)'}`,
                   borderRadius: '8px',
                   cursor: 'pointer',
                   transition: 'all 0.2s',

@@ -4,7 +4,7 @@ import { t, type Language } from '../i18n/utils';
 const { lang = 'en' } = Astro.props as { lang: Language };
 ---
 
-<section id="testimonials" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid #1D232B">
+<section id="testimonials" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid var(--border)">
   <div style="max-width:78rem;margin:0 auto">
     <div class="sx rise" style="justify-content:center"><b></b> <span>{t(lang, 'testimonials.section')}</span></div>
     <h2 class="h-section rise" style="margin-top:.9rem;text-align:center">{t(lang, 'testimonials.heading')}</h2>
@@ -12,54 +12,51 @@ const { lang = 'en' } = Astro.props as { lang: Language };
       {t(lang, 'testimonials.sub')}
     </p>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem">
       <!-- Testimonial 1 -->
-      <div class="rise" style="padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px">
-        {/* TODO: fill real testimonial data */}
-        <p style="font-family:var(--body);font-size:0.9375rem;color:var(--ink);line-height:1.7;margin:0 0 1.5rem;font-style:italic">
+      <div class="rise testimonial-card">
+        <p style="font-family:var(--body);font-size:0.875rem;color:var(--ink);line-height:1.7;margin:0 0 1.25rem">
           "{t(lang, 'testimonials.t1/q')}"
         </p>
-        <div style="display:flex;align-items:center;gap:0.75rem">
-          <div style="width:40px;height:40px;border-radius:50%;background:color-mix(in srgb, var(--accent) 20%, transparent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.875rem;font-weight:700;color:var(--accent)">
+        <div style="display:flex;align-items:center;gap:0.6rem">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--glow);border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.75rem;font-weight:700;color:var(--accent)">
             {t(lang, 'testimonials.t1/a').charAt(0)}
           </div>
           <div>
-            <div style="font-family:var(--mono);font-size:0.875rem;font-weight:600;color:var(--ink)">{t(lang, 'testimonials.t1/a')}</div>
-            <div style="font-family:var(--body);font-size:0.75rem;color:var(--muted)">{t(lang, 'testimonials.t1/role')}</div>
+            <div style="font-family:var(--mono);font-size:0.75rem;font-weight:600;color:var(--ink)">{t(lang, 'testimonials.t1/a')}</div>
+            <div style="font-family:var(--body);font-size:0.6875rem;color:var(--muted)">{t(lang, 'testimonials.t1/role')}</div>
           </div>
         </div>
       </div>
 
       <!-- Testimonial 2 -->
-      <div class="rise" style="padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px">
-        {/* TODO: fill real testimonial data */}
-        <p style="font-family:var(--body);font-size:0.9375rem;color:var(--ink);line-height:1.7;margin:0 0 1.5rem;font-style:italic">
+      <div class="rise testimonial-card">
+        <p style="font-family:var(--body);font-size:0.875rem;color:var(--ink);line-height:1.7;margin:0 0 1.25rem">
           "{t(lang, 'testimonials.t2/q')}"
         </p>
-        <div style="display:flex;align-items:center;gap:0.75rem">
-          <div style="width:40px;height:40px;border-radius:50%;background:color-mix(in srgb, var(--accent) 20%, transparent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.875rem;font-weight:700;color:var(--accent)">
+        <div style="display:flex;align-items:center;gap:0.6rem">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--glow);border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.75rem;font-weight:700;color:var(--accent)">
             {t(lang, 'testimonials.t2/a').charAt(0)}
           </div>
           <div>
-            <div style="font-family:var(--mono);font-size:0.875rem;font-weight:600;color:var(--ink)">{t(lang, 'testimonials.t2/a')}</div>
-            <div style="font-family:var(--body);font-size:0.75rem;color:var(--muted)">{t(lang, 'testimonials.t2/role')}</div>
+            <div style="font-family:var(--mono);font-size:0.75rem;font-weight:600;color:var(--ink)">{t(lang, 'testimonials.t2/a')}</div>
+            <div style="font-family:var(--body);font-size:0.6875rem;color:var(--muted)">{t(lang, 'testimonials.t2/role')}</div>
           </div>
         </div>
       </div>
 
       <!-- Testimonial 3 -->
-      <div class="rise" style="padding:2rem;background:var(--wash);border:1px solid #1D232B;border-radius:12px">
-        {/* TODO: fill real testimonial data */}
-        <p style="font-family:var(--body);font-size:0.9375rem;color:var(--ink);line-height:1.7;margin:0 0 1.5rem;font-style:italic">
+      <div class="rise testimonial-card">
+        <p style="font-family:var(--body);font-size:0.875rem;color:var(--ink);line-height:1.7;margin:0 0 1.25rem">
           "{t(lang, 'testimonials.t3/q')}"
         </p>
-        <div style="display:flex;align-items:center;gap:0.75rem">
-          <div style="width:40px;height:40px;border-radius:50%;background:color-mix(in srgb, var(--accent) 20%, transparent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.875rem;font-weight:700;color:var(--accent)">
+        <div style="display:flex;align-items:center;gap:0.6rem">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--glow);border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.75rem;font-weight:700;color:var(--accent)">
             {t(lang, 'testimonials.t3/a').charAt(0)}
           </div>
           <div>
-            <div style="font-family:var(--mono);font-size:0.875rem;font-weight:600;color:var(--ink)">{t(lang, 'testimonials.t3/a')}</div>
-            <div style="font-family:var(--body);font-size:0.75rem;color:var(--muted)">{t(lang, 'testimonials.t3/role')}</div>
+            <div style="font-family:var(--mono);font-size:0.75rem;font-weight:600;color:var(--ink)">{t(lang, 'testimonials.t3/a')}</div>
+            <div style="font-family:var(--body);font-size:0.6875rem;color:var(--muted)">{t(lang, 'testimonials.t3/role')}</div>
           </div>
         </div>
       </div>
@@ -68,6 +65,19 @@ const { lang = 'en' } = Astro.props as { lang: Language };
 </section>
 
 <style>
+  .testimonial-card {
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .testimonial-card:hover {
+    border-color: var(--border-accent);
+    box-shadow: 0 0 20px var(--glow);
+  }
+
   @media (max-width: 768px) {
     #testimonials > div > div:last-child {
       grid-template-columns: 1fr !important;

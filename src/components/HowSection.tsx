@@ -13,8 +13,8 @@ export default function HowSection() {
   return (
     <section id="how" style={{
       padding: 'clamp(3rem,8vw,5rem) clamp(1.25rem,4vw,3rem)',
-      borderTop: '1px solid #1D232B',
-      background: 'color-mix(in srgb, var(--wash) 50%, transparent)',
+      borderTop: '1px solid var(--border)',
+      background: 'color-mix(in srgb, var(--surface) 50%, transparent)',
     }}>
       <div style={{ maxWidth: '78rem', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -47,6 +47,9 @@ export default function HowSection() {
             <div key={step.key} style={{
               textAlign: 'center',
               padding: '2rem',
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: '10px',
             }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
                 {step.icon}

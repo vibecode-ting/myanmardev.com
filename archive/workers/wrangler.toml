@@ -1,0 +1,17 @@
+name = "subdomain-api"
+main = "subdomain-api.js"
+
+# Deploy to your Cloudflare account
+# Run: npx wrangler deploy
+
+compatibility_date = "2025-01-01"
+
+# The frontend app runs on this URL
+[vars]
+ALLOWED_ORIGIN = "https://app.myanmardev.com"
+
+# Set this secret before deploying:
+# npx wrangler secret put CLOUDFLARE_API_TOKEN
+
+# Zone IDs for all managed domains are hardcoded in subdomain-api.js
+# Domains: myanmardev.com, myanmar.dpdns.org, tinghah.online

@@ -4,13 +4,13 @@ import { t, type Language } from '../i18n/utils';
 const { lang = 'en' } = Astro.props as { lang: Language };
 ---
 
-<section id="cta" style="padding:clamp(4rem,10vw,7rem) clamp(1.25rem,4vw,3rem);border-top:1px solid #1D232B;text-align:center">
+<section id="cta" style="padding:clamp(4rem,10vw,6rem) clamp(1.25rem,4vw,3rem);border-top:1px solid var(--border);text-align:center">
   <div style="max-width:640px;margin:0 auto">
-    <h2 class="h-section rise" style="margin:0 0 .75rem">{t(lang, 'cta.heading')}</h2>
-    <p class="lede rise" style="margin:0 0 2.5rem">{t(lang, 'cta.sub')}</p>
-    <div class="rise" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <a href="#pricing" class="btn" style="padding:0.875rem 2rem">{t(lang, 'cta.start')}</a>
-      <a href="#pricing" class="btn btn--ghost" style="padding:0.875rem 2rem">{t(lang, 'cta.pricing')}</a>
+    <h2 class="h-section rise" style="margin:0 0 .6rem">{t(lang, 'cta.heading')}</h2>
+    <p class="lede rise" style="margin:0 0 2rem">{t(lang, 'cta.sub')}</p>
+    <div class="rise" style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+      <a href="#pricing" class="btn" style="padding:0.85rem 2rem">{t(lang, 'cta.start')}</a>
+      <a href="#pricing" class="btn btn--ghost" style="padding:0.85rem 2rem">{t(lang, 'cta.pricing')}</a>
     </div>
   </div>
 </section>

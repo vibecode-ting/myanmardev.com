@@ -95,9 +95,9 @@ export default function MySubdomains() {
       <div style={{
         padding: '3rem 2rem',
         textAlign: 'center',
-        background: 'var(--wash)',
-        border: '1px solid #1D232B',
-        borderRadius: '12px',
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '10px',
       }}>
         <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🌐</div>
         <p style={{
@@ -141,15 +141,15 @@ export default function MySubdomains() {
 
   return (
     <div style={{
-      background: 'var(--wash)',
-      border: '1px solid #1D232B',
-      borderRadius: '12px',
+      background: 'var(--surface)',
+      border: '1px solid var(--border)',
+      borderRadius: '10px',
       overflow: 'hidden',
     }}>
       {/* Header */}
       <div style={{
         padding: '1rem 1.5rem',
-        borderBottom: '1px solid #1D232B',
+        borderBottom: '1px solid var(--border)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -167,7 +167,7 @@ export default function MySubdomains() {
           fontFamily: 'var(--mono)',
           fontSize: '0.75rem',
           color: 'var(--muted)',
-          background: '#1D232B',
+          background: 'var(--border)',
           padding: '4px 8px',
           borderRadius: '4px',
         }}>
@@ -178,7 +178,7 @@ export default function MySubdomains() {
       {/* Column labels */}
       <div style={{
         padding: '0.5rem 1.5rem',
-        borderBottom: '1px solid #1D232B',
+        borderBottom: '1px solid var(--border)',
         display: 'grid',
         gridTemplateColumns: '2fr 1fr 1fr 1fr auto',
         gap: '1rem',
@@ -210,7 +210,7 @@ export default function MySubdomains() {
             key={orderId}
             style={{
               padding: '0.875rem 1.5rem',
-              borderBottom: index < subdomains.length - 1 ? '1px solid #1D232B' : 'none',
+              borderBottom: index < subdomains.length - 1 ? '1px solid var(--border)' : 'none',
               display: 'grid',
               gridTemplateColumns: '2fr 1fr 1fr 1fr auto',
               gap: '1rem',
@@ -272,7 +272,7 @@ export default function MySubdomains() {
                   padding: '0.4rem 0.6rem',
                   background: 'transparent',
                   color: 'var(--ink)',
-                  border: '1px solid #1D232B',
+                  border: '1px solid var(--border)',
                   borderRadius: '4px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.6875rem',
@@ -285,7 +285,7 @@ export default function MySubdomains() {
                   e.currentTarget.style.color = 'var(--accent)';
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.borderColor = '#1D232B';
+                  e.currentTarget.style.borderColor = 'var(--border)';
                   e.currentTarget.style.color = 'var(--ink)';
                 }}
               >
@@ -300,7 +300,7 @@ export default function MySubdomains() {
                     ? 'color-mix(in srgb, #22c55e 15%, transparent)'
                     : 'transparent',
                   color: copiedId === orderId ? '#22c55e' : 'var(--ink)',
-                  border: `1px solid ${copiedId === orderId ? '#22c55e' : '#1D232B'}`,
+                  border: `1px solid ${copiedId === orderId ? '#22c55e' : 'var(--border)'}`,
                   borderRadius: '4px',
                   fontFamily: 'var(--mono)',
                   fontSize: '0.6875rem',
@@ -316,7 +316,7 @@ export default function MySubdomains() {
                 }}
                 onMouseOut={(e) => {
                   if (copiedId !== orderId) {
-                    e.currentTarget.style.borderColor = '#1D232B';
+                    e.currentTarget.style.borderColor = 'var(--border)';
                     e.currentTarget.style.color = 'var(--ink)';
                   }
                 }}

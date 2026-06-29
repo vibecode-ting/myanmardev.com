@@ -16,9 +16,9 @@ export default function DashboardContent() {
         marginTop: '2rem',
         padding: '3rem',
         textAlign: 'center',
-        background: 'var(--wash)',
-        border: '1px solid #1D232B',
-        borderRadius: '12px',
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '10px',
       }}>
         <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔐</div>
         <h2 style={{
@@ -55,7 +55,7 @@ export default function DashboardContent() {
         padding: '2rem',
         background: 'color-mix(in srgb, var(--accent) 8%, transparent)',
         border: '1px solid color-mix(in srgb, var(--accent) 20%, transparent)',
-        borderRadius: '12px',
+        borderRadius: '10px',
         marginBottom: '2rem',
       }}>
         <h2 style={{
@@ -87,9 +87,9 @@ export default function DashboardContent() {
         {/* Token Balance Card */}
         <div style={{
           padding: '1.5rem',
-          background: 'var(--wash)',
-          border: '1px solid #1D232B',
-          borderRadius: '12px',
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
+          borderRadius: '10px',
           textAlign: 'center',
         }}>
           <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🪙</div>
@@ -116,9 +116,9 @@ export default function DashboardContent() {
         {/* Quick Actions Card */}
         <div style={{
           padding: '1.5rem',
-          background: 'var(--wash)',
-          border: '1px solid #1D232B',
-          borderRadius: '12px',
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
+          borderRadius: '10px',
         }}>
           <div style={{
             fontFamily: 'var(--mono)',
@@ -155,7 +155,7 @@ export default function DashboardContent() {
                 padding: '0.75rem',
                 background: 'transparent',
                 color: 'var(--ink)',
-                border: '1px solid #1D232B',
+                border: '1px solid var(--border)',
                 borderRadius: '6px',
                 fontFamily: 'var(--mono)',
                 fontSize: '0.8125rem',
@@ -172,7 +172,7 @@ export default function DashboardContent() {
                 padding: '0.75rem',
                 background: 'transparent',
                 color: 'var(--ink)',
-                border: '1px solid #1D232B',
+                border: '1px solid var(--border)',
                 borderRadius: '6px',
                 fontFamily: 'var(--mono)',
                 fontSize: '0.8125rem',
@@ -190,9 +190,9 @@ export default function DashboardContent() {
         {/* Account Info Card */}
         <div style={{
           padding: '1.5rem',
-          background: 'var(--wash)',
-          border: '1px solid #1D232B',
-          borderRadius: '12px',
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
+          borderRadius: '10px',
         }}>
           <div style={{
             fontFamily: 'var(--mono)',

@@ -142,7 +142,7 @@ export default function NotifyMe({ productName, productId }: Props) {
           style={{
             padding: '0.5rem 0.75rem',
             background: 'color-mix(in srgb, var(--base) 80%, #0D1117)',
-            border: `1px solid ${errorMsg ? '#E8A33D' : '#1D232B'}`,
+            border: `1px solid ${errorMsg ? '#E8A33D' : 'var(--border)'}`,
             borderRadius: '6px',
             fontFamily: 'var(--mono)',
             fontSize: '0.8125rem',
@@ -155,7 +155,7 @@ export default function NotifyMe({ productName, productId }: Props) {
             if (!errorMsg) e.target.style.borderColor = 'var(--accent)';
           }}
           onBlur={(e) => {
-            if (!errorMsg) e.target.style.borderColor = '#1D232B';
+            if (!errorMsg) e.target.style.borderColor = 'var(--border)';
           }}
         />
         <button
@@ -163,7 +163,7 @@ export default function NotifyMe({ productName, productId }: Props) {
           disabled={status === 'loading' || !email.trim()}
           style={{
             padding: '0.5rem 1rem',
-            background: status === 'loading' || !email.trim() ? '#1D232B' : 'var(--accent)',
+            background: status === 'loading' || !email.trim() ? 'var(--border)' : 'var(--accent)',
             color: status === 'loading' || !email.trim() ? 'var(--muted)' : 'var(--base)',
             border: 'none',
             borderRadius: '6px',
@@ -187,7 +187,7 @@ export default function NotifyMe({ productName, productId }: Props) {
             padding: '0.5rem 0.75rem',
             background: 'transparent',
             color: 'var(--muted)',
-            border: '1px solid #1D232B',
+            border: '1px solid var(--border)',
             borderRadius: '6px',
             fontFamily: 'var(--mono)',
             fontSize: '0.8125rem',
@@ -224,7 +224,7 @@ export default function NotifyMe({ productName, productId }: Props) {
         padding: '0.5rem 1rem',
         background: 'transparent',
         color: 'var(--ink)',
-        border: '1px solid #1D232B',
+        border: '1px solid var(--border)',
         borderRadius: '6px',
         fontFamily: 'var(--mono)',
         fontSize: '0.8125rem',
@@ -241,7 +241,7 @@ export default function NotifyMe({ productName, productId }: Props) {
       }}
       onMouseOut={(e) => {
         if (status !== 'loading') {
-          e.currentTarget.style.borderColor = '#1D232B';
+          e.currentTarget.style.borderColor = 'var(--border)';
           e.currentTarget.style.color = 'var(--ink)';
         }
       }}

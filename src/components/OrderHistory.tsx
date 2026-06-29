@@ -49,9 +49,9 @@ export default function OrderHistory() {
       <div style={{
         padding: '2rem',
         textAlign: 'center',
-        background: 'var(--wash)',
-        border: '1px solid #1D232B',
-        borderRadius: '12px',
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '10px',
       }}>
         <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>📦</div>
         <p style={{
@@ -109,15 +109,15 @@ export default function OrderHistory() {
 
   return (
     <div style={{
-      background: 'var(--wash)',
-      border: '1px solid #1D232B',
-      borderRadius: '12px',
+      background: 'var(--surface)',
+      border: '1px solid var(--border)',
+      borderRadius: '10px',
       overflow: 'hidden',
     }}>
       {/* Header */}
       <div style={{
         padding: '1rem 1.5rem',
-        borderBottom: '1px solid #1D232B',
+        borderBottom: '1px solid var(--border)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -135,7 +135,7 @@ export default function OrderHistory() {
           fontFamily: 'var(--mono)',
           fontSize: '0.75rem',
           color: 'var(--muted)',
-          background: '#1D232B',
+          background: 'var(--border)',
           padding: '4px 8px',
           borderRadius: '4px',
         }}>
@@ -150,7 +150,7 @@ export default function OrderHistory() {
             key={order.id || index}
             style={{
               padding: '1rem 1.5rem',
-              borderBottom: index < orders.length - 1 ? '1px solid #1D232B' : 'none',
+              borderBottom: index < orders.length - 1 ? '1px solid var(--border)' : 'none',
               display: 'grid',
               gridTemplateColumns: '1fr auto',
               gap: '1rem',

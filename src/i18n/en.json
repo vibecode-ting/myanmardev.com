@@ -4,59 +4,59 @@
     "products": "Products",
     "pricing": "Pricing",
     "contact": "Contact",
-    "myBusiness": "My Business",
+    "myBusiness": "Dashboard",
     "menu": "Menu",
     "toggleTheme": "Toggle theme",
     "signIn": "Sign In"
   },
   "hero": {
-    "eyebrow": "Instant Deploy",
+    "eyebrow": "Infrastructure for Myanmar Devs",
     "heading": "Your Subdomain. Live in 30 Seconds.",
-    "sub": "No coding. No waiting. Just deploy.",
-    "cta": "Get Started Free",
-    "see": "See How It Works",
-    "footnote": "No credit card required. Free to start."
+    "sub": "Zero Config. True Serverless. Instant Production.",
+    "cta": "Deploy Now",
+    "see": "View Architecture",
+    "footnote": "$1 = 4,000 MMK · No credit card · Free to start"
   },
   "products": {
     "section": "/ products",
-    "heading": "What We Build",
-    "sub": "Automated web services for Myanmar developers",
+    "heading": "What We Ship",
+    "sub": "Automated infrastructure for Myanmar developers",
     "p1": {
       "name": "Subdomain",
-      "desc": "yourname.myanmardev.com",
+      "desc": "yourname.myanmardev.com — instant DNS, free SSL, zero config",
       "price": "1 Token",
       "status": "Live"
     },
     "p2": {
       "name": "Website",
-      "desc": "Template-based sites",
+      "desc": "Template-driven static sites — deploy in seconds",
       "price": "3 Tokens",
       "status": "Soon"
     },
     "p3": {
       "name": "Portfolio",
-      "desc": "GitHub-powered showcase",
+      "desc": "GitHub-powered developer showcase — auto-synced",
       "price": "2 Tokens",
       "status": "Soon"
     }
   },
   "how": {
-    "section": "/ how",
-    "heading": "3 Steps. That's It.",
+    "section": "/ process",
+    "heading": "3 Commands. That's It.",
     "s1": "Choose Product",
-    "s1d": "Pick what you need",
-    "s2": "Sign In",
-    "s2d": "Google or GitHub",
+    "s1d": "Select what you need from our infrastructure catalog",
+    "s2": "Authenticate",
+    "s2d": "Google or GitHub — one-tap OAuth, no passwords",
     "s3": "Deploy",
-    "s3d": "Live instantly"
+    "s3d": "DNS propagates in seconds. SSL auto-provisioned."
   },
   "pricing": {
     "section": "/ pricing",
-    "heading": "Simple Pricing",
-    "sub": "1 USD = 4,000 MMK",
-    "popular": "Popular",
+    "heading": "Token Economy",
+    "sub": "1 Token ≈ $0.50 USD · 2,000 MMK",
+    "popular": "Best Value",
     "perToken": "/token",
-    "buy": "Buy Now",
+    "buy": "Purchase Tokens",
     "starter": {
       "name": "Starter",
       "tokens": "5",
@@ -83,7 +83,7 @@
     }
   },
   "payment": {
-    "heading": "Choose Payment",
+    "heading": "Confirm Payment",
     "usd": "USD",
     "mmk": "MMK",
     "methods": "Payment Methods",
@@ -104,7 +104,7 @@
     "signOut": "Sign Out",
     "google": "Continue with Google",
     "github": "Continue with GitHub",
-    "title": "Sign In to Continue"
+    "title": "Authenticate to Continue"
   },
   "tokens": {
     "balance": "Tokens",
@@ -114,7 +114,7 @@
   "pages": {
     "products": { "title": "Products" },
     "pricing": { "title": "Pricing" },
-    "myBusiness": { "title": "My Business" },
+    "myBusiness": { "title": "Dashboard" },
     "auth": { "title": "Sign In" }
   },
   "currency": {
@@ -130,9 +130,9 @@
   },
   "common": {
     "actions": {
-      "order": "Order Now",
+      "order": "Deploy Now",
       "notifyMe": "Notify Me",
-      "learnMore": "Learn More"
+      "learnMore": "View Docs"
     }
   },
   "theme": {
@@ -140,9 +140,9 @@
     "light": "Light"
   },
   "testimonials": {
-    "section": "/ testimonials",
-    "heading": "What Developers Say",
-    "sub": "Trusted by Myanmar developers",
+    "section": "/ signal",
+    "heading": "Trusted by Myanmar Devs",
+    "sub": "Real developers. Real deployments.",
     "t1": {
       "q": "myanmardev.com made deploying my portfolio site incredibly fast. No config headaches.",
       "a": "Aung Khant",
@@ -160,10 +160,10 @@
     }
   },
   "cta": {
-    "heading": "Start Building Today",
-    "sub": "Join Myanmar's fastest growing developer platform",
-    "start": "Get Started Free",
-    "pricing": "See Pricing"
+    "heading": "Start Shipping Today",
+    "sub": "Join Myanmar's fastest-growing developer platform",
+    "start": "Deploy Now",
+    "pricing": "View Pricing"
   },
   "footer": {
     "built": "Built for Myanmar Devs",
@@ -172,14 +172,14 @@
   "productPages": {
     "subdomain": {
       "title": "Subdomain Registration",
-      "desc": "Get your own .myanmardev.com subdomain in seconds",
+      "desc": "Get your own .myanmardev.com subdomain in seconds. Instant DNS, free SSL, GitHub Pages & Vercel support.",
       "features": {
         "f1": "Instant DNS provisioning",
         "f2": "GitHub Pages, Vercel, Netlify support",
         "f3": "Custom CNAME records",
         "f4": "99.9% uptime guarantee",
         "f5": "Free SSL certificates",
-        "f6": "No technical knowledge required"
+        "f6": "Zero technical knowledge required"
       }
     },
     "breadcrumb": {
