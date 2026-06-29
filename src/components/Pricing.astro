@@ -16,13 +16,12 @@ const tiers = ['starter', 'basic', 'pro', 'business'] as const;
     <h2 class="h-section rise" style="margin-top:.75rem">{t(lang, 'pricing.heading')}</h2>
     <p class="lede rise" style="margin-top:.4rem">{t(lang, 'pricing.sub')}</p>
 
-    <!-- Token Packages as ruled rows -->
     <div class="pricing-table rise">
       <div class="pricing-header">
-        <span>Package</span>
-        <span>Tokens</span>
-        <span>USD</span>
-        <span>MMK</span>
+        <span>{t(lang, 'pricing.package')}</span>
+        <span>{t(lang, 'pricing.tokens')}</span>
+        <span>{t(lang, 'pricing.usd')}</span>
+        <span>{t(lang, 'pricing.mmk')}</span>
         <span></span>
       </div>
       {tiers.map((tier) => {
@@ -36,29 +35,12 @@ const tiers = ['starter', 'basic', 'pro', 'business'] as const;
             <span class="pricing-tokens">{t(lang, `pricing.${tier}.tokens`)}</span>
             <span class="pricing-usd">{t(lang, `pricing.${tier}.usd`)}</span>
             <span class="pricing-mmk">{t(lang, `pricing.${tier}.mmk`)}</span>
-            <a href="#product" class:list={['btn', 'btn--ghost', { 'btn': isPro }]} style="padding:0.5rem 1rem;font-size:0.625rem">
+            <a href="/auth/signin" class:list={['btn', 'btn--ghost', { 'btn': isPro }]} style="padding:0.5rem 1rem;font-size:0.625rem">
               {t(lang, 'pricing.buy')}
             </a>
           </div>
         );
       })}
-    </div>
-
-    <!-- Redeem Codes -->
-    <div class="rise" style="margin-top:2rem;padding:1.5rem 0;border-top:1px solid var(--rule)">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
-        <div>
-          <h3 style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--ink);margin:0 0 0.15rem">
-            Have a Promo Code?
-          </h3>
-          <p style="font-family:var(--body);font-size:0.8125rem;color:var(--muted);margin:0">
-            Sign in and redeem for free tokens.
-          </p>
-        </div>
-        <a href="#" class="btn btn--ghost" style="padding:0.5rem 1rem" onclick="document.querySelector('[data-redeem-button]')?.click()">
-          Redeem Code
-        </a>
-      </div>
     </div>
   </div>
 </section>
@@ -66,13 +48,14 @@ const tiers = ['starter', 'basic', 'pro', 'business'] as const;
 <style>
   .pricing-table {
     margin-top: 2rem;
+    border: 1px solid var(--rule);
   }
 
   .pricing-header {
     display: grid;
     grid-template-columns: 1.5fr 0.75fr 0.75fr 1fr auto;
     gap: 1rem;
-    padding: 0.75rem 0;
+    padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--ink);
     font-family: var(--mono);
     font-size: 0.625rem;
@@ -86,10 +69,14 @@ const tiers = ['starter', 'basic', 'pro', 'business'] as const;
     display: grid;
     grid-template-columns: 1.5fr 0.75fr 0.75fr 1fr auto;
     gap: 1rem;
-    padding: 1rem 0;
+    padding: 1rem;
     border-bottom: 1px solid var(--rule);
     align-items: center;
     transition: background 0.15s ease;
+  }
+
+  .pricing-row:last-child {
+    border-bottom: none;
   }
 
   .pricing-row:hover {

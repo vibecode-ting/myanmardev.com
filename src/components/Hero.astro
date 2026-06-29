@@ -10,57 +10,26 @@ const { lang } = Astro.props;
 
 <section class="hero" id="hero">
   <div class="hero-inner">
-    <p class="eyebrow rise">{t(lang, 'hero.eyebrow')}</p>
-
-    <h1 class="h-display rise" style="margin-top:1rem;max-width:38rem">
-      {t(lang, 'hero.heading')}
-    </h1>
-
+    <h1 class="h-display rise">{t(lang, 'hero.heading')}</h1>
     <div class="hero-rule rise"></div>
+    <p class="lede rise" style="margin-top:1rem">{t(lang, 'hero.sub')}</p>
 
-    <div class="hero-grid">
-      <div class="rise">
-        <p class="lede" style="max-width:34rem">
-          {t(lang, 'hero.sub')}
-        </p>
-
-        <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem">
-          <a class="btn" href="#products">{t(lang, 'hero.cta')}</a>
-          <a class="btn btn--ghost" href="#how">{t(lang, 'hero.see')}</a>
+    <div class="hero-terminal rise">
+      <div class="term">
+        <div class="bar">
+          <span style="font-family:var(--mono);font-size:0.625rem;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase">terminal</span>
         </div>
-      </div>
-
-      <div class="hero-terminal rise">
-        <div class="term">
-          <div class="bar">
-            <span style="font-family:var(--mono);font-size:0.625rem;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase">terminal</span>
-          </div>
-          <pre><span class="c">$</span> <span class="g">myanmardev</span> deploy <span class="y">--subdomain</span> yourname
+        <pre><span class="c">$</span> <span class="g">myanmardev</span> deploy <span class="y">--subdomain</span> yourname
 <span class="c">→</span> DNS check... <span class="g">available ✓</span>
 <span class="c">→</span> SSL provision... <span class="g">done ✓</span>
 <span class="c">→</span> Propagating... <span class="g">live ✓</span>
 <span class="c">→</span> <span class="g">yourname.myanmardev.com</span> <span class="c">(30s)</span></pre>
-        </div>
       </div>
     </div>
 
-    <div class="hero-stats rise">
-      <div class="stat-item">
-        <span class="stat-label">Deploy time</span>
-        <span class="stat-value">30s</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Config required</span>
-        <span class="stat-value">Zero</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">SSL</span>
-        <span class="stat-value">Free</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Credit card</span>
-        <span class="stat-value">None</span>
-      </div>
+    <div class="rise" style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem">
+      <a class="btn" href="#products">{t(lang, 'hero.cta')}</a>
+      <a class="btn btn--ghost" href="#pricing">{t(lang, 'hero.see')}</a>
     </div>
   </div>
 </section>
@@ -83,12 +52,9 @@ const { lang } = Astro.props;
     margin-top: 1rem;
   }
 
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
+  .hero-terminal {
     margin-top: 2rem;
-    align-items: start;
+    max-width: 480px;
   }
 
   .hero-terminal .term {
@@ -111,22 +77,6 @@ const { lang } = Astro.props;
   .hero-terminal .term .c { color: var(--muted); }
   .hero-terminal .term .g { color: var(--accent); }
   .hero-terminal .term .y { color: #E8A33D; }
-
-  .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    margin-top: 2.5rem;
-    border-top: 1px solid var(--rule);
-  }
-
-  @media (max-width: 768px) {
-    .hero-grid {
-      grid-template-columns: 1fr;
-    }
-    .hero-stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
 
   @media (max-width: 480px) {
     .hero-terminal .term pre {
