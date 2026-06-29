@@ -5,6 +5,10 @@ interface Props {
   lang?: string;
 }
 
+import '@fontsource/noto-sans-myanmar/400.css';
+import '@fontsource/noto-sans-myanmar/600.css';
+import '@fontsource/noto-sans-myanmar/700.css';
+
 const { title, description, lang = 'en' } = Astro.props;
 const siteUrl = 'https://app.myanmardev.com';
 const metaDescription = description || 'Subdomain Register — automated DNS and web services for Myanmar developers. Get your own .myanmardev.com subdomain in seconds. No waiting, no hassle.';
@@ -16,7 +20,7 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={metaDescription} />
-    <meta name="theme-color" content="#0a7780" />
+    <meta name="theme-color" content="#d97706" />
     <meta name="color-scheme" content="light dark" />
 
     <!-- Prevent flash: apply stored theme before paint -->
@@ -45,10 +49,7 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
-    <!-- Fonts: Libre Caslon Text (display), IBM Plex Sans (body), IBM Plex Mono (data) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Fonts: system stack + Noto Sans Myanmar (self-hosted) -->
   </head>
   <body>
     <slot />
@@ -76,30 +77,30 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
 </html>
 
 <style is:global>
-  /* ─── Brutalist Ledger Design Tokens ─── */
+  /* ─── Myanmardev Design Tokens (amber/gold) ─── */
   :root {
     --base: #F4F2ED;
     --surface: #FFFFFF;
     --ink: #141414;
-    --accent: #0a7780;
-    --accent-dim: #086570;
+    --accent: #d97706;
+    --accent-dim: #b45309;
     --muted: #6B7280;
     --wash: #EAE7DF;
     --rule: #D6D2C8;
     --border: #D6D2C8;
     --border-accent: color-mix(in srgb, var(--accent) 30%, transparent);
     --glow: transparent;
-    --display: 'Libre Caslon Text', Georgia, serif;
-    --body: 'IBM Plex Sans', system-ui, sans-serif;
-    --mono: 'IBM Plex Mono', monospace;
+    --display: Georgia, 'Times New Roman', serif;
+    --body: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --mono: 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
   }
 
   [data-theme='dark'] {
     --base: #141414;
     --surface: #1a1a1a;
     --ink: #F4F2ED;
-    --accent: #0a7780;
-    --accent-dim: #0d8f9a;
+    --accent: #d97706;
+    --accent-dim: #f59e0b;
     --muted: #8a8a8a;
     --wash: #1e1e1e;
     --rule: #2a2a2a;
@@ -128,6 +129,16 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     overflow-x: hidden;
   }
 
+  /* Burmese language: Noto Sans Myanmar */
+  html[lang="my"] body,
+  html[lang="my"] .btn,
+  html[lang="my"] .mono,
+  html[lang="my"] .eyebrow,
+  html[lang="my"] .sx {
+    font-family: 'Noto Sans Myanmar', system-ui, sans-serif;
+    line-height: 1.9;
+  }
+
   img {
     display: block;
     max-width: 100%;
@@ -136,6 +147,11 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
   a {
     color: inherit;
     text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  a:hover {
+    color: var(--accent);
   }
 
   ::selection {

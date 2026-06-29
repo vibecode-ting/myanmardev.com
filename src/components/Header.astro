@@ -13,7 +13,9 @@ const { lang } = Astro.props;
 
 <header class="site-header">
   <a href="/" class="logo">
-    <span style="color:var(--accent)">myanmardev</span>.com
+    <img src="/images/logo/myanmardev-icon.svg" alt="myanmardev.com" width="24" height="24" class="logo-icon" />
+    <img src="/images/logo/myanmardev-logo.svg" alt="myanmardev.com" class="logo-full" />
+    <span class="logo-text"><span style="color:var(--accent)">myanmardev</span>.com</span>
   </a>
 
   <nav class="desktop-nav" id="tg-links">
@@ -70,6 +72,28 @@ const { lang } = Astro.props;
     gap: 0.5rem;
     flex-shrink: 0;
     padding: 0.75rem 0;
+  }
+
+  .logo-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
+  .logo-full {
+    display: block;
+    height: 24px;
+    width: auto;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  /* Show text logo when images fail or for fallback */
+  .logo-icon[src=""] ~ .logo-text,
+  .logo-full[src=""] ~ .logo-text {
+    display: inline;
   }
 
   .desktop-nav {

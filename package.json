@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.7",
+    "@fontsource/noto-sans-myanmar": "^5.2.7",
     "astro": "^6.4.7",
     "firebase": "^12.14.0",
     "react": "^19.2.7",

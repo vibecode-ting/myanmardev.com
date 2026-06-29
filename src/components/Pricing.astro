@@ -81,10 +81,12 @@ const tiers = ['starter', 'basic', 'pro', 'business'] as const;
 
   .pricing-row:hover {
     background: var(--wash);
+    border-left: 2px solid var(--accent);
   }
 
   .pricing-row--highlight {
-    background: color-mix(in srgb, var(--accent) 5%, transparent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border-left: 2px solid var(--accent);
   }
 
   .pricing-tier {

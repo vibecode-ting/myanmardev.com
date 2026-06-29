@@ -14,8 +14,11 @@ const { lang } = Astro.props;
     <h2 class="h-section rise" style="margin-top:.75rem">{t(lang, 'products.heading')}</h2>
 
     <div class="product-gallery">
-      <!-- Product 1 -->
+      <!-- Product 1: Subdomain -->
       <div class="product-card rise">
+        <div class="product-img">
+          <img src="/images/products/subdomain-card.svg" alt="Subdomain registration" loading="lazy" />
+        </div>
         <div class="product-header">
           <span class="product-status product-status--live">{t(lang, 'products.p1.status')}</span>
           <h3 class="product-name">{t(lang, 'products.p1.name')}</h3>
@@ -34,8 +37,11 @@ const { lang } = Astro.props;
         </div>
       </div>
 
-      <!-- Product 2 -->
+      <!-- Product 2: Website Builder -->
       <div class="product-card rise">
+        <div class="product-img">
+          <img src="/images/products/website-builder-card.svg" alt="Website builder" loading="lazy" />
+        </div>
         <div class="product-header">
           <span class="product-status">{t(lang, 'products.p2.status')}</span>
           <h3 class="product-name">{t(lang, 'products.p2.name')}</h3>
@@ -54,8 +60,11 @@ const { lang } = Astro.props;
         </div>
       </div>
 
-      <!-- Product 3 -->
+      <!-- Product 3: Portfolio -->
       <div class="product-card rise">
+        <div class="product-img">
+          <img src="/images/products/portfolio-card.svg" alt="Portfolio site" loading="lazy" />
+        </div>
         <div class="product-header">
           <span class="product-status">{t(lang, 'products.p3.status')}</span>
           <h3 class="product-name">{t(lang, 'products.p3.name')}</h3>
@@ -92,6 +101,30 @@ const { lang } = Astro.props;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    transition: border-color 0.2s ease;
+  }
+
+  .product-card:hover {
+    border-color: var(--accent);
+  }
+
+  .product-img {
+    margin-bottom: 1rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--wash);
+  }
+
+  .product-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover .product-img img {
+    transform: scale(1.02);
   }
 
   .product-header {
