@@ -20,24 +20,38 @@
   "products": {
     "section": "/ products",
     "heading": "What We Ship",
-    "sub": "Automated infrastructure for Myanmar developers",
     "p1": {
       "name": "Subdomain",
       "desc": "yourname.myanmardev.com — instant DNS, free SSL, zero config",
       "price": "1 Token",
-      "status": "Live"
+      "usd": "$0.50",
+      "mmk": "2,000 MMK",
+      "status": "Live",
+      "details": "Register your own .myanmardev.com subdomain. DNS propagates in 30 seconds. Free SSL certificate included. Works with GitHub Pages, Vercel, Netlify, and any hosting provider. No technical knowledge required — just pick your name and deploy.",
+      "order": "Order Now",
+      "info": "Details"
     },
     "p2": {
-      "name": "Website",
+      "name": "Website Builder",
       "desc": "Template-driven static sites — deploy in seconds",
       "price": "3 Tokens",
-      "status": "Soon"
+      "usd": "$1.50",
+      "mmk": "6,000 MMK",
+      "status": "Soon",
+      "details": "Choose from professional templates. Customize with your content. One-click deploy to your subdomain. Responsive design, fast loading, SEO optimized.",
+      "order": "Notify Me",
+      "info": "Details"
     },
     "p3": {
-      "name": "Portfolio",
+      "name": "Developer Portfolio",
       "desc": "GitHub-powered developer showcase — auto-synced",
       "price": "2 Tokens",
-      "status": "Soon"
+      "usd": "$1.00",
+      "mmk": "4,000 MMK",
+      "status": "Soon",
+      "details": "Auto-generate a portfolio from your GitHub repos. Live demo links, project stats, contribution graph. Custom domain support. Updates automatically when you push code.",
+      "order": "Notify Me",
+      "info": "Details"
     }
   },
   "how": {
@@ -53,10 +67,14 @@
   "pricing": {
     "section": "/ pricing",
     "heading": "Token Economy",
-    "sub": "1 Token ≈ $0.50 USD · 2,000 MMK",
+    "sub": "1 Token = $0.50 USD = 2,000 MMK · Fixed rate",
     "popular": "Best Value",
-    "perToken": "/token",
-    "buy": "Purchase Tokens",
+    "buy": "Buy Tokens",
+    "package": "Package",
+    "tokens": "Tokens",
+    "usd": "USD",
+    "mmk": "MMK",
+    "action": "Action",
     "starter": {
       "name": "Starter",
       "tokens": "5",

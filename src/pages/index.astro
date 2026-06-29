@@ -2,25 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import HowItWorks from '../components/HowItWorks.astro';
 import Products from '../components/Products.astro';
 import Pricing from '../components/Pricing.astro';
-import Testimonials from '../components/Testimonials.astro';
-import CTA from '../components/CTA.astro';
 import { t, type Language } from '../i18n/utils';
 const lang: Language = 'en';
 const title = 'myanmardev.com — Your Subdomain. Live in 30 Seconds.';
-const description = 'Zero Config. True Serverless. Instant Production. Automated web services for Myanmar developers.';
+const description = 'Automated web services for Myanmar developers. Subdomains, websites, portfolios — deploy in seconds.';
 ---
 
 <Layout title={title} description={description} lang={lang}>
   <Header lang={lang} />
   <Hero lang={lang} />
-  <HowItWorks lang={lang} />
   <Products lang={lang} />
   <Pricing lang={lang} />
-  <Testimonials lang={lang} />
-  <CTA lang={lang} />
 
   <!-- Footer — Dense colophon -->
   <footer style={{
@@ -28,10 +22,7 @@ const description = 'Zero Config. True Serverless. Instant Production. Automated
     padding: 'clamp(2rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3rem)',
     borderTop: '1px solid var(--rule)',
   }}>
-    <div style={{
-      maxWidth: '78rem',
-      margin: '0 auto',
-    }}>
+    <div style={{ maxWidth: '78rem', margin: '0 auto' }}>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
@@ -40,44 +31,18 @@ const description = 'Zero Config. True Serverless. Instant Production. Automated
         borderBottom: '1px solid var(--rule)',
       }}>
         <div>
-          <div style={{
-            fontFamily: 'var(--mono)',
-            fontSize: '0.625rem',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.14em',
-            color: 'var(--ink)',
-            marginBottom: '0.75rem',
-          }}>Product</div>
-          <a href="/products" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Products</a>
-          <a href="/pricing" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Pricing</a>
-          <a href="/products/subdomain" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Subdomains</a>
+          <div style={{ fontFamily: 'var(--mono)', fontSize: '0.625rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--ink)', marginBottom: '0.75rem' }}>Product</div>
+          <a href="#products" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Products</a>
+          <a href="#pricing" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Pricing</a>
         </div>
         <div>
-          <div style={{
-            fontFamily: 'var(--mono)',
-            fontSize: '0.625rem',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.14em',
-            color: 'var(--ink)',
-            marginBottom: '0.75rem',
-          }}>Account</div>
+          <div style={{ fontFamily: 'var(--mono)', fontSize: '0.625rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--ink)', marginBottom: '0.75rem' }}>Account</div>
           <a href="/auth/signin" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Sign In</a>
-          <a href="/my" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Dashboard</a>
         </div>
         <div>
-          <div style={{
-            fontFamily: 'var(--mono)',
-            fontSize: '0.625rem',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.14em',
-            color: 'var(--ink)',
-            marginBottom: '0.75rem',
-          }}>Platform</div>
-          <a href="/" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Home</a>
-          <a href="#how" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>How It Works</a>
+          <div style={{ fontFamily: 'var(--mono)', fontSize: '0.625rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--ink)', marginBottom: '0.75rem' }}>Platform</div>
+          <a href="#hero" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Home</a>
+          <a href="#products" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>How It Works</a>
         </div>
       </div>
       <div style={{
@@ -88,20 +53,10 @@ const description = 'Zero Config. True Serverless. Instant Production. Automated
         gap: '0.75rem',
         paddingTop: '1rem',
       }}>
-        <a href="/" style={{
-          fontFamily: 'var(--display)',
-          fontWeight: 700,
-          fontSize: '0.875rem',
-          letterSpacing: '-0.02em',
-        }}>
+        <a href="/" style={{ fontFamily: 'var(--display)', fontWeight: 700, fontSize: '0.875rem', letterSpacing: '-0.02em' }}>
           <span style={{ color: 'var(--accent)' }}>myanmardev</span>.com
         </a>
-        <span style={{
-          fontFamily: 'var(--mono)',
-          fontSize: '0.625rem',
-          color: 'var(--muted)',
-          letterSpacing: '0.14em',
-        }}>
+        <span style={{ fontFamily: 'var(--mono)', fontSize: '0.625rem', color: 'var(--muted)', letterSpacing: '0.14em' }}>
           {t(lang, 'footer.rights')}
         </span>
       </div>

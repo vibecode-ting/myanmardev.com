@@ -1,8 +1,6 @@
 ---
 import AuthButton from './AuthButton';
-import AuthGate from './AuthGate';
 import TokenBalance from './TokenBalance';
-import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggle from './ThemeToggle.astro';
 import { t, type Language } from '../i18n/utils';
 
@@ -19,20 +17,14 @@ const { lang } = Astro.props;
   </a>
 
   <nav class="desktop-nav" id="tg-links">
-    <a href="/">{t(lang, 'nav.home')}</a>
-    <a href="/products">{t(lang, 'nav.products')}</a>
-    <a href="/pricing">{t(lang, 'nav.pricing')}</a>
-    <a href="/my" class="auth-only">{t(lang, 'nav.myBusiness')}</a>
+    <a href="#hero">{t(lang, 'nav.home')}</a>
+    <a href="#products">{t(lang, 'nav.products')}</a>
+    <a href="#pricing">{t(lang, 'nav.pricing')}</a>
   </nav>
 
   <div class="controls">
     <TokenBalance client:load />
-    <AuthGate client:load />
-    <div class="desktop-controls">
-      <ThemeToggle />
-      <LanguageSwitcher client:load />
-    </div>
-    <a href="/auth/signin" class="signin-link anon-only">{t(lang, 'nav.signIn')}</a>
+    <ThemeToggle />
     <AuthButton client:load />
     <button class="hamburger" id="hamburger-btn" aria-label={t(lang, 'nav.menu')} aria-expanded="false">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -44,13 +36,11 @@ const { lang } = Astro.props;
   </div>
 
   <nav class="mobile-nav" id="mobile-nav">
-    <a href="/">{t(lang, 'nav.home')}</a>
-    <a href="/products">{t(lang, 'nav.products')}</a>
-    <a href="/pricing">{t(lang, 'nav.pricing')}</a>
-    <a href="/my" class="auth-only">{t(lang, 'nav.myBusiness')}</a>
+    <a href="#hero">{t(lang, 'nav.home')}</a>
+    <a href="#products">{t(lang, 'nav.products')}</a>
+    <a href="#pricing">{t(lang, 'nav.pricing')}</a>
     <div class="mobile-nav-controls">
       <ThemeToggle />
-      <LanguageSwitcher client:load />
     </div>
   </nav>
 </header>
@@ -67,7 +57,6 @@ const { lang } = Astro.props;
     padding: 0 clamp(1.25rem, 4vw, 3rem);
     background: var(--base);
     border-bottom: 1px solid var(--rule);
-    height: auto;
     min-height: 3rem;
   }
 
@@ -127,12 +116,6 @@ const { lang } = Astro.props;
     gap: 0.5rem;
   }
 
-  .desktop-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
   .hamburger {
     display: none;
     background: transparent;
@@ -179,29 +162,8 @@ const { lang } = Astro.props;
     display: flex;
   }
 
-  .signin-link {
-    font-family: var(--mono);
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--accent);
-    padding: 0.4rem 0.75rem;
-    border: 1px solid var(--accent);
-    transition: background 0.15s, color 0.15s;
-    text-decoration: none;
-  }
-
-  .signin-link:hover {
-    background: var(--accent);
-    color: var(--base);
-  }
-
   @media (max-width: 720px) {
     .desktop-nav {
-      display: none;
-    }
-
-    .desktop-controls {
       display: none;
     }
 

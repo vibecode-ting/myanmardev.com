@@ -1,6 +1,5 @@
 ---
 import { t, type Language } from '../i18n/utils';
-import SubdomainBuilder from './SubdomainBuilder';
 
 interface Props {
   lang: Language;
@@ -14,92 +13,89 @@ const { lang } = Astro.props;
     <div class="sx rise"><b></b> <span>{t(lang, 'products.section')}</span></div>
     <h2 class="h-section rise" style="margin-top:.75rem">{t(lang, 'products.heading')}</h2>
 
-    <div class="product-rows">
-      <!-- Product 1: Subdomain Registration -->
-      <a href="/products/subdomain" class="product-row rise">
-        <div class="product-row-left">
+    <div class="product-gallery">
+      <!-- Product 1 -->
+      <div class="product-card rise">
+        <div class="product-header">
           <span class="product-status product-status--live">{t(lang, 'products.p1.status')}</span>
           <h3 class="product-name">{t(lang, 'products.p1.name')}</h3>
           <p class="product-desc">{t(lang, 'products.p1.desc')}</p>
         </div>
-        <div class="product-row-right">
-          <span class="product-price">{t(lang, 'products.p1.price')}</span>
-          <span class="product-arrow">→</span>
+        <div class="product-price-row">
+          <span class="product-price">{t(lang, 'products.p1.usd')}</span>
+          <span class="product-price-mmk">{t(lang, 'products.p1.mmk')}</span>
         </div>
-      </a>
+        <div class="product-actions">
+          <a href="/auth/signin" class="btn" style="flex:1;justify-content:center">{t(lang, 'products.p1.order')}</a>
+          <button class="btn btn--ghost details-toggle" data-target="details-1" style="flex:1;justify-content:center">{t(lang, 'products.p1.info')}</button>
+        </div>
+        <div class="product-details" id="details-1">
+          <p>{t(lang, 'products.p1.details')}</p>
+        </div>
+      </div>
 
-      <!-- Product 2: Static Website Builder -->
-      <div class="product-row product-row--disabled rise">
-        <div class="product-row-left">
+      <!-- Product 2 -->
+      <div class="product-card rise">
+        <div class="product-header">
           <span class="product-status">{t(lang, 'products.p2.status')}</span>
           <h3 class="product-name">{t(lang, 'products.p2.name')}</h3>
           <p class="product-desc">{t(lang, 'products.p2.desc')}</p>
         </div>
-        <div class="product-row-right">
-          <span class="product-price product-price--muted">{t(lang, 'products.p2.price')}</span>
+        <div class="product-price-row">
+          <span class="product-price">{t(lang, 'products.p2.usd')}</span>
+          <span class="product-price-mmk">{t(lang, 'products.p2.mmk')}</span>
+        </div>
+        <div class="product-actions">
+          <button class="btn" style="flex:1;justify-content:center;opacity:0.5;cursor:not-allowed" disabled>{t(lang, 'products.p2.order')}</button>
+          <button class="btn btn--ghost details-toggle" data-target="details-2" style="flex:1;justify-content:center">{t(lang, 'products.p2.info')}</button>
+        </div>
+        <div class="product-details" id="details-2">
+          <p>{t(lang, 'products.p2.details')}</p>
         </div>
       </div>
 
-      <!-- Product 3: Developer Portfolio -->
-      <div class="product-row product-row--disabled rise">
-        <div class="product-row-left">
+      <!-- Product 3 -->
+      <div class="product-card rise">
+        <div class="product-header">
           <span class="product-status">{t(lang, 'products.p3.status')}</span>
           <h3 class="product-name">{t(lang, 'products.p3.name')}</h3>
           <p class="product-desc">{t(lang, 'products.p3.desc')}</p>
         </div>
-        <div class="product-row-right">
-          <span class="product-price product-price--muted">{t(lang, 'products.p3.price')}</span>
+        <div class="product-price-row">
+          <span class="product-price">{t(lang, 'products.p3.usd')}</span>
+          <span class="product-price-mmk">{t(lang, 'products.p3.mmk')}</span>
+        </div>
+        <div class="product-actions">
+          <button class="btn" style="flex:1;justify-content:center;opacity:0.5;cursor:not-allowed" disabled>{t(lang, 'products.p3.order')}</button>
+          <button class="btn btn--ghost details-toggle" data-target="details-3" style="flex:1;justify-content:center">{t(lang, 'products.p3.info')}</button>
+        </div>
+        <div class="product-details" id="details-3">
+          <p>{t(lang, 'products.p3.details')}</p>
         </div>
       </div>
-    </div>
-
-    <!-- Interactive SubdomainBuilder -->
-    <div style="margin-top:3rem">
-      <SubdomainBuilder client:load />
     </div>
   </div>
 </section>
 
 <style>
-  .product-rows {
+  .product-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
     margin-top: 2rem;
+    border: 1px solid var(--rule);
+    background: var(--rule);
   }
 
-  .product-row {
+  .product-card {
+    background: var(--base);
+    padding: 1.5rem;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--rule);
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.15s ease;
-    cursor: pointer;
+    flex-direction: column;
   }
 
-  .product-row:first-child {
-    border-top: 1px solid var(--rule);
-  }
-
-  .product-row:hover:not(.product-row--disabled) {
-    background: var(--wash);
-  }
-
-  .product-row--disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-
-  .product-row-left {
+  .product-header {
     flex: 1;
-  }
-
-  .product-row-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-shrink: 0;
   }
 
   .product-status {
@@ -120,7 +116,7 @@ const { lang } = Astro.props;
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--ink);
-    margin: 0.25rem 0 0.15rem;
+    margin: 0.5rem 0 0.25rem;
   }
 
   .product-desc {
@@ -131,33 +127,72 @@ const { lang } = Astro.props;
     line-height: 1.65;
   }
 
-  .product-price {
-    font-family: var(--mono);
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--accent);
+  .product-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
   }
 
-  .product-price--muted {
+  .product-price {
+    font-family: var(--mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .product-price-mmk {
+    font-family: var(--mono);
+    font-size: 0.75rem;
     color: var(--muted);
   }
 
-  .product-arrow {
-    font-family: var(--mono);
-    font-size: 1rem;
-    color: var(--accent);
-    transition: transform 0.15s ease;
+  .product-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
   }
 
-  .product-row:hover .product-arrow {
-    transform: translateX(4px);
+  .product-details {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .product-details.open {
+    display: block;
+  }
+
+  .product-details p {
+    font-family: var(--body);
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin: 0;
   }
 
   @media (max-width: 640px) {
-    .product-row {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.75rem;
+    .product-gallery {
+      grid-template-columns: 1fr;
     }
   }
 </style>
+
+<script is:inline>
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.details-toggle');
+    if (!btn) return;
+    var target = document.getElementById(btn.dataset.target);
+    if (target) {
+      target.classList.toggle('open');
+      btn.textContent = target.classList.contains('open') ? 'Close' : btn.dataset.label || 'Details';
+    }
+  });
+  // Store original labels
+  document.querySelectorAll('.details-toggle').forEach(function (btn) {
+    btn.dataset.label = btn.textContent;
+  });
+</script>
