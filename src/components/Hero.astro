@@ -10,136 +10,128 @@ const { lang } = Astro.props;
 
 <section class="hero" id="hero">
   <div class="hero-inner">
-    <p class="eyebrow rise"><span class="dot"></span> {t(lang, 'hero.eyebrow')}</p>
+    <p class="eyebrow rise">{t(lang, 'hero.eyebrow')}</p>
 
-    <h1 class="h-display rise" style="margin-top:1.2rem;max-width:44rem">
+    <h1 class="h-display rise" style="margin-top:1rem;max-width:38rem">
       {t(lang, 'hero.heading')}
     </h1>
 
-    <div class="rise" style="width:clamp(3rem,8vw,5rem);height:2px;background:var(--accent);margin-top:1rem;box-shadow:0 0 12px var(--accent)"></div>
+    <div class="hero-rule rise"></div>
 
-    <p class="lede rise" style="margin-top:1.2rem;max-width:34rem">
-      {t(lang, 'hero.sub')}
-    </p>
+    <div class="hero-grid">
+      <div class="rise">
+        <p class="lede" style="max-width:34rem">
+          {t(lang, 'hero.sub')}
+        </p>
 
-    <!-- Terminal Demo -->
-    <div class="hero-terminal rise">
-      <div class="term">
-        <div class="bar">
-          <i></i><i></i><i></i>
-          <span style="margin-left:auto;font-family:var(--mono);font-size:0.625rem;color:var(--muted);letter-spacing:0.04em">myanmardev.com — terminal</span>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem">
+          <a class="btn" href="#products">{t(lang, 'hero.cta')}</a>
+          <a class="btn btn--ghost" href="#how">{t(lang, 'hero.see')}</a>
         </div>
-        <pre><span class="c">$</span> <span class="g">myanmardev</span> deploy <span class="y">--subdomain</span> yourname<span class="c">.myanmardev.com</span>
-<span class="c">→</span> Checking DNS... <span class="g">available ✓</span>
-<span class="c">→</span> Provisioning SSL... <span class="g">done ✓</span>
-<span class="c">→</span> Propagating records... <span class="g">live ✓</span>
-<span class="c">
-→</span> <span class="g">https://yourname.myanmardev.com</span> is live <span class="c">(30s)</span></pre>
+      </div>
+
+      <div class="hero-terminal rise">
+        <div class="term">
+          <div class="bar">
+            <span style="font-family:var(--mono);font-size:0.625rem;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase">terminal</span>
+          </div>
+          <pre><span class="c">$</span> <span class="g">myanmardev</span> deploy <span class="y">--subdomain</span> yourname
+<span class="c">→</span> DNS check... <span class="g">available ✓</span>
+<span class="c">→</span> SSL provision... <span class="g">done ✓</span>
+<span class="c">→</span> Propagating... <span class="g">live ✓</span>
+<span class="c">→</span> <span class="g">yourname.myanmardev.com</span> <span class="c">(30s)</span></pre>
+        </div>
       </div>
     </div>
 
-    <!-- CTAs -->
-    <div class="rise" style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem">
-      <a class="btn" href="#products" style="padding:0.85rem 1.8rem">{t(lang, 'hero.cta')}</a>
-      <a class="btn btn--ghost" href="#how" style="padding:0.85rem 1.8rem">{t(lang, 'hero.see')}</a>
-    </div>
-
-    <!-- Trust Badges -->
-    <div class="hero-badges rise">
-      <div class="hero-badge">
-        <span class="hero-badge-icon">⚡</span>
-        <span class="hero-badge-text">Zero Config</span>
+    <div class="hero-stats rise">
+      <div class="stat-item">
+        <span class="stat-label">Deploy time</span>
+        <span class="stat-value">30s</span>
       </div>
-      <div class="hero-badge">
-        <span class="hero-badge-icon">🚀</span>
-        <span class="hero-badge-text">Instant Deploy</span>
+      <div class="stat-item">
+        <span class="stat-label">Config required</span>
+        <span class="stat-value">Zero</span>
       </div>
-      <div class="hero-badge">
-        <span class="hero-badge-icon">🔒</span>
-        <span class="hero-badge-text">Free SSL</span>
+      <div class="stat-item">
+        <span class="stat-label">SSL</span>
+        <span class="stat-value">Free</span>
       </div>
-      <div class="hero-badge">
-        <span class="hero-badge-icon">💳</span>
-        <span class="hero-badge-text">No Card</span>
+      <div class="stat-item">
+        <span class="stat-label">Credit card</span>
+        <span class="stat-value">None</span>
       </div>
     </div>
-
-    <p class="mono rise" style="color:var(--muted);margin-top:1.2rem;font-size:0.6875rem">{t(lang, 'hero.footnote')}</p>
   </div>
 </section>
 
 <style>
   .hero {
     padding: clamp(4rem, 12vh, 7rem) clamp(1.25rem, 4vw, 3rem);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 800px;
-    height: 600px;
-    background: radial-gradient(ellipse at center, var(--glow) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+    border-bottom: 1px solid var(--rule);
   }
 
   .hero-inner {
-    position: relative;
-    z-index: 1;
     max-width: 78rem;
     margin: 0 auto;
   }
 
-  .hero-terminal {
+  .hero-rule {
+    width: clamp(3rem, 8vw, 5rem);
+    height: 1px;
+    background: var(--accent);
+    margin-top: 1rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
     margin-top: 2rem;
-    max-width: 520px;
+    align-items: start;
   }
 
   .hero-terminal .term {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border);
+    border: 1px solid var(--rule);
+  }
+
+  .hero-terminal .term .bar {
+    border-bottom: 1px solid var(--rule);
+    padding: 0.625rem 1rem;
   }
 
   .hero-terminal .term pre {
     font-size: 0.75rem;
     line-height: 1.9;
-    padding: 1.2rem 1.4rem;
+    padding: 1rem;
+    background: var(--ink);
+    color: color-mix(in srgb, var(--base) 80%, transparent);
   }
 
-  .hero-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    margin-top: 2rem;
+  .hero-terminal .term .c { color: var(--muted); }
+  .hero-terminal .term .g { color: var(--accent); }
+  .hero-terminal .term .y { color: #E8A33D; }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--rule);
   }
 
-  .hero-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-  }
-
-  .hero-badge-icon {
-    font-size: 1rem;
-  }
-
-  .hero-badge-text {
-    font-family: var(--mono);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+  @media (max-width: 768px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 480px) {
     .hero-terminal .term pre {
       font-size: 0.625rem;
-      padding: 1rem;
+      padding: 0.75rem;
     }
   }
 </style>

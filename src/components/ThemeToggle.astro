@@ -5,13 +5,13 @@
 <button
   class="theme-toggle"
   aria-label="Toggle theme"
-  style="font-family:var(--mono);font-size:0.6875rem;border:1px solid var(--border);border-radius:4px;padding:0.35rem 0.6rem;background:transparent;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:0.35rem;line-height:1"
+  style="font-family:var(--mono);font-size:0.625rem;border:1px solid var(--rule);border-radius:0;padding:0.35rem 0.6rem;background:transparent;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:0.35rem;line-height:1;text-transform:uppercase;letter-spacing:0.14em"
 >
   <!-- Sun icon — visible when dark (click to switch to light) -->
   <svg
     class="theme-icon theme-icon--sun"
-    width="14"
-    height="14"
+    width="12"
+    height="12"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -33,8 +33,8 @@
   <!-- Moon icon — visible when light (click to switch to dark) -->
   <svg
     class="theme-icon theme-icon--moon"
-    width="14"
-    height="14"
+    width="12"
+    height="12"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -55,49 +55,8 @@
   :root[data-theme="dark"] .theme-icon--sun  { display: inline-block; }
   :root[data-theme="dark"] .theme-icon--moon { display: none; }
 
-  /* Also respect prefers-color-scheme when no data-theme is set */
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) .theme-icon--sun  { display: inline-block; }
-    :root:not([data-theme]) .theme-icon--moon { display: none; }
-  }
-
   .theme-toggle:hover {
     color: var(--ink);
-    border-color: var(--border-accent);
+    border-color: var(--ink);
   }
 </style>
-
-<script is:inline>
-  (function () {
-    var btns = document.querySelectorAll('.theme-toggle');
-    if (!btns.length) return;
-
-    function getPreferred() {
-      var stored = localStorage.getItem('theme');
-      if (stored === 'dark' || stored === 'light') return stored;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-
-    function apply(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-    }
-
-    // Apply saved theme on load
-    apply(getPreferred());
-
-    // Attach click handler to ALL theme toggle buttons
-    btns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        apply(next);
-        document.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: next } }));
-      });
-    });
-
-    // Listen for external theme changes
-    document.addEventListener('theme-changed', function (e) {
-      apply(e.detail.theme);
-    });
-  })();
-</script>

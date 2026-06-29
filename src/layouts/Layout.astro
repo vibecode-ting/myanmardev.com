@@ -16,11 +16,11 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={metaDescription} />
-    <meta name="theme-color" content="#00D4AA" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0a7780" />
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Prevent flash: apply stored theme before paint -->
-    <script>
+    <script is:inline>
       (function() {
         var t = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', t);
@@ -45,13 +45,28 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
-    <!-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (terminal) -->
+    <!-- Fonts: Libre Caslon Text (display), IBM Plex Sans (body), IBM Plex Mono (data) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <slot />
+    <!-- Single theme toggle handler for all .theme-toggle buttons -->
+    <script is:inline>
+      (function () {
+        function apply(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+          localStorage.setItem('theme', theme);
+        }
+        document.addEventListener('click', function (e) {
+          var btn = e.target.closest('.theme-toggle');
+          if (!btn) return;
+          var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          apply(next);
+        });
+      })();
+    </script>
     <noscript><style>.rise{opacity:1!important;transform:none!important}</style></noscript>
     <script>
       const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
@@ -61,49 +76,36 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
 </html>
 
 <style is:global>
+  /* ─── Brutalist Ledger Design Tokens ─── */
   :root {
-    --base: #08090A;
-    --surface: #0F1117;
-    --ink: #E2E8F0;
-    --accent: #00D4AA;
-    --accent-dim: #00B894;
-    --muted: #5A6578;
-    --wash: #0F1117;
-    --border: #1A1F2E;
+    --base: #F4F2ED;
+    --surface: #FFFFFF;
+    --ink: #141414;
+    --accent: #0a7780;
+    --accent-dim: #086570;
+    --muted: #6B7280;
+    --wash: #EAE7DF;
+    --rule: #D6D2C8;
+    --border: #D6D2C8;
     --border-accent: color-mix(in srgb, var(--accent) 30%, transparent);
-    --glow: rgba(0, 212, 170, 0.08);
-    --display: 'Space Grotesk', sans-serif;
-    --body: 'Inter', system-ui, sans-serif;
-    --mono: 'JetBrains Mono', monospace;
+    --glow: transparent;
+    --display: 'Libre Caslon Text', Georgia, serif;
+    --body: 'IBM Plex Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
   }
 
   [data-theme='dark'] {
-    --base: #08090A;
-    --surface: #0F1117;
-    --ink: #E2E8F0;
-    --accent: #00D4AA;
-    --accent-dim: #00B894;
-    --muted: #5A6578;
-    --wash: #0F1117;
-    --border: #1A1F2E;
+    --base: #141414;
+    --surface: #1a1a1a;
+    --ink: #F4F2ED;
+    --accent: #0a7780;
+    --accent-dim: #0d8f9a;
+    --muted: #8a8a8a;
+    --wash: #1e1e1e;
+    --rule: #2a2a2a;
+    --border: #2a2a2a;
     --border-accent: color-mix(in srgb, var(--accent) 30%, transparent);
-    --glow: rgba(0, 212, 170, 0.08);
-  }
-
-  [data-theme='light'] {
-    --base: #FAFBFC;
-    --surface: #FFFFFF;
-    --ink: #0F1117;
-    --accent: #00A88A;
-    --accent-dim: #008F75;
-    --muted: #6B7280;
-    --wash: #F3F4F6;
-    --border: #E5E7EB;
-    --border-accent: color-mix(in srgb, var(--accent) 25%, transparent);
-    --glow: rgba(0, 168, 138, 0.06);
-    --display: 'Space Grotesk', sans-serif;
-    --body: 'Inter', system-ui, sans-serif;
-    --mono: 'JetBrains Mono', monospace;
+    --glow: transparent;
   }
 
   *, *::before, *::after {
@@ -120,8 +122,8 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     background: var(--base);
     color: var(--ink);
     font-family: var(--body);
-    font-size: 0.9375rem;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -150,22 +152,22 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
   .h-display {
     font-family: var(--display);
     font-weight: 700;
-    font-size: clamp(2.4rem, 5.8vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -0.035em;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
   }
 
   .h-section {
     font-family: var(--display);
-    font-weight: 600;
-    font-size: clamp(1.5rem, 3vw, 2.125rem);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2rem);
     line-height: 1.15;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
   }
 
   .mono {
     font-family: var(--mono);
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
   }
 
   .eyebrow {
@@ -177,14 +179,14 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     align-items: center;
     gap: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.14em;
   }
 
   .lede {
     color: var(--muted);
-    max-width: 32rem;
+    max-width: 68ch;
     font-size: 1rem;
-    line-height: 1.65;
+    line-height: 1.75;
   }
 
   /* ─── Section index ─── */
@@ -197,7 +199,7 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     font-size: 0.6875rem;
     color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.14em;
   }
   .sx b { font-weight: 700; }
   .sx b::before {
@@ -213,26 +215,16 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     flex: 0 0 auto;
     width: clamp(2rem, 8vw, 5rem);
     height: 1px;
-    background: var(--border-accent);
+    background: var(--rule);
     align-self: center;
   }
 
-  /* ─── Live status dot ─── */
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    display: inline-block;
-    animation: pulse 2.4s ease-in-out infinite;
-    box-shadow: 0 0 8px var(--accent);
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
-    50% { opacity: 0.6; box-shadow: 0 0 2px var(--accent); }
-  }
+  /* ─── 1px Rule system ─── */
+  .rule-top { border-top: 1px solid var(--rule); }
+  .rule-bottom { border-bottom: 1px solid var(--rule); }
+  .rule-y { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 
-  /* ─── Buttons ─── */
+  /* ─── Buttons (Brutalist: zero radius, mono uppercase) ─── */
   .btn {
     position: relative;
     display: inline-flex;
@@ -241,119 +233,67 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     background: var(--accent);
     color: var(--base);
     font-family: var(--mono);
-    font-weight: 600;
-    font-size: 0.75rem;
+    font-weight: 700;
+    font-size: 0.6875rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 0.75rem 1.4rem;
-    border-radius: 6px;
-    border: 0;
+    letter-spacing: 0.14em;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0;
+    border: 1px solid var(--accent);
     cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .btn::before {
-    content: "";
-    width: 5px;
-    height: 5px;
-    border-left: 1.5px solid currentColor;
-    border-bottom: 1.5px solid currentColor;
-    opacity: 0.7;
-  }
-  .btn::after {
-    content: "";
-    width: 5px;
-    height: 5px;
-    border-right: 1.5px solid currentColor;
-    border-top: 1.5px solid currentColor;
-    opacity: 0.7;
+    transition: background 0.15s ease, color 0.15s ease;
   }
   .btn:hover {
-    background: var(--accent-dim);
-    box-shadow: 0 0 20px var(--glow), 0 4px 12px rgba(0,0,0,0.3);
-    transform: translateY(-1px);
+    background: var(--ink);
+    color: var(--base);
+    border-color: var(--ink);
   }
-  .btn:active { transform: scale(0.98) translateY(0); }
+  .btn:active { opacity: 0.9; }
 
   .btn--ghost {
     background: transparent;
     color: var(--ink);
-    border: 1px solid var(--border);
+    border: 1px solid var(--ink);
   }
-  .btn--ghost::before, .btn--ghost::after { border-color: var(--accent); }
   .btn--ghost:hover {
-    border-color: var(--accent);
-    background: var(--glow);
-    box-shadow: 0 0 16px var(--glow);
+    background: var(--ink);
+    color: var(--base);
   }
 
-  /* ─── Panels ─── */
-  .panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  /* ─── Ruled rows (replaces cards) ─── */
+  .ruled-row {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.15s ease;
   }
-  .panel:hover {
-    border-color: var(--border-accent);
-    box-shadow: 0 0 24px var(--glow);
+  .ruled-row:hover {
+    background: var(--wash);
   }
-  .panel .ph {
+
+  /* ─── Stat block ─── */
+  .stat-block {
+    display: grid;
+    gap: 0;
+  }
+  .stat-item {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 0.7rem 1rem;
-    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--rule);
   }
-
-  /* ─── Terminal block ─── */
-  .term {
-    background: #08090A;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
+  .stat-label {
     font-family: var(--mono);
-    font-size: 0.8125rem;
-    line-height: 1.75;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
   }
-  .term .bar {
-    display: flex;
-    gap: 6px;
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .term .bar i {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #1A1F2E;
-  }
-  .term pre {
-    padding: 1rem 1.1rem;
-    overflow-x: auto;
-    color: color-mix(in srgb, var(--ink) 80%, transparent);
-  }
-  .term .c { color: var(--muted); }
-  .term .g { color: var(--accent); }
-  .term .y { color: #E8A33D; }
-
-  /* ─── Corner ticks ─── */
-  .ticks { position: relative; }
-  .ticks::before, .ticks::after {
-    content: "+";
-    position: absolute;
+  .stat-value {
     font-family: var(--mono);
-    color: var(--muted);
+    font-weight: 700;
     font-size: 0.875rem;
-    opacity: 0.4;
-  }
-  .ticks::before { top: -10px; left: -10px; }
-  .ticks::after { bottom: -10px; right: -10px; }
-
-  /* ─── Number/metric style ─── */
-  .num {
-    font-family: var(--mono);
-    font-variant-numeric: tabular-nums;
+    text-align: right;
   }
 
   /* ─── Rise entrance ─── */
@@ -369,7 +309,6 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
 
   @media (prefers-reduced-motion: reduce) {
     .rise { opacity: 1; transform: none; transition: none; }
-    .dot { animation: none; }
   }
 
   /* ─── Auth gating ─── */
@@ -381,15 +320,10 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
   .gate-fallback-card {
     padding: 2.5rem 1.5rem;
     text-align: center;
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    border: 1px solid var(--rule);
     background: var(--surface);
     max-width: 520px;
     margin: 0 auto;
-  }
-  .gate-fallback-card .gate-fallback-icon {
-    font-size: 1.6rem;
-    margin-bottom: .5rem;
   }
   .gate-fallback-card .gate-fallback-heading {
     font-family: var(--mono);
@@ -397,13 +331,13 @@ const metaDescription = description || 'Subdomain Register — automated DNS and
     color: var(--accent);
     margin-bottom: .8rem;
     text-transform: uppercase;
-    letter-spacing: .08em;
+    letter-spacing: .14em;
     font-weight: 600;
   }
   .gate-fallback-card .gate-fallback-text {
     color: var(--muted);
     font-size: .875rem;
     margin: 0;
-    line-height: 1.7;
+    line-height: 1.75;
   }
 </style>

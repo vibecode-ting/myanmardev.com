@@ -104,7 +104,8 @@
     "signOut": "Sign Out",
     "google": "Continue with Google",
     "github": "Continue with GitHub",
-    "title": "Authenticate to Continue"
+    "title": "Authenticate to Continue",
+    "terms": "By signing in, you agree to our Terms of Service"
   },
   "tokens": {
     "balance": "Tokens",

@@ -10,42 +10,33 @@ const { lang } = Astro.props;
 const tiers = ['starter', 'basic', 'pro', 'business'] as const;
 ---
 
-<section id="pricing" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid var(--border)">
+<section id="pricing" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);border-bottom:1px solid var(--rule)">
   <div style="max-width:78rem;margin:0 auto">
-    <div class="sx rise" style="justify-content:center"><b></b> <span>{t(lang, 'pricing.section')}</span></div>
-    <h2 class="h-section rise" style="margin-top:.9rem;text-align:center">{t(lang, 'pricing.heading')}</h2>
-    <p class="lede rise" style="margin:.6rem auto 0;text-align:center;max-width:600px">
-      {t(lang, 'pricing.sub')}
-    </p>
+    <div class="sx rise"><b></b> <span>{t(lang, 'pricing.section')}</span></div>
+    <h2 class="h-section rise" style="margin-top:.75rem">{t(lang, 'pricing.heading')}</h2>
+    <p class="lede rise" style="margin-top:.4rem">{t(lang, 'pricing.sub')}</p>
 
-    <!-- Token Packages -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;margin-top:2.5rem">
+    <!-- Token Packages as ruled rows -->
+    <div class="pricing-table rise">
+      <div class="pricing-header">
+        <span>Package</span>
+        <span>Tokens</span>
+        <span>USD</span>
+        <span>MMK</span>
+        <span></span>
+      </div>
       {tiers.map((tier) => {
         const isPro = tier === 'pro';
         return (
-          <div class:list={['pricing-card', 'rise']} style={`padding:1.75rem;background:var(--surface);border:${isPro ? '1.5px solid var(--accent)' : '1px solid var(--border)'};border-radius:10px;text-align:center;position:relative`}>
-            {isPro && (
-              <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--base);font-family:var(--mono);font-size:0.625rem;font-weight:700;padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.06em">
-                {t(lang, 'pricing.popular')}
-              </div>
-            )}
-            <div style={`font-family:var(--mono);font-size:0.6875rem;font-weight:600;color:${isPro ? 'var(--accent)' : 'var(--muted)'};text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem`}>
+          <div class:list={['pricing-row', { 'pricing-row--highlight': isPro }]}>
+            <span class="pricing-tier">
               {t(lang, `pricing.${tier}.name`)}
-            </div>
-            <div style="font-family:var(--display);font-size:2.25rem;font-weight:700;color:var(--ink);margin-bottom:0.15rem;letter-spacing:-0.03em">
-              {t(lang, `pricing.${tier}.tokens`)}
-            </div>
-            <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em">
-              Tokens
-            </div>
-            <!-- Dual currency: USD + MMK -->
-            <div style="font-family:var(--display);font-size:1.375rem;font-weight:700;color:var(--accent);margin-bottom:0.15rem">
-              {t(lang, `pricing.${tier}.usd`)}
-            </div>
-            <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);margin-bottom:1.25rem">
-              {t(lang, `pricing.${tier}.mmk`)}
-            </div>
-            <a href="#product" class:list={['btn', { 'btn--ghost': !isPro }]} style="width:100%;justify-content:center;padding:0.7rem;display:inline-flex">
+              {isPro && <span class="pricing-badge">{t(lang, 'pricing.popular')}</span>}
+            </span>
+            <span class="pricing-tokens">{t(lang, `pricing.${tier}.tokens`)}</span>
+            <span class="pricing-usd">{t(lang, `pricing.${tier}.usd`)}</span>
+            <span class="pricing-mmk">{t(lang, `pricing.${tier}.mmk`)}</span>
+            <a href="#product" class:list={['btn', 'btn--ghost', { 'btn': isPro }]} style="padding:0.5rem 1rem;font-size:0.625rem">
               {t(lang, 'pricing.buy')}
             </a>
           </div>
@@ -54,29 +45,131 @@ const tiers = ['starter', 'basic', 'pro', 'business'] as const;
     </div>
 
     <!-- Redeem Codes -->
-    <div class="rise" style="margin-top:2rem;padding:1.75rem;background:var(--glow);border:1px solid var(--border-accent);border-radius:10px;text-align:center">
-      <div style="font-size:1.5rem;margin-bottom:0.5rem">🎟️</div>
-      <h3 style="font-family:var(--display);font-size:1.0625rem;font-weight:600;color:var(--ink);margin:0 0 0.4rem;letter-spacing:-0.01em">
-        Have a Promo Code?
-      </h3>
-      <p style="font-family:var(--body);font-size:0.8125rem;color:var(--muted);margin:0 0 1rem;line-height:1.6">
-        Sign in and redeem your code for free tokens. No credit card required.
-      </p>
-      <a href="#" class="btn btn--ghost" style="padding:0.7rem 1.4rem" onclick="document.querySelector('[data-redeem-button]')?.click()">
-        Redeem Code
-      </a>
+    <div class="rise" style="margin-top:2rem;padding:1.5rem 0;border-top:1px solid var(--rule)">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+        <div>
+          <h3 style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--ink);margin:0 0 0.15rem">
+            Have a Promo Code?
+          </h3>
+          <p style="font-family:var(--body);font-size:0.8125rem;color:var(--muted);margin:0">
+            Sign in and redeem for free tokens.
+          </p>
+        </div>
+        <a href="#" class="btn btn--ghost" style="padding:0.5rem 1rem" onclick="document.querySelector('[data-redeem-button]')?.click()">
+          Redeem Code
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .pricing-card {
-    transition: all 0.2s ease;
+  .pricing-table {
+    margin-top: 2rem;
   }
 
-  .pricing-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 24px var(--glow), 0 12px 32px rgba(0,0,0,0.3);
-    border-color: var(--border-accent) !important;
+  .pricing-header {
+    display: grid;
+    grid-template-columns: 1.5fr 0.75fr 0.75fr 1fr auto;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
+  }
+
+  .pricing-row {
+    display: grid;
+    grid-template-columns: 1.5fr 0.75fr 0.75fr 1fr auto;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: center;
+    transition: background 0.15s ease;
+  }
+
+  .pricing-row:hover {
+    background: var(--wash);
+  }
+
+  .pricing-row--highlight {
+    background: color-mix(in srgb, var(--accent) 5%, transparent);
+  }
+
+  .pricing-tier {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .pricing-badge {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    border: 1px solid var(--accent);
+    padding: 1px 6px;
+  }
+
+  .pricing-tokens {
+    font-family: var(--mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .pricing-usd {
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .pricing-mmk {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    .pricing-header {
+      display: none;
+    }
+
+    .pricing-row {
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem;
+    }
+
+    .pricing-tier {
+      grid-column: 1 / -1;
+    }
+
+    .pricing-tokens::before {
+      content: 'Tokens: ';
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 0.6875rem;
+    }
+
+    .pricing-usd::before {
+      content: 'USD: ';
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 0.6875rem;
+    }
+
+    .pricing-mmk {
+      display: none;
+    }
   }
 </style>

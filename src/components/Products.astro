@@ -9,83 +9,51 @@ interface Props {
 const { lang } = Astro.props;
 ---
 
-<section id="products" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);border-top:1px solid var(--border)">
+<section id="products" style="padding:clamp(3rem,7vw,5rem) clamp(1.25rem,4vw,3rem);border-bottom:1px solid var(--rule)">
   <div style="max-width:78rem;margin:0 auto">
-    <div class="sx rise" style="justify-content:center"><b></b> <span>{t(lang, 'products.section')}</span></div>
-    <h2 class="h-section rise" style="margin-top:.9rem;text-align:center">{t(lang, 'products.heading')}</h2>
-    <p class="lede rise" style="margin:.6rem auto 0;text-align:center;max-width:600px">
-      {t(lang, 'products.sub')}
-    </p>
+    <div class="sx rise"><b></b> <span>{t(lang, 'products.section')}</span></div>
+    <h2 class="h-section rise" style="margin-top:.75rem">{t(lang, 'products.heading')}</h2>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:2.5rem">
+    <div class="product-rows">
       <!-- Product 1: Subdomain Registration -->
-      <div class="product-card rise" style="padding:1.75rem;background:var(--surface);border:1px solid var(--border-accent);border-radius:10px;position:relative">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
-          <div style="font-size:2rem">🌐</div>
-          <span style="font-family:var(--mono);font-size:0.625rem;font-weight:600;color:var(--accent);background:var(--glow);border:1px solid var(--border-accent);padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.06em">{t(lang, 'products.p1.status')}</span>
+      <a href="/products/subdomain" class="product-row rise">
+        <div class="product-row-left">
+          <span class="product-status product-status--live">{t(lang, 'products.p1.status')}</span>
+          <h3 class="product-name">{t(lang, 'products.p1.name')}</h3>
+          <p class="product-desc">{t(lang, 'products.p1.desc')}</p>
         </div>
-        <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:600;color:var(--ink);margin:0 0 0.4rem;letter-spacing:-0.01em">
-          {t(lang, 'products.p1.name')}
-        </h3>
-        <p style="font-family:var(--body);font-size:0.875rem;color:var(--muted);margin:0 0 1.25rem;line-height:1.6">
-          {t(lang, 'products.p1.desc')}
-        </p>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
-          <span style="font-family:var(--mono);font-size:0.8125rem;font-weight:700;color:var(--accent)">
-            {t(lang, 'products.p1.price')}
-          </span>
+        <div class="product-row-right">
+          <span class="product-price">{t(lang, 'products.p1.price')}</span>
+          <span class="product-arrow">→</span>
         </div>
-        <a href="/products/subdomain" class="btn" style="width:100%;justify-content:center;padding:0.7rem">
-          {t(lang, 'common.actions.order')}
-        </a>
-      </div>
+      </a>
 
       <!-- Product 2: Static Website Builder -->
-      <div class="product-card rise" style="padding:1.75rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;opacity:0.6">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
-          <div style="font-size:2rem">🏗️</div>
-          <span style="font-family:var(--mono);font-size:0.625rem;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.06em">{t(lang, 'products.p2.status')}</span>
+      <div class="product-row product-row--disabled rise">
+        <div class="product-row-left">
+          <span class="product-status">{t(lang, 'products.p2.status')}</span>
+          <h3 class="product-name">{t(lang, 'products.p2.name')}</h3>
+          <p class="product-desc">{t(lang, 'products.p2.desc')}</p>
         </div>
-        <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:600;color:var(--ink);margin:0 0 0.4rem;letter-spacing:-0.01em">
-          {t(lang, 'products.p2.name')}
-        </h3>
-        <p style="font-family:var(--body);font-size:0.875rem;color:var(--muted);margin:0 0 1.25rem;line-height:1.6">
-          {t(lang, 'products.p2.desc')}
-        </p>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
-          <span style="font-family:var(--mono);font-size:0.8125rem;font-weight:700;color:var(--muted)">
-            {t(lang, 'products.p2.price')}
-          </span>
+        <div class="product-row-right">
+          <span class="product-price product-price--muted">{t(lang, 'products.p2.price')}</span>
         </div>
-        <button disabled style="width:100%;justify-content:center;padding:0.7rem;background:var(--surface);color:var(--muted);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:0.75rem;font-weight:600;cursor:not-allowed;text-transform:uppercase;letter-spacing:0.06em">
-          {t(lang, 'products.p2.status')}
-        </button>
       </div>
 
       <!-- Product 3: Developer Portfolio -->
-      <div class="product-card rise" style="padding:1.75rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;opacity:0.6">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
-          <div style="font-size:2rem">💼</div>
-          <span style="font-family:var(--mono);font-size:0.625rem;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.06em">{t(lang, 'products.p3.status')}</span>
+      <div class="product-row product-row--disabled rise">
+        <div class="product-row-left">
+          <span class="product-status">{t(lang, 'products.p3.status')}</span>
+          <h3 class="product-name">{t(lang, 'products.p3.name')}</h3>
+          <p class="product-desc">{t(lang, 'products.p3.desc')}</p>
         </div>
-        <h3 style="font-family:var(--display);font-size:1.25rem;font-weight:600;color:var(--ink);margin:0 0 0.4rem;letter-spacing:-0.01em">
-          {t(lang, 'products.p3.name')}
-        </h3>
-        <p style="font-family:var(--body);font-size:0.875rem;color:var(--muted);margin:0 0 1.25rem;line-height:1.6">
-          {t(lang, 'products.p3.desc')}
-        </p>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
-          <span style="font-family:var(--mono);font-size:0.8125rem;font-weight:700;color:var(--muted)">
-            {t(lang, 'products.p3.price')}
-          </span>
+        <div class="product-row-right">
+          <span class="product-price product-price--muted">{t(lang, 'products.p3.price')}</span>
         </div>
-        <button disabled style="width:100%;justify-content:center;padding:0.7rem;background:var(--surface);color:var(--muted);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:0.75rem;font-weight:600;cursor:not-allowed;text-transform:uppercase;letter-spacing:0.06em">
-          {t(lang, 'products.p3.status')}
-        </button>
       </div>
     </div>
 
-    <!-- Interactive SubdomainBuilder (client:load) -->
+    <!-- Interactive SubdomainBuilder -->
     <div style="margin-top:3rem">
       <SubdomainBuilder client:load />
     </div>
@@ -93,13 +61,103 @@ const { lang } = Astro.props;
 </section>
 
 <style>
-  .product-card {
-    transition: all 0.2s ease;
+  .product-rows {
+    margin-top: 2rem;
   }
 
-  .product-card:hover:not([style*="opacity"]) {
-    border-color: var(--border-accent) !important;
-    box-shadow: 0 0 24px var(--glow), 0 8px 24px rgba(0,0,0,0.2);
-    transform: translateY(-2px);
+  .product-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s ease;
+    cursor: pointer;
+  }
+
+  .product-row:first-child {
+    border-top: 1px solid var(--rule);
+  }
+
+  .product-row:hover:not(.product-row--disabled) {
+    background: var(--wash);
+  }
+
+  .product-row--disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .product-row-left {
+    flex: 1;
+  }
+
+  .product-row-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  .product-status {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .product-status--live {
+    color: var(--accent);
+  }
+
+  .product-name {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0.25rem 0 0.15rem;
+  }
+
+  .product-desc {
+    font-family: var(--body);
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .product-price {
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .product-price--muted {
+    color: var(--muted);
+  }
+
+  .product-arrow {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--accent);
+    transition: transform 0.15s ease;
+  }
+
+  .product-row:hover .product-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 640px) {
+    .product-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
   }
 </style>

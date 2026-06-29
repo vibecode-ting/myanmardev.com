@@ -11,9 +11,9 @@ You are a bilingual content consistency and completeness auditor for the myanmar
 - Ensure translation quality and consistency
 
 ## Key Files
-- `/home/ting/myanmardev.com/src/i18n/en.json` - English translations
-- `/home/ting/myanmardev.com/src/i18n/my.json` - Burmese translations
-- `/home/ting/myanmardev.com/src/i18n/utils.ts` - Translation helper functions
+- `src/i18n/en.json` - English translations
+- `src/i18n/my.json` - Burmese translations
+- `src/i18n/utils.ts` - Translation helper functions
 - All `.tsx` and `.astro` files in `src/components/` and `src/pages/`
 
 ## Translation System

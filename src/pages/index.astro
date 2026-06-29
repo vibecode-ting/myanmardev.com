@@ -22,45 +22,88 @@ const description = 'Zero Config. True Serverless. Instant Production. Automated
   <Testimonials lang={lang} />
   <CTA lang={lang} />
 
-  <!-- Footer -->
+  <!-- Footer — Dense colophon -->
   <footer style={{
-    borderTop: '1px solid var(--border)',
-    background: 'var(--surface)',
+    background: 'var(--wash)',
     padding: 'clamp(2rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3rem)',
+    borderTop: '1px solid var(--rule)',
   }}>
     <div style={{
       maxWidth: '78rem',
       margin: '0 auto',
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      gap: '1rem',
     }}>
-      <div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+        gap: '1.5rem',
+        paddingBottom: '1.5rem',
+        borderBottom: '1px solid var(--rule)',
+      }}>
+        <div>
+          <div style={{
+            fontFamily: 'var(--mono)',
+            fontSize: '0.625rem',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '0.14em',
+            color: 'var(--ink)',
+            marginBottom: '0.75rem',
+          }}>Product</div>
+          <a href="/products" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Products</a>
+          <a href="/pricing" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Pricing</a>
+          <a href="/products/subdomain" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Subdomains</a>
+        </div>
+        <div>
+          <div style={{
+            fontFamily: 'var(--mono)',
+            fontSize: '0.625rem',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '0.14em',
+            color: 'var(--ink)',
+            marginBottom: '0.75rem',
+          }}>Account</div>
+          <a href="/auth/signin" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Sign In</a>
+          <a href="/my" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Dashboard</a>
+        </div>
+        <div>
+          <div style={{
+            fontFamily: 'var(--mono)',
+            fontSize: '0.625rem',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '0.14em',
+            color: 'var(--ink)',
+            marginBottom: '0.75rem',
+          }}>Platform</div>
+          <a href="/" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>Home</a>
+          <a href="#how" style={{ display: 'block', fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--muted)', marginBottom: '0.4rem' }}>How It Works</a>
+        </div>
+      </div>
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: '0.75rem',
+        paddingTop: '1rem',
+      }}>
         <a href="/" style={{
           fontFamily: 'var(--display)',
           fontWeight: 700,
-          fontSize: '1rem',
+          fontSize: '0.875rem',
           letterSpacing: '-0.02em',
         }}>
           <span style={{ color: 'var(--accent)' }}>myanmardev</span>.com
         </a>
-      </div>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-      }}>
         <span style={{
           fontFamily: 'var(--mono)',
           fontSize: '0.625rem',
           color: 'var(--muted)',
-          letterSpacing: '0.02em',
+          letterSpacing: '0.14em',
         }}>
-          {t(lang, 'footer.rights')} · {t(lang, 'footer.built')}
+          {t(lang, 'footer.rights')}
         </span>
-        <span class="dot" style={{ width: '5px', height: '5px' }}></span>
       </div>
     </div>
   </footer>
